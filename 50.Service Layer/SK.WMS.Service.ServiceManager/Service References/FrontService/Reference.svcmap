@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c2ca77e3-f504-42f6-a1dd-b1539daeac70" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:25000/FrontService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="FrontService64.xsd" MetadataType="Schema" ID="8de5d9bf-4d80-49b4-b043-50bbf96bb3eb" SourceId="1" SourceUrl="http://localhost:25000/FrontService.svc?xsd=xsd2" />
+    <MetadataFile FileName="FrontService66.xsd" MetadataType="Schema" ID="6cce2146-6bd4-4ab2-ada5-adb2ec20f80e" SourceId="1" SourceUrl="http://localhost:25000/FrontService.svc?xsd=xsd1" />
+    <MetadataFile FileName="FrontService.disco" MetadataType="Disco" ID="c1d28413-5626-42c8-b7b2-d9f89bb5e1b2" SourceId="1" SourceUrl="http://localhost:25000/FrontService.svc?disco" />
+    <MetadataFile FileName="FrontService61.xsd" MetadataType="Schema" ID="8d3ee765-a3b6-46dd-a8b2-603603344368" SourceId="1" SourceUrl="http://localhost:25000/FrontService.svc?xsd=xsd0" />
+    <MetadataFile FileName="FrontService6.xsd" MetadataType="Schema" ID="5a7e4041-7ebc-482a-b9d5-7de6333628bb" SourceId="1" SourceUrl="http://localhost:25000/FrontService.svc?xsd=xsd3" />
+    <MetadataFile FileName="FrontService.wsdl" MetadataType="Wsdl" ID="7e31c07a-76de-460d-819d-6a82fd821ada" SourceId="1" SourceUrl="http://localhost:25000/FrontService.svc?wsdl" />
+    <MetadataFile FileName="FrontService63.xsd" MetadataType="Schema" ID="1e3a6eae-c59f-4e5e-a0c2-36e1109a1bdb" SourceId="1" SourceUrl="http://localhost:25000/FrontService.svc?xsd=xsd7" />
+    <MetadataFile FileName="FrontService65.xsd" MetadataType="Schema" ID="ff084675-20f5-4228-af2b-accca91588fb" SourceId="1" SourceUrl="http://localhost:25000/FrontService.svc?xsd=xsd4" />
+    <MetadataFile FileName="FrontService62.xsd" MetadataType="Schema" ID="9fd74265-a805-44be-bb56-5a6ad548bdbf" SourceId="1" SourceUrl="http://localhost:25000/FrontService.svc?xsd=xsd5" />
+    <MetadataFile FileName="FrontService67.xsd" MetadataType="Schema" ID="da95901a-5a23-42a7-a7a7-a2307477a0cd" SourceId="1" SourceUrl="http://localhost:25000/FrontService.svc?xsd=xsd6" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

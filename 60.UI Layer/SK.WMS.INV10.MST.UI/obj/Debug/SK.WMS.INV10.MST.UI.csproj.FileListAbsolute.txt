@@ -1,0 +1,8 @@
+C:\SK.WMS\Programs\SK.WMS.INV10.MST.UI.dll
+C:\SK.WMS\Programs\SK.WMS.INV10.MST.UI.pdb
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.INV10.MST.UI\obj\Debug\ResolveAssemblyReference.cache
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.INV10.MST.UI\obj\Debug\SK.WMS.INV10.MST.UI.MST1010.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.INV10.MST.UI\obj\Debug\GenerateResource.read.1.tlog
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.INV10.MST.UI\obj\Debug\GenerateResource.write.1.tlog
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.INV10.MST.UI\obj\Debug\SK.WMS.INV10.MST.UI.dll
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.INV10.MST.UI\obj\Debug\SK.WMS.INV10.MST.UI.pdb

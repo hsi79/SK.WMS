@@ -1,0 +1,595 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Skcc.Data</name>
+    </assembly>
+    <members>
+        <member name="T:Skcc.Data.DataAccessWrapper">
+            <summary>
+            DataAccessWrapper에 대한 래퍼 클래스
+            </summary>
+            <remarks>
+            Enterprise Library 4.0에 포함되어 있는 DAAB(Data Access Application Block)에 대한 
+            래퍼 클래스임. 이 Wrapper 클래스로 인해 DAC에서는 Skcc.Data.dll만 참조 추가하면 되며
+            Enterprise Library에 관련된 dll은 포함할 필요가 없다.
+            </remarks>
+            <example>
+            사용예는 아래와 같다.
+            <code>
+            string sqlCommand = "GetProductsByCategory";
+            DataAccessWrapper daw = new DataAccessWrapper("");
+            DbCommand dbCommand = daw.GetStoredProcCommand(sqlCommand);
+            int category = 7;
+            daw.AddInParameter(dbCommand, "CategoryID", DbType.Int32, category);
+            DataSet productDataSet = daw.ExecuteDataSet(dbCommand);
+            gvResult.DataSource = productDataSet;
+            gvResult.DataBind();
+            </code>
+            DataAccessWrapper를 이용하지 않는 예는 아래와 같다.
+            <code>
+            DbProviderFactory df = DbProviderFactories.GetFactory("System.Data.SqlClient");
+            DbConnection conn = df.CreateConnection();
+            DbCommand dbCommand = df.CreateCommand();
+            dbCommand.CommandText = "select * from customers";
+            conn.ConnectionString = "Database=Northwind;Server=SKCC-TST-010\\SQLEXPRESS;User ID=sa;Password=skcc";
+            conn.Open();
+            dbCommand.Connection = conn;
+            DbDataAdapter da = df.CreateDataAdapter();
+            da.SelectCommand = dbCommand;
+            DataSet ds = new DataSet();
+            da.Fill(ds);
+            </code> 
+            </example> 
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.#ctor">
+            <summary>
+            디폴트 생성자
+            </summary>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.#ctor(System.String)">
+            <summary>
+            DB 인스턴스를 받아들이는 생성자
+            </summary>
+            <param name="dbInstance">Db 인스턴스명</param>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteDataSet(System.Data.Common.DbCommand)">
+            <summary>
+            실행할 DbCommand명을 인자로 받아 결과 DataSet을 리턴한다.
+            </summary>
+            <param name="dbCommand">실행할 DbCommand명</param>
+            <returns>결과 집합</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteDataSet(System.Data.Common.DbCommand,System.Data.Common.DbTransaction)">
+            <summary>
+            실행할 DbCommand명, IDbTransaction을 인자로 받아 결과 DataSet을 리턴한다.
+            </summary>
+            <param name="dbCommand">실행할 DbCommand명</param>
+            <param name="dbTransaction">명령 실행이 포함될 트랜잭션</param>
+            <returns>결과 집합</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteDataSet(System.String,System.Object[])">
+            <summary>
+            실행할 Stored Procedure명, Stored Procedure에 대한 파라미터 Array를 인자로 받아 결과 DataSet을 리턴한다.
+            </summary>
+            <param name="storedProcedureName">실행할 Stored Procedure명</param>
+            <param name="parameterValues">Stored Procedure에 대한 파라미터 Array</param>
+            <returns>결과 집합</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteDataSet(System.Data.Common.DbTransaction,System.String,System.Object[])">
+            <summary>
+            명령 실행이 포함될 트랜잭션명, 실행할 Stored Procedure명, Stored Procedure에 대한 파라미터 Array를 인자로 받아 결과 DataSet을 리턴한다.
+            </summary>
+            <param name="transaction">명령 실행이 포함될 트랜잭션명</param>
+            <param name="storedProcedureName">실행할 Stored Procedure명</param>
+            <param name="parameterValues">Stored Procedure에 대한 파라미터 Array</param>
+            <returns>결과 집합</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteDataSet(System.Data.CommandType,System.String)">
+            <summary>
+            명령 타입, 실행할 SQL or SP를 인자로 받아 결과 DataSet을 리턴한다.
+            </summary>
+            <param name="commandType">명령 타입</param>
+            <param name="commandText">실행할 SQL or SP</param>
+            <returns>결과 집합</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteDataSet(System.Data.Common.DbTransaction,System.Data.CommandType,System.String)">
+            <summary>
+            명령이 실행될 트랜잭션, 명령 타입, 실행할 SQL or SP를 인자로 받아 결과 DataSet을 리턴한다.
+            </summary>
+            <param name="transaction">명령이 실행될 트랜잭션</param>
+            <param name="commandType">명령 타입</param>
+            <param name="commandText">실행할 SQL or SP</param>
+            <returns>결과 집합</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteDataSet(System.String,System.Collections.Hashtable)">
+            <summary>
+            명령이 실행될 트랜잭션, 명령 타입, 실행할 SQL or SP를 인자로 받아 결과 DataSet을 리턴한다.
+            </summary>
+            <param name="storedProcedureName">실행할 stored procedure 명</param>
+            <param name="parameterValues">parameter의 hashtable</param>
+            <returns>결과 집합</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteDataSet(System.String)">
+            <summary>
+            파라미터가 없는 SP를 인자로 받아 결과 DataSet을 리턴한다.
+            </summary>
+            <param name="storedProcedureName">실행할 stored procedure 명</param>
+            <returns>결과 집합</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteNonQuery(System.Data.Common.DbCommand)">
+            <summary>
+            실행할 DbCommand명을 인자로 받아 명령을 실행한뒤 영향받은 행수를 리턴한다.
+            </summary>
+            <param name="command">실행할 DbCommand명</param>
+            <returns>명령 실행에 의한 영향받은 행 수</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteNonQuery(System.Data.Common.DbCommand,System.Data.Common.DbTransaction)">
+            <summary>
+            실행할 DbCommand명, 실행될 트랜잭션명을 인자로 받아 명령을 실행한뒤 영향받은 행수를 리턴한다.
+            </summary>
+            <param name="command">실행할 DbCommand명</param>
+            <param name="transaction">실행될 트랜잭션명을</param>
+            <returns>명령 실행에 의한 영향받은 행 수</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteNonQuery(System.String,System.Object[])">
+            <summary>
+            실행할 Stored Procedure명, 실행될 Stored Procedure의 파라미터 Array을 인자로 받아 명령을 실행한뒤 영향받은 행수를 리턴한다.
+            </summary>
+            <param name="storedProcedureName">실행할 Stored Procedure명</param>
+            <param name="parameterValues">실행될 Stored Procedure의 파라미터 Array</param>
+            <returns>명령 실행에 의한 영향받은 행 수</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteNonQuery(System.String)">
+            <summary>
+            실행할 Stored Procedure명을 인자로 받아 명령을 실행한뒤 영향받은 행수를 리턴한다.
+            </summary>
+            <param name="storedProcedureName">실행할 Stored Procedure명</param>
+            <returns>명령 실행에 의한 영향받은 행 수</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteNonQuery(System.Data.Common.DbTransaction,System.String,System.Object[])">
+            <summary>
+            명령이 실행될 트랜잭션명, 실행할 Stored Procedure명, 실행될 Stored Procedure의 파라미터 Array을 인자로 받아 명령을 실행한뒤 영향받은 행수를 리턴한다.
+            </summary>
+            <param name="transaction">명령이 실행될 트랜잭션명</param>
+            <param name="storedProcedureName">실행할 Stored Procedure명</param>
+            <param name="parameterValues">실행될 Stored Procedure의 파라미터 Array</param>
+            <returns>명령 실행에 의한 영향받은 행 수</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteNonQuery(System.Data.CommandType,System.String)">
+            <summary>
+            명령의 타입, 실행할 Stored Procedure명 or SQL을 인자로 받아 명령을 실행한뒤 영향받은 행수를 리턴한다.
+            </summary>
+            <param name="commandType">명령의 타입</param>
+            <param name="commandText">실행할 Stored Procedure명 or SQL</param>
+            <returns>명령 실행에 의한 영향받은 행 수</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteNonQuery(System.Data.Common.DbTransaction,System.Data.CommandType,System.String)">
+            <summary>
+            명령이 실행될 트랜잭션명, 명령의 타입, 실행할 Stored Procedure명 or SQL을 인자로 받아 명령을 실행한뒤 영향받은 행수를 리턴한다.
+            </summary>
+            <param name="transaction">명령이 실행될 트랜잭션명</param>
+            <param name="commandType">명령의 타입</param>
+            <param name="commandText">실행할 Stored Procedure명 or SQL</param>
+            <returns>명령 실행에 의한 영향받은 행 수</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteNonQuery(System.String,System.Collections.Hashtable)">
+            <summary>
+            명령이 실행될 트랜잭션명, 명령의 타입, 실행할 Stored Procedure명 or SQL을 인자로 받아 명령을 실행한뒤 영향받은 행수를 리턴한다.
+            </summary>
+            <param name="storedProcedureName">실행할 stored procedure 명</param>
+            <param name="parameterValues">parameter의 hashtable</param>
+            <returns>명령 실행에 의한 영향받은 행 수</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteReader(System.Data.Common.DbCommand)">
+            <summary>
+            실행할 DbCommand명을 인자로 받아 결과 IDataReader을 리턴한다.
+            </summary>
+            <param name="command">실행할 DbCommand명</param>
+            <returns>결과 IDataReader</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteReader(System.Data.Common.DbCommand,System.Data.Common.DbTransaction)">
+            <summary>
+            실행할 DbCommand명, 명령이 실행될 트랜잭션명을 인자로 받아 결과 IDataReader을 리턴한다.
+            </summary>
+            <param name="command">실행할 DbCommand</param>
+            <param name="transaction">명령이 실행될 트랜잭션명</param>
+            <returns>결과 IDataReader</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteReader(System.String,System.Object[])">
+            <summary>
+            실행할 Stored Procedure명, Stored Procedure의 파라미터 Array를 인자로 받아 결과 IDataReader을 리턴한다.
+            </summary>
+            <param name="storedProcedureName">실행할 Stored Procedure명</param>
+            <param name="parameterValues">Stored Procedure의 파라미터 Array</param>
+            <returns>결과 IDataReader</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteReader(System.String)">
+            <summary>
+            실행할 Stored Procedure명을 인자로 받아 결과 IDataReader을 리턴한다.
+            </summary>
+            <param name="storedProcedureName">실행할 Stored Procedure명</param>
+            <param name="parameterValues">Stored Procedure의 파라미터 Array</param>
+            <returns>결과 IDataReader</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteReader(System.Data.Common.DbTransaction,System.String,System.Object[])">
+            <summary>
+            명령이 실행될 트랜잭션명, 실행할 Stored Procedure명, Stored Procedure의 파라미터 Array를 인자로 받아 결과 IDataReader을 리턴한다.
+            </summary>
+            <param name="transaction">명령이 실행될 트랜잭션명</param>
+            <param name="storedProcedureName">실행할 Stored Procedure명</param>
+            <param name="parameterValues">Stored Procedure의 파라미터 Array</param>
+            <returns>결과 IDataReader</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteReader(System.Data.CommandType,System.String)">
+            <summary>
+            명령의 타입, 실행할 Stored Procedure명 or SQL을 인자로 받아 결과 IDataReader을 리턴한다.
+            </summary>
+            <param name="commandType">명령의 타입</param>
+            <param name="commandText">실행할 Stored Procedure명 or SQL</param>
+            <returns>결과 IDataReader</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteReader(System.Data.Common.DbTransaction,System.Data.CommandType,System.String)">
+            <summary>
+            명령이 실행될 트랜잭션명, 실행할 명령의 타입, Stored Procedure명 or SQL을 인자로 받아 결과 IDataReader을 리턴한다.
+            </summary>
+            <param name="transaction">명령이 실행될 트랜잭션명</param>
+            <param name="commandType">실행할 명령의 타입</param>
+            <param name="commandText">Stored Procedure명 or SQL</param>
+            <returns>결과 IDataReader</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteScalar(System.Data.Common.DbCommand)">
+            <summary>
+            실행할 DbCommand명을 받아 결과 object를 리턴한다.
+            </summary>
+            <param name="command">DbCommand명</param>
+            <returns>결과 object</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteScalar(System.Data.Common.DbCommand,System.Data.Common.DbTransaction)">
+            <summary>
+            실행할 DbCommand명, 명령이 실행될 transaction명을 받아 결과 object를 리턴한다.
+            </summary>
+            <param name="command">실행할 DbCommand명</param>
+            <param name="transaction">명령이 실행될 transaction명</param>
+            <returns>결과 object</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteScalar(System.String,System.Object[])">
+            <summary>
+            실행할 stored Procedure 이름, stored Procedure의 파라미터 Array를 받아 결과 object를 리턴한다.
+            </summary>
+            <param name="storedProcedureName">실행할 stored Procedure 이름</param>
+            <param name="parameterValues">stored Procedure의 파라미터 Array</param>
+            <returns>결과 object</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteScalar(System.String)">
+            <summary>
+            실행할 stored Procedure 이름, stored Procedure의 파라미터 Array를 받아 결과 object를 리턴한다.
+            </summary>
+            <param name="storedProcedureName">실행할 stored Procedure 이름</param>
+            <returns>결과 object</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteScalar(System.Data.Common.DbTransaction,System.String,System.Object[])">
+            <summary>
+            명령이 실행될 트랜잭션명, 실행할 stored Procedure 이름, stored Procedure의 파라미터 Array를 받아 결과 object를 리턴한다.
+            </summary>
+            <param name="transaction">명령이 실행될 트랜잭션명</param>
+            <param name="storedProcedureName">실행할 stored Procedure 이름</param>
+            <param name="parameterValues">stored Procedure의 파라미터 Array</param>
+            <returns>결과 object</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteScalar(System.Data.CommandType,System.String)">
+            <summary>
+            명령의 타입, stored Procedure 이름 or SQL을 입력 받아 결과 object를 리턴한다.
+            </summary>
+            <param name="commandType">명령의 타입</param>
+            <param name="commandText">stored Procedure 이름 or SQL</param>
+            <returns>결과 object</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.ExecuteScalar(System.Data.Common.DbTransaction,System.Data.CommandType,System.String)">
+            <summary>
+            명령이 실행될 트랜잭션명, 명령의 타입, stored Procedure 이름 or SQL을 입력 받아 결과 object를 리턴한다.
+            </summary>
+            <param name="transaction">명령이 실행될 트랜잭션명</param>
+            <param name="commandType">명령의 타입</param>
+            <param name="commandText">stored Procedure 이름 or SQL</param>
+            <returns>결과 object</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.LoadDataSet(System.Data.Common.DbCommand,System.Data.DataSet,System.String)">
+            <summary>
+            실행할 DbCommand명령, 로드할 데이터 셋 이름, DataSet에 새롭게 추가될 새 데이터테이블 이름을 인자로 LoadDataSet을 호출한다.
+            </summary>
+            <param name="command">DbCommand명령</param>
+            <param name="dataSet">로드할 데이터 셋 이름</param>
+            <param name="tableName">DataSet에 새롭게 추가될 새 데이터테이블 이름</param>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.LoadDataSet(System.Data.Common.DbCommand,System.Data.DataSet,System.String,System.Data.Common.DbTransaction)">
+            <summary>
+            실행할 DbCommand명령, 로드할 데이터 셋 이름, DataSet에 새롭게 추가될 새 데이터테이블 이름, 명령이 실행될 트랜잭션을 인자로 LoadDataSet을 호출한다.
+            </summary>
+            <param name="command">실행할 DbCommand명령</param>
+            <param name="dataSet">로드할 데이터 셋 이름</param>
+            <param name="tableName">DataSet에 새롭게 추가될 새 데이터테이블 이름</param>
+            <param name="transaction">명령이 실행될 트랜잭션</param>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.LoadDataSet(System.Data.Common.DbCommand,System.Data.DataSet,System.String[])">
+            <summary>
+            실행할 DbCommand 명령, 로드할 데이터 셋 이름, DataSet에 새롭게 추가될 새 데이터테이블 이름의 배열을 인자로 LoadDataSet을 호출한다.
+            </summary>
+            <param name="command">실행할 DbCommand명령</param>
+            <param name="dataSet">로드할 데이터 셋 이름</param>
+            <param name="tableNames">DataSet에 새롭게 추가될 새 데이터테이블 이름의 배열</param>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.LoadDataSet(System.Data.Common.DbCommand,System.Data.DataSet,System.String[],System.Data.Common.DbTransaction)">
+            <summary>
+            실행할 DbCommand 명령, 로드할 데이터 셋 이름, DataSet에 새롭게 추가될 새 데이터테이블 이름의 배열, 명령이 실행될 트랜잭션명을 인자로 LoadDataSet을 호출한다.
+            </summary>
+            <param name="command">실행할 DbCommand 명령</param>
+            <param name="dataSet">로드할 데이터 셋 이름</param>
+            <param name="tableNames">DataSet에 새롭게 추가될 새 데이터테이블 이름의 배열</param>
+            <param name="transaction">명령이 실행될 트랜잭션명</param>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.LoadDataSet(System.String,System.Data.DataSet,System.String[],System.Object[])">
+            <summary>
+            실행할 Stored Procedure 명, 로드할 데이터 셋 이름, DataSet에 새롭게 추가될 새 데이터테이블 이름의 배열, Stored Procedure의 파라미터 Array 인자로 LoadDataSet을 호출한다.
+            </summary>
+            <param name="storedProcedureName">Stored Procedure 이름</param>
+            <param name="dataSet">로드할 데이터 셋 이름</param>
+            <param name="tableNames"></param>
+            <param name="parameterValues"></param>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.LoadDataSet(System.Data.Common.DbTransaction,System.String,System.Data.DataSet,System.String[],System.Object[])">
+            <summary>
+            DB인스턴스명과 명령이 실행될 트랜잭션명, 실행할 Stored Procedure 명, 로드할 데이터 셋 이름, DataSet에 새롭게 추가될 새 데이터테이블 이름의 배열, 
+            Stored Procedure의 파라미터 Array 인자로 LoadDataSet을 호출한다.
+            </summary>
+            <param name="transaction">명령이 실행될 트랜잭션명</param>
+            <param name="storedProcedureName">실행할 Stored Procedure 명</param>
+            <param name="dataSet">로드할 데이터 셋 이름</param>
+            <param name="tableNames">DataSet에 새롭게 추가될 새 데이터테이블 이름의 배열</param>
+            <param name="parameterValues">Stored Procedure의 파라미터 Array</param>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.LoadDataSet(System.Data.CommandType,System.String,System.Data.DataSet,System.String[])">
+            <summary>
+            DB인스턴스명과 명령 타입, 실행할 Stored Procedure 명 or SQL, 로드할 데이터 셋 이름, DataSet에 새롭게 추가될 새 데이터테이블 이름의 배열 인자로 LoadDataSet을 호출한다.
+            </summary>
+            <param name="commandType">명령 타입</param>
+            <param name="commandText">실행할 Stored Procedure 명 or SQL</param>
+            <param name="dataSet">로드할 데이터 셋 이름</param>
+            <param name="tableNames">DataSet에 새롭게 추가될 새 데이터테이블 이름의 배열</param>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.LoadDataSet(System.Data.Common.DbTransaction,System.Data.CommandType,System.String,System.Data.DataSet,System.String[])">
+            <summary>
+            DB인스턴스명과 명령이 실행될 트랜잭션명, 명령 타입, 실행할 Stored Procedure 명 or SQL, 로드할 데이터 셋 이름, DataSet에 새롭게 추가될 새 데이터테이블 이름의 배열 인자로 LoadDataSet을 호출한다.
+            </summary>
+            <param name="transaction">명령이 실행될 트랜잭션명</param>
+            <param name="commandType">명령 타입</param>
+            <param name="commandText">실행할 Stored Procedure 명 or SQL</param>
+            <param name="dataSet">로드할 데이터 셋 이름</param>
+            <param name="tableNames">DataSet에 새롭게 추가될 새 데이터테이블 이름의 배열</param>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.UpdateDataSet(System.Data.DataSet,System.String,System.Data.Common.DbCommand,System.Data.Common.DbCommand,System.Data.Common.DbCommand)">
+            <summary>
+            아래와 같은 인자로 변경된 데이터셋으로 DB를 업데이트한다.
+            </summary>
+            <param name="dataSet">테이블 매핑에 사용할 소스 테이블명</param>
+            <param name="tableName">테이블 매핑에 사용할 소스 테이블명</param>
+            <param name="insertCommand">인서트 커맨드</param>
+            <param name="updateCommand">업데이트 커맨드</param>
+            <param name="deleteCommand">델리트 커맨드</param>
+            <returns>명령 실행 후 영향받은 레코드 수</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.UpdateDataSet(System.Data.DataSet,System.String,System.Data.Common.DbCommand,System.Data.Common.DbCommand,System.Data.Common.DbCommand,System.Data.Common.DbTransaction)">
+            <summary>
+            아래와 같은 인자로 변경된 데이터셋으로 DB를 업데이트한다.
+            </summary>
+            <param name="dataSet">테이블 매핑에 사용할 소스 테이블명</param>
+            <param name="tableName">테이블 매핑에 사용할 소스 테이블명</param>
+            <param name="insertCommand">인서트 커맨드</param>
+            <param name="updateCommand">업데이트 커맨드</param>
+            <param name="deleteCommand">델리트 커맨드</param>
+            <param name="transaction">명령을 실행할 IDbTransaction</param>
+            <returns>명령 실행 후 영향받은 레코드 수</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.GetSqlStringCommand(System.String)">
+            <summary>
+            Sql 문장에 대해 DbCommand를 만들어준다.
+            </summary>
+            <param name="query">쿼리 문장</param>
+            <returns>DbCommand</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.GetStoredProcCommand(System.String)">
+            <summary>
+            Stored Procedure에 대한 DbCommand를 만들어준다.
+            </summary>
+            <param name="storedProcedureName">Stored Procedure명</param>
+            <returns>DbCommand</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.GetStoredProcCommand(System.String,System.Collections.Hashtable)">
+            <summary>
+            Stored Procedure에 대한 DbCommand를 만들어준다.
+            </summary>
+            <param name="storedProcedureName">Stored Procedure명</param>
+            <param name="parameterValues">parameter의 hashtable</param>
+            <returns>DbCommand</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.GetStoredProcCommand(System.String,System.Object[])">
+            <summary>
+            Stored Procedure에 대한 DbCommand를 만들어준다.
+            </summary>
+            <param name="storedProcedureName">Stored Procedure명</param>
+            <param name="parameterValues">Stored Procedure에 대한 파라미터 어레이</param>
+            <returns>DbCommand</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.GetStoredProcParam(System.String)">
+            <summary>
+            Stored Procedure에 대한 DbCommand를 만들어준다.
+            </summary>
+            <param name="storedProcedureName">Stored Procedure명</param>
+            <returns>params</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.GetSqlXmlCommand(System.String)">
+            <summary>
+            XML File 의 쿼리 아이디로 sql문을 가져와서 GetSqlStringCommand,GetStoredProcCommand 를 사용해서 DbCommand를 만들어준다.
+            </summary>
+            <param name="queryId">XML query Id</param>
+            <returns></returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.GetSqlXmlCommand(System.String,System.String)">
+            <summary>
+            XML File 의 쿼리 아이디로 sql문을 가져와서 GetSqlStringCommand,GetStoredProcCommand 를 사용해서 DbCommand를 만들어준다.
+            </summary>
+            <param name="queryId">쿼리 아이디</param>
+            <param name="path">파일 </param>
+            <returns></returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.AddInParameter(System.Data.Common.DbCommand,System.String,System.Data.DbType)">
+            <summary>
+            주어진 DbCommand에 새로운 입력 파라미터를 넣는다.
+            </summary>
+            <param name="command">파라미터를 넣을 DbCommand</param>
+            <param name="name">파라미터 이름</param>
+            <param name="dbType">DbType 값 중의 하나</param>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.AddInParameter(System.Data.Common.DbCommand,System.String,System.Data.DbType,System.Object)">
+            <summary>
+            주어진 DbCommand에 새로운 입력 파라미터를 넣는다.
+            </summary>
+            <param name="command">파라미터를 넣을 DbCommand</param>
+            <param name="name">파라미터 이름</param>
+            <param name="dbType">DbType 값 중의 하나</param>
+            <param name="value">파라미터의 값</param>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.AddInParameter(System.Data.Common.DbCommand,System.String,System.Data.DbType,System.String,System.Data.DataRowVersion)">
+            <summary>
+            주어진 DbCommand에 새로운 입력 파라미터를 넣는다.
+            </summary>
+            <param name="command">파라미터를 넣을 DbCommand</param>
+            <param name="name">파라미터 이름</param>
+            <param name="dbType">DbType 값 중의 하나</param>
+            <param name="sourceColumn">The name of the source column mapped to the DataSet and used for loading or returning the value</param>
+            <param name="sourceVersion">DataRowVersion 값 중의 하나</param>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.AddOutParameter(System.Data.Common.DbCommand,System.String,System.Data.DbType,System.Int32)">
+            <summary>
+            주어진 DbCommand에 새로운 출력 파라미터를 넣는다.
+            </summary>
+            <param name="command">파라미터를 넣을 DbCommand</param>
+            <param name="name">파라미터 이름</param>
+            <param name="dbType">DbType 값 중의 하나</param>
+            <param name="size">컬럼에 있는 데이터의 최대 크기</param>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.AddParameter(System.Data.Common.DbCommand,System.String,System.Data.DbType,System.Int32,System.Data.ParameterDirection,System.Boolean,System.Byte,System.Byte,System.String,System.Data.DataRowVersion,System.Object)">
+            <summary>
+            주어진 DbCommand에 새로운 입력 파라미터를 넣는다.
+            </summary>
+            <param name="command">파라미터를 넣을 DbCommand</param>
+            <param name="name">파라미터 이름</param>
+            <param name="dbType">DbType 값 중의 하나</param>
+            <param name="size">컬럼에 있는 데이터의 최대 크기</param>
+            <param name="direction">ParameterDirection 값 중의 하나</param>
+            <param name="nullable">null 값을 허용할지의 여부</param>
+            <param name="precision">precision</param>
+            <param name="scale">scale</param>
+            <param name="sourceColumn">The name of the source column mapped to the DataSet and used for loading or returning the value</param>
+            <param name="sourceVersion">DataRowVersion 값 중의 하나</param>
+            <param name="value">파라미터의 값</param>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.AddParameter(System.Data.Common.DbCommand,System.String,System.Data.DbType,System.Data.ParameterDirection,System.String,System.Data.DataRowVersion,System.Object)">
+            <summary>
+            주어진 DbCommand에 새로운 입력 파라미터를 넣는다.
+            </summary>
+            <param name="command">파라미터를 넣을 DbCommand</param>
+            <param name="name">파라미터 이름</param>
+            <param name="dbType">DbType 값 중의 하나</param>
+            <param name="direction">ParameterDirection 값 중의 하나</param>
+            <param name="sourceColumn">The name of the source column mapped to the DataSet and used for loading or returning the value</param>
+            <param name="sourceVersion">DataRowVersion 값 중의 하나</param>
+            <param name="value">파라미터의 값</param>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.CreateConnection">
+            <summary>
+            Db 인스턴스명에 대한 DbConnection을 만들어준다.
+            </summary>
+            <returns>DbConnection</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.GetDataAdapter">
+            <summary>
+            DataAdapter를 생성해서 넘겨주는 메소드
+            </summary>
+            <returns>DbDataAdapter 객체 (SQLDataAdapter, OracleDataAdapter의 parent class)</returns>
+        </member>
+        <member name="M:Skcc.Data.DataAccessWrapper.GetParamterValue(System.Data.Common.DbCommand,System.String)">
+            <summary>
+            Output Paramter 값을 읽어오는 메소드
+            </summary>
+            <param name="command">DbCommand</param>
+            <param name="name">output paramter 이름</param>
+            <returns></returns>
+        </member>
+        <member name="P:Skcc.Data.DataAccessWrapper.FileName">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Skcc.Data.DataException">
+            <summary>
+            Data에 대한 Exception 클래스
+            </summary>
+            <remarks>
+            SkccException을 상속 받아 Data 관련 Exception을 처리하기 위해 만든 클래스로
+            SkccException에서 추가된 기능은 없으며 Exception을 구분하기 위한 클래스이다.
+            </remarks>
+            <example>
+            사용예는 아래와 같다.
+            <code>
+            throw new DataException(message, code, innerException);
+            </code>
+            </example> 
+        </member>
+        <member name="M:Skcc.Data.DataException.#ctor">
+            <summary>
+            DataException 객체를 생성한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Data.DataException.#ctor(System.String)">
+            <summary>
+            DataException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+        </member>
+        <member name="M:Skcc.Data.DataException.#ctor(System.String,System.Exception)">
+            <summary>
+            DataException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+            <param name="innerException">Inner Exception</param>
+        </member>
+        <member name="M:Skcc.Data.DataException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            DataException 객체를 생성한다.
+            </summary>
+            <param name="info">Serialize된 객체의 데이터</param>
+            <param name="context">Context 정보</param>
+        </member>
+        <member name="M:Skcc.Data.DataException.#ctor(System.String,System.Int32)">
+            <summary>
+            DataException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+            <param name="code">예외 코드</param>
+        </member>
+        <member name="M:Skcc.Data.DataException.#ctor(System.String,System.Int32,System.Exception)">
+            <summary>
+            DataException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+            <param name="code">예외 코드</param>
+            <param name="innerException">Inner Exception</param>
+        </member>
+        <member name="M:Skcc.Data.DataException.#ctor(System.Int32)">
+            <summary>
+            DataException 객체를 생성한다.
+            </summary>
+            <param name="Code">예외 코드</param>
+        </member>
+    </members>
+</doc>

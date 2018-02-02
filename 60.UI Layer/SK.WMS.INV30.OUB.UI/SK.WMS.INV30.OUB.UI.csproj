@@ -1,0 +1,251 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4268FD64-590F-416E-8EC1-D00A1C7D99CB}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SK.WMS.INV30.OUB.UI</RootNamespace>
+    <AssemblyName>SK.WMS.INV30.OUB.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>C:\SK.WMS\Programs\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="C1.Win.C1Command.4, Version=4.0.20111.19475, Culture=neutral, PublicKeyToken=e808566f358766d8, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1Editor.4, Version=4.0.20111.68, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1FlexGrid.4, Version=4.6.20111.602, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1Input.4, Version=4.0.20111.33260, Culture=neutral, PublicKeyToken=7e7ff60f0c214f9a, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1InputPanel.4, Version=4.0.20111.116, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1List.4, Version=4.1.20111.176, Culture=neutral, PublicKeyToken=6b24f8f981dbd7bc, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="NEXCORE.Common">
+      <HintPath>..\..\70.External Library\NEXCORE.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="NEXCORE.Common.Data">
+      <HintPath>..\..\70.External Library\NEXCORE.Common.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="NEXCORE.Interfaces">
+      <HintPath>..\..\70.External Library\NEXCORE.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="NEXCORE.Utility">
+      <HintPath>..\..\70.External Library\NEXCORE.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="SK.WMS.WinControls">
+      <HintPath>..\..\70.External Library\SK.WMS.WinControls.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="OUB3010.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OUB3010.Designer.cs">
+      <DependentUpon>OUB3010.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="OUB3020.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OUB3020.Designer.cs">
+      <DependentUpon>OUB3020.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OUB3030.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OUB3030.Designer.cs">
+      <DependentUpon>OUB3030.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OUB3040.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OUB3040.Designer.cs">
+      <DependentUpon>OUB3040.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OUB3050.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OUB3050.Designer.cs">
+      <DependentUpon>OUB3050.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OUB3060.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OUB3060.Designer.cs">
+      <DependentUpon>OUB3060.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OUB3070.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OUB3070.Designer.cs">
+      <DependentUpon>OUB3070.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OUB3080.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OUB3080.Designer.cs">
+      <DependentUpon>OUB3080.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OUB3090.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OUB3090.Designer.cs">
+      <DependentUpon>OUB3090.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OUB3110.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OUB3110.Designer.cs">
+      <DependentUpon>OUB3110.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OUB3120.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OUB3120.Designer.cs">
+      <DependentUpon>OUB3120.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OUB3150.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OUB3150.Designer.cs">
+      <DependentUpon>OUB3150.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OUB3160.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OUB3160.Designer.cs">
+      <DependentUpon>OUB3160.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OUB3170.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OUB3170.Designer.cs">
+      <DependentUpon>OUB3170.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OUB3180.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OUB3180.Designer.cs">
+      <DependentUpon>OUB3180.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OUB3200.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OUB3200.Designer.cs">
+      <DependentUpon>OUB3200.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OUB3210.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OUB3210.Designer.cs">
+      <DependentUpon>OUB3210.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OUB3220.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="OUB3220.Designer.cs">
+      <DependentUpon>OUB3220.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="OUB3010.resx">
+      <DependentUpon>OUB3010.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OUB3020.resx">
+      <DependentUpon>OUB3020.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OUB3030.resx">
+      <DependentUpon>OUB3030.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OUB3040.resx">
+      <DependentUpon>OUB3040.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OUB3050.resx">
+      <DependentUpon>OUB3050.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OUB3060.resx">
+      <DependentUpon>OUB3060.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OUB3070.resx">
+      <DependentUpon>OUB3070.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OUB3080.resx">
+      <DependentUpon>OUB3080.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OUB3090.resx">
+      <DependentUpon>OUB3090.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OUB3110.resx">
+      <DependentUpon>OUB3110.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OUB3120.resx">
+      <DependentUpon>OUB3120.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OUB3150.resx">
+      <DependentUpon>OUB3150.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OUB3160.resx">
+      <DependentUpon>OUB3160.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OUB3170.resx">
+      <DependentUpon>OUB3170.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OUB3180.resx">
+      <DependentUpon>OUB3180.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OUB3200.resx">
+      <DependentUpon>OUB3200.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OUB3210.resx">
+      <DependentUpon>OUB3210.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OUB3220.resx">
+      <DependentUpon>OUB3220.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

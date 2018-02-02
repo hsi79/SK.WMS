@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/NEXCORE.Interfaces" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/NEXCORE.Interfaces" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:simpleType name="LOGIN_RESULT_CODE">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ID_NOT_FOUND" />
+      <xs:enumeration value="PWD_NOT_MATCHED" />
+      <xs:enumeration value="NOT_VALID_DATE" />
+      <xs:enumeration value="EXPIRED_DATE" />
+      <xs:enumeration value="ID_LOCKED" />
+      <xs:enumeration value="SUCCESS" />
+      <xs:enumeration value="PASSWORD_EXPIRED" />
+      <xs:enumeration value="EXCEPTION" />
+      <xs:enumeration value="FAIL" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="LOGIN_RESULT_CODE" nillable="true" type="tns:LOGIN_RESULT_CODE" />
+</xs:schema>

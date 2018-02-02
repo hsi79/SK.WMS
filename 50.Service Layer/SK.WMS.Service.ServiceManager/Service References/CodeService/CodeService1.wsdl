@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CodeService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:25000/CodeService.svc?xsd=xsd2" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:25000/CodeService.svc?xsd=xsd0" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:25000/CodeService.svc?xsd=xsd1" namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import schemaLocation="http://localhost:25000/CodeService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/NEXCORE.Common.Data" />
+      <xsd:import schemaLocation="http://localhost:25000/CodeService.svc?xsd=xsd4" />
+      <xsd:import schemaLocation="http://localhost:25000/CodeService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:25000/CodeService.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ICodeService_DoWork_InputMessage">
+    <wsdl:part name="parameters" element="tns:DoWork" />
+  </wsdl:message>
+  <wsdl:message name="ICodeService_DoWork_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DoWorkResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICodeService_GetCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCode" />
+  </wsdl:message>
+  <wsdl:message name="ICodeService_GetCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICodeService_GetCodes_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodes" />
+  </wsdl:message>
+  <wsdl:message name="ICodeService_GetCodes_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICodeService_GetHelpWindow_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHelpWindow" />
+  </wsdl:message>
+  <wsdl:message name="ICodeService_GetHelpWindow_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHelpWindowResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICodeService_GetHelpProduct_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHelpProduct" />
+  </wsdl:message>
+  <wsdl:message name="ICodeService_GetHelpProduct_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHelpProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICodeService_GetCodesByAttribute_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodesByAttribute" />
+  </wsdl:message>
+  <wsdl:message name="ICodeService_GetCodesByAttribute_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodesByAttributeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ICodeService_Reload_InputMessage">
+    <wsdl:part name="parameters" element="tns:Reload" />
+  </wsdl:message>
+  <wsdl:message name="ICodeService_Reload_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReloadResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ICodeService">
+    <wsdl:operation name="DoWork">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICodeService/DoWork" message="tns:ICodeService_DoWork_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICodeService/DoWorkResponse" message="tns:ICodeService_DoWork_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICodeService/GetCode" message="tns:ICodeService_GetCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICodeService/GetCodeResponse" message="tns:ICodeService_GetCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCodes">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICodeService/GetCodes" message="tns:ICodeService_GetCodes_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICodeService/GetCodesResponse" message="tns:ICodeService_GetCodes_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHelpWindow">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICodeService/GetHelpWindow" message="tns:ICodeService_GetHelpWindow_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICodeService/GetHelpWindowResponse" message="tns:ICodeService_GetHelpWindow_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHelpProduct">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICodeService/GetHelpProduct" message="tns:ICodeService_GetHelpProduct_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICodeService/GetHelpProductResponse" message="tns:ICodeService_GetHelpProduct_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCodesByAttribute">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICodeService/GetCodesByAttribute" message="tns:ICodeService_GetCodesByAttribute_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICodeService/GetCodesByAttributeResponse" message="tns:ICodeService_GetCodesByAttribute_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Reload">
+      <wsdl:input wsaw:Action="http://tempuri.org/ICodeService/Reload" message="tns:ICodeService_Reload_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ICodeService/ReloadResponse" message="tns:ICodeService_Reload_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ICodeService" type="tns:ICodeService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DoWork">
+      <soap:operation soapAction="http://tempuri.org/ICodeService/DoWork" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCode">
+      <soap:operation soapAction="http://tempuri.org/ICodeService/GetCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCodes">
+      <soap:operation soapAction="http://tempuri.org/ICodeService/GetCodes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHelpWindow">
+      <soap:operation soapAction="http://tempuri.org/ICodeService/GetHelpWindow" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHelpProduct">
+      <soap:operation soapAction="http://tempuri.org/ICodeService/GetHelpProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCodesByAttribute">
+      <soap:operation soapAction="http://tempuri.org/ICodeService/GetCodesByAttribute" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Reload">
+      <soap:operation soapAction="http://tempuri.org/ICodeService/Reload" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CodeService">
+    <wsdl:port name="BasicHttpBinding_ICodeService" binding="tns:BasicHttpBinding_ICodeService">
+      <soap:address location="http://localhost:25000/CodeService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

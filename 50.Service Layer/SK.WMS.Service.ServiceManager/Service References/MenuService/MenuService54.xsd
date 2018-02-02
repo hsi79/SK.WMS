@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/NEXCORE.Common.Data" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/NEXCORE.Common.Data" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:25000/MenuService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Drawing" />
+  <xs:complexType name="ArrayOfMenu">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Menu" nillable="true" type="tns:Menu" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMenu" nillable="true" type="tns:ArrayOfMenu" />
+  <xs:complexType name="Menu">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AuthId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ChildMenuList" nillable="true" type="tns:ArrayOfMenu" />
+      <xs:element minOccurs="0" name="Chk" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ColumnCount" type="xs:int" />
+      <xs:element minOccurs="0" name="Depth" type="xs:int" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System.Drawing" minOccurs="0" name="ICON" nillable="true" type="q1:Image" />
+      <xs:element minOccurs="0" name="IconGeometry" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MenuChina" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MenuDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MenuEnglish" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MenuId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MenuKorea" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MenuType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OpenType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParentMenuId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParentMenuName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PgmId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SORT" type="xs:int" />
+      <xs:element minOccurs="0" name="SearchMenu" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SearchMenuName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SysId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TopMenu" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TopMenuName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Use" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Visible" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Menu" nillable="true" type="tns:Menu" />
+  <xs:complexType name="ArrayOfDept">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Dept" nillable="true" type="tns:Dept" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfDept" nillable="true" type="tns:ArrayOfDept" />
+  <xs:complexType name="Dept">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChildDeptList" nillable="true" type="tns:ArrayOfDept" />
+      <xs:element minOccurs="0" name="Chk" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeptId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeptName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Depth" type="xs:int" />
+      <xs:element minOccurs="0" name="ParentDeptId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParentDeptName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SORT" type="xs:int" />
+      <xs:element minOccurs="0" name="Use" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Dept" nillable="true" type="tns:Dept" />
+</xs:schema>

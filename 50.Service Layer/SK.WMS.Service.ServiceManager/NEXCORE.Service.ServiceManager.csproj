@@ -1,0 +1,447 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E379ABCC-276D-449D-827F-A5B83BD10B29}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NEXCORE.Service.ServiceManager</RootNamespace>
+    <AssemblyName>NEXCORE.Service.ServiceManager</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Skcc.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=d8562a1c4a42c0a1, processorArchitecture=MSIL" />
+    <Reference Include="Skcc.Data, Version=3.0.0.0, Culture=neutral, PublicKeyToken=d8562a1c4a42c0a1, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Program Files\SK C&amp;C\NEXCORE.NET 4.0\Bin\Skcc.Data.DLL</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AuthorityServiceProxy.cs" />
+    <Compile Include="CodeServiceProxy.cs" />
+    <Compile Include="FileServiceProxy.cs" />
+    <Compile Include="MenuServiceProxy.cs" />
+    <Compile Include="MessageServiceProxy.cs" />
+    <Compile Include="ProgramServiceProxy.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service References\AuthorityService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\CodeService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\FileService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\FrontService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\MenuService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\MessageService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\ProgramService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\UserService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="ServiceLoader.cs" />
+    <Compile Include="ServiceProxy.cs" />
+    <Compile Include="UserServiceProxy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AuthorityService\AuthorityService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AuthorityService\AuthorityService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AuthorityService\AuthorityService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CodeService\CodeService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\CodeService\CodeService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FileService\FileService.wsdl" />
+    <None Include="Service References\FileService\FileService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\FileService\FileService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UserService\UserService.wsdl" />
+    <None Include="Service References\UserService\UserService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UserService\UserService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UserService\UserService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UserService\UserService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UserService\UserService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UserService\UserService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UserService\UserService6.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\UserService\UserService7.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\AuthorityService\" />
+    <WCFMetadataStorage Include="Service References\CodeService\" />
+    <WCFMetadataStorage Include="Service References\FileService\" />
+    <WCFMetadataStorage Include="Service References\FrontService\" />
+    <WCFMetadataStorage Include="Service References\MenuService\" />
+    <WCFMetadataStorage Include="Service References\MessageService\" />
+    <WCFMetadataStorage Include="Service References\ProgramService\" />
+    <WCFMetadataStorage Include="Service References\UserService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AuthorityService\AuthorityService1.wsdl" />
+    <None Include="Service References\AuthorityService\AuthorityService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AuthorityService\AuthorityService41.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AuthorityService\AuthorityService42.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AuthorityService\AuthorityService43.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\AuthorityService\SKE.HEVB.Service.ServiceManager.AuthorityService.Authority.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\CodeService\SKE.HEVB.Service.ServiceManager.CodeService.Code.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\FrontService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FrontService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FrontService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FrontService\SKE.HEVB.Service.ServiceManager.FrontService.SKEData.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MenuService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MenuService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\SKS.MIS.Common.Data.Menu.datasource" />
+    <None Include="Service References\MenuService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\SKS.MIS.Common.Data.Authority.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AuthorityService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AuthorityService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AuthorityService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MenuService\SKE.HEVB.Service.ServiceManager.MenuService.Menu.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\MessageService\SKE.HEVB.Service.ServiceManager.MessageService.Message.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\ProgramService\SKE.HEVB.Service.ServiceManager.ProgramService.Program.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\SKS.MIS.Common.Data.User.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ProgramService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ProgramService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\SKS.MIS.Common.Data.ButtonAuthority.datasource" />
+    <None Include="Properties\DataSources\SKS.MIS.Common.Data.ManagedButton.datasource" />
+    <None Include="Properties\DataSources\SKS.MIS.Common.Data.Program.datasource" />
+    <None Include="Service References\ProgramService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MessageService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MessageService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\SKS.MIS.Common.Data.Message.datasource" />
+    <None Include="Service References\MessageService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CodeService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CodeService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\DataSources\SKS.MIS.Common.Data.Code.datasource" />
+    <None Include="Properties\DataSources\SKS.MIS.Common.Data.SKSData.datasource" />
+    <None Include="Service References\CodeService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CodeService\CodeService1.wsdl" />
+    <None Include="Service References\CodeService\CodeService5.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CodeService\CodeService1.disco" />
+    <None Include="Service References\CodeService\CodeService51.xsd" />
+    <None Include="Service References\CodeService\CodeService52.xsd" />
+    <None Include="Service References\CodeService\CodeService53.xsd" />
+    <None Include="Service References\CodeService\CodeService54.xsd" />
+    <None Include="Service References\FrontService\FrontService6.xsd" />
+    <None Include="Service References\FrontService\FrontService61.xsd" />
+    <None Include="Service References\FrontService\FrontService62.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FrontService\FrontService.disco" />
+    <None Include="Service References\FrontService\FrontService.wsdl" />
+    <None Include="Service References\FrontService\FrontService63.xsd" />
+    <None Include="Service References\FrontService\FrontService64.xsd" />
+    <None Include="Service References\FrontService\FrontService65.xsd" />
+    <None Include="Service References\FrontService\FrontService66.xsd" />
+    <None Include="Service References\FrontService\FrontService67.xsd" />
+    <None Include="Service References\MenuService\MenuService5.xsd" />
+    <None Include="Service References\MenuService\MenuService51.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MenuService\MenuService1.disco" />
+    <None Include="Service References\MenuService\MenuService1.wsdl" />
+    <None Include="Service References\MenuService\MenuService52.xsd" />
+    <None Include="Service References\MenuService\MenuService53.xsd" />
+    <None Include="Service References\MenuService\MenuService54.xsd" />
+    <None Include="Service References\MessageService\MessageService4.xsd" />
+    <None Include="Service References\MessageService\MessageService41.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\MessageService\MessageService1.disco" />
+    <None Include="Service References\MessageService\MessageService1.wsdl" />
+    <None Include="Service References\MessageService\MessageService42.xsd" />
+    <None Include="Service References\MessageService\MessageService43.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\ProgramService\ProgramService1.disco" />
+    <None Include="Service References\ProgramService\ProgramService1.wsdl" />
+    <None Include="Service References\ProgramService\ProgramService5.xsd" />
+    <None Include="Service References\ProgramService\ProgramService51.xsd" />
+    <None Include="Service References\ProgramService\ProgramService52.xsd" />
+    <None Include="Service References\ProgramService\ProgramService53.xsd" />
+    <None Include="Service References\ProgramService\ProgramService54.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\AuthorityService\AuthorityService1.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\10.NEXCORE Framework\NEXCORE.Common.Data\NEXCORE.Common.Data.csproj">
+      <Project>{856C3651-A414-4AEC-916D-6C5840510C53}</Project>
+      <Name>NEXCORE.Common.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\10.NEXCORE Framework\NEXCORE.Interfaces\NEXCORE.Interfaces.csproj">
+      <Project>{B000EF90-E86D-4197-A7E0-AB8461844F39}</Project>
+      <Name>NEXCORE.Interfaces</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UserService\UserService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UserService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UserService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\UserService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FileService\FileService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FileService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FileService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\FileService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Q /Y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)70.External Library"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,1671 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Skcc.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Skcc.Security.SecurityContext">
+            <summary>
+            프로그램 레벨에서 사용자의 권한 정보를 기록하는 클래스이다.
+            </summary>
+            <remarks>
+            SecurityContext 클래스는 기본적으로 CRUD(Create, Reterive, Update, Delete)에 대한 권한을 조회하는 속성을 가지며,
+            확장 권한 값은 인덱서를 사용해서 접근할 수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Security.SecurityContext.#ctor(System.Boolean,System.Boolean,System.Boolean,System.Boolean)">
+            <summary>
+            표준 권한인 CRUD(Create, Retrieve, Update, Delete) 정보를 기초로 하는 SecurityContext 객체를 생성한다.
+            </summary>
+            <param name="create">생성 권한</param>
+            <param name="retrieve">조회 권한</param>
+            <param name="update">수정 권한</param>
+            <param name="delete">삭제 권한</param>
+        </member>
+        <member name="M:Skcc.Security.SecurityContext.#ctor(System.Int32,System.Int32,System.String)">
+            <summary>
+            기본 ACL 정보, 확장 ACL 정보를 기초로 하는 SecurityContext 객체를 생성한다.
+            </summary>
+            <param name="basicACL">기본 ACL 정보</param>
+            <param name="extACL">확장 ACL 정보</param>
+            <param name="strACL">문자열 ACL 정보</param>
+        </member>
+        <member name="M:Skcc.Security.SecurityContext.#ctor(System.String)">
+            <summary>
+            ':' 구분자로 구분된 문자열 ACL 정보에서 SecurityContext 객체를 생성 한다.
+            </summary>
+            <param name="aclString">':' 구분자로 구분된 문자열 ACL 정보</param>
+            <remarks>
+            [기본 ACL 정보]:[확장 ACL 정보]:[문자열 ACL 정보] 형식의 ACL 문자열을 사용하여
+            객체를 초기화한다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Security.SecurityContext.GetExtACL(System.Int32)">
+            <summary>
+            특정 위치의 확장 권한 값을 반환한다.
+            </summary>
+            <param name="index">확장 권한 값의 위치.</param>
+            <returns>특정 위치에 해당하는 확장 권한 값.</returns>
+        </member>
+        <member name="M:Skcc.Security.SecurityContext.SetExtACL(System.Int32,System.Boolean)">
+            <summary>
+            특정 위치의 확장 권한을 설정한다.
+            </summary>
+            <param name="index">확장 권한 값의 위치.</param>
+            <param name="acl">특정 위치에 해당하는 확장 권한 값.</param>
+        </member>
+        <member name="M:Skcc.Security.SecurityContext.ToString">
+            <summary>
+            이 인스턴스의 값을 해당 문자열 표현으로 반환한다.
+            </summary>
+            <returns>이 인스턴스의 값을 해당 문자열 표현.</returns>
+        </member>
+        <member name="P:Skcc.Security.SecurityContext.CanOpen">
+            <summary>
+            SecurityContext 객체에 설정된 화면 열기 권한을 반환한다.
+            </summary>
+            <remarks>
+            기본적으로 CRUD 권한 중 한개의 권한이라도 갖으면 Open 권한은 true가 된다.
+            </remarks>
+        </member>
+        <member name="P:Skcc.Security.SecurityContext.CanSelect">
+            <summary>
+            SecurityContext 객체에 설정된 조회(SELECT) 권한을 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Security.SecurityContext.CanInsert">
+            <summary>
+            SecurityContext 객체에 설정된 추가(INSERT) 권한을 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Security.SecurityContext.CanUpdate">
+            <summary>
+            SecurityContext 객체에 설정된 수정(UPDATE) 권한을 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Security.SecurityContext.CanDelete">
+            <summary>
+            SecurityContext 객체에 설정된 삭제(DELETE) 권한을 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Security.SecurityContext.CanSave">
+            <summary>
+            SecurityContext 객체에 설정된 저장(DELETE) 권한을 반환한다.
+            </summary>
+            <remarks>
+            기본적으로 추가/수정/삭제 권한 중 하나라도 권한이 있다면 저장 권한이 있는
+            것으로 간주된다.
+            </remarks>
+        </member>
+        <member name="P:Skcc.Security.SecurityContext.Item(System.Int32)">
+            <summary>
+            특정 위치의 확장 권한 값을 설정하거나 반환한다.
+            </summary>
+            <param name="index">확장 권한 값의 위치.</param>
+            <returns>특정 위치에 해당하는 확장 권한 값.</returns>
+        </member>
+        <member name="T:Skcc.Security.AuthorizationException">
+            <summary>
+            권한 오류 예외 클래스
+            </summary>
+        </member>
+        <member name="T:Skcc.SkccException">
+            <summary>
+            SkccException은 Skcc Framework 에서 발생하는 모든 예외 클래스의 베이스 클래스이다. 
+            </summary>
+            <remarks>
+            SkccException 클래스는 SkccFramework의 base Exception 클래스로써 ApplicationException 클래스를 상속받아 Code property를 추가하였으며
+            이 클래스를 상속 받아 SkccFramework에서 사용하는 ConfigurationException, AuthenticationException 등을 생성하였다.
+            <br> 
+            ISerializable 구현을 통해 파일 저장이나 remoting 등에서 Serialize가 가능하다.
+            </br>
+            </remarks>
+            <example>
+            사용예는 아래와 같다.
+            <code>
+            throw new SkccException("Error Msg", 10001, innerException);
+            </code>
+            </example>
+            
+        </member>
+        <member name="M:Skcc.SkccException.#ctor">
+            <summary>
+            SkccException 객체를 생성한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.SkccException.#ctor(System.String)">
+            <summary>
+            SkccException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+        </member>
+        <member name="M:Skcc.SkccException.#ctor(System.String,System.Exception)">
+            <summary>
+            SkccException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+            <param name="innerException">Inner Exception</param>
+        </member>
+        <member name="M:Skcc.SkccException.#ctor(System.String,System.Int32)">
+            <summary>
+            SkccException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+            <param name="code">예외 코드</param>
+        </member>
+        <member name="M:Skcc.SkccException.#ctor(System.String,System.Int32,System.Exception)">
+            <summary>
+            SkccException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+            <param name="code">예외 코드</param>
+            <param name="innerException">Inner Exception</param>
+        </member>
+        <member name="M:Skcc.SkccException.#ctor(System.Int32)">
+            <summary>
+            SkccException 객체를 생성한다.
+            예외 코드에 따른 예외 메세지를 읽어오는 생성자
+            </summary>
+            <param name="code">예외 코드</param>
+        </member>
+        <member name="M:Skcc.SkccException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            SkccException 객체를 deserialize를 통해 생성한다.
+            </summary>
+            <param name="info">Serialize된 객체의 데이터</param>
+            <param name="context">Context 정보</param>
+        </member>
+        <member name="M:Skcc.SkccException.System#Runtime#Serialization#ISerializable#GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            객체를 Serialize하는데 사용하는 메소드
+            </summary>
+            <param name="info">Serialize된 객체의 데이터</param>
+            <param name="context">Context 정보</param>
+        </member>
+        <member name="P:Skcc.SkccException.Code">
+            <summary>
+            오류 코드
+            </summary>
+        </member>
+        <member name="P:Skcc.SkccException.Message">
+            <summary>
+            code를 message에 추가하기 위해 Message property에 대한 재정의
+            </summary>
+        </member>
+        <member name="M:Skcc.Security.AuthorizationException.#ctor">
+            <summary>
+            ConfigurationException 객체를 생성한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Security.AuthorizationException.#ctor(System.String)">
+            <summary>
+            ConfigurationException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+        </member>
+        <member name="M:Skcc.Security.AuthorizationException.#ctor(System.String,System.Exception)">
+            <summary>
+            ConfigurationException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+            <param name="innerException">Inner Exception</param>
+        </member>
+        <member name="M:Skcc.Security.AuthorizationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            ConfigurationException 객체를 생성한다.
+            </summary>
+            <param name="info">Serialize된 객체의 데이터</param>
+            <param name="context">Context 정보</param>
+        </member>
+        <member name="M:Skcc.Security.AuthorizationException.#ctor(System.String,System.Int32)">
+            <summary>
+            SkccException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+            <param name="code">예외 코드</param>
+        </member>
+        <member name="M:Skcc.Security.AuthorizationException.#ctor(System.String,System.Int32,System.Exception)">
+            <summary>
+            ConfigurationException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+            <param name="code">예외 코드</param>
+            <param name="innerException">Inner Exception</param>
+        </member>
+        <member name="T:Skcc.Diagnostics.LogWrapper">
+            <summary>
+            EntLib 4.0의 Logging Application Block의 Wrapper class
+            </summary>
+            <remarks>
+            Enterprise Library 4.0 기반의 Logging Application Block에 대한 Wrapper로서 
+            Write 메소드에 대한 다양한 overload를 제공한다.
+            </remarks>
+            <example>
+            사용예는 아래와 같다.
+            <code>
+            LogWrapper.Write("This error message is a test");
+            LogWrapper.Write("testMsg", "GeneralCategory");
+            </code>
+            </example>
+        </member>
+        <member name="M:Skcc.Diagnostics.LogWrapper.Write(System.String)">
+            <summary>
+            Log 출력 메쏘드
+            </summary>
+            <param name="message">에러 메세지</param>
+        </member>
+        <member name="M:Skcc.Diagnostics.LogWrapper.Write(System.String,System.String)">
+            <summary>
+            Log 출력 메쏘드
+            </summary>
+            <param name="message">에러 메세지</param>
+            <param name="category">분류</param>
+        </member>
+        <member name="M:Skcc.Diagnostics.LogWrapper.Write(System.String,System.String,System.Diagnostics.TraceEventType)">
+            <summary>
+            Log 출력 메쏘드
+            </summary>
+            <param name="message">에러 메세지</param>
+            <param name="category">분류</param>
+            <param name="severity">위험도(error,warning, criticla 등)</param>
+        </member>
+        <member name="M:Skcc.Diagnostics.LogWrapper.Write(System.String,System.Diagnostics.TraceEventType)">
+            <summary>
+            Log 출력 메쏘드
+            </summary>
+            <param name="message">에러 메세지</param>
+            <param name="severity">위험도(error,warning</param>
+        </member>
+        <member name="M:Skcc.Diagnostics.LogWrapper.Write(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Log 출력 메쏘드
+            </summary>
+            <param name="message">에러 메세지</param>
+            <param name="category">분류</param>
+            <param name="properties">추가 속성</param>
+        </member>
+        <member name="M:Skcc.Diagnostics.LogWrapper.Write(System.String,System.Collections.Generic.ICollection{System.String})">
+            <summary>
+            Log 출력 메쏘드
+            </summary>
+            <param name="message">에러 메세지</param>
+            <param name="categories">분류</param>
+        </member>
+        <member name="M:Skcc.Diagnostics.LogWrapper.Write(System.String,System.Collections.Generic.ICollection{System.String},System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Log 출력 메쏘드
+            </summary>
+            <param name="message">에러 메세지</param>
+            <param name="categories">분류</param>
+            <param name="properties">추가 속성</param>
+        </member>
+        <member name="M:Skcc.Diagnostics.LogWrapper.Write(System.String,System.Collections.Generic.ICollection{System.String},System.Int32,System.Int32,System.Diagnostics.TraceEventType)">
+            <summary>
+            Log 출력 메쏘드
+            </summary>
+            <param name="message">에러 메세지</param>
+            <param name="categories">분류</param>
+            <param name="priority">우선순위</param>
+            <param name="eventid">이벤트 아이디</param>
+            <param name="severity">심각도</param>
+        </member>
+        <member name="M:Skcc.Diagnostics.LogWrapper.Write(System.String,System.Collections.Generic.ICollection{System.String},System.Int32,System.Int32,System.Diagnostics.TraceEventType,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Log 출력 메쏘드
+            </summary>
+            <param name="message">에러 메세지</param>
+            <param name="categories">분류</param>
+            <param name="priority">우선순위</param>
+            <param name="eventid">이벤트 아이디</param>
+            <param name="severity">심각도</param>
+            <param name="title">메세지 추가 설명</param>
+            <param name="properties">추가 속성</param>
+        </member>
+        <member name="M:Skcc.Diagnostics.Logger.This">
+            <summary>
+            자기 자신을 반환 하는 Method
+            </summary>
+            <returns>Singleton Logger를 반환 한다.</returns>
+        </member>
+        <member name="M:Skcc.Diagnostics.Logger.Write(System.String)">
+            <summary>
+            Log 출력 메쏘드
+            </summary>
+            <param name="message">에러 메세지</param>
+        </member>
+        <member name="M:Skcc.Diagnostics.Logger.Write(System.String,System.String)">
+            <summary>
+            Log 출력 메쏘드
+            </summary>
+            <param name="message">에러 메세지</param>
+            <param name="category">분류</param>
+        </member>
+        <member name="T:Skcc.Security.Cryptography.CryptoWrapper">
+            <summary>
+            EntLib 4.0의 Crypto Application Block의 Wrapper class
+            </summary>
+            <remarks>
+            Enterprise Library 4.0 기반의 Cryptography Application Block에 대한 Wrapper로서 
+            EncryptSymmetric, DecryptSymmetric, CreateHash, CompareHash 메서드를 제공한다.
+            </remarks>
+            <example>
+            Symmetric 암/복호화 테스트
+            string input = "테스트 문자열";
+            string Enresult = CrpytoWrapper.EncryptSymmetric("RijndaelManaged", input);
+            string Deresult = CrpytoWrapper.DecryptSymmetric("RijndaelManaged", Enresult);
+            해슁 테스트
+            string text = "테스트 텍스트";
+            string hash = CrpytoWrapper.CreateHash("SHA256Managed", text);
+            bool result = CrpytoWrapper.CompareHash("SHA256Managed", text, hash);
+            </example>
+        </member>
+        <member name="M:Skcc.Security.Cryptography.CryptoWrapper.EncryptSymmetric(System.String,System.String)">
+            <summary>
+            지정된 symmetric 프로바이더를 이용해서 해당 문자열을 암호화한다.
+            </summary>
+            <param name="symmetricInstance">symmetric 프로바이더</param>
+            <param name="plaintext">암호화할 문자열(base64 인코딩된 문자열)</param>
+            <returns>암호화된 문자열(base64 인코딩된 문자열)</returns>
+        </member>
+        <member name="M:Skcc.Security.Cryptography.CryptoWrapper.EncryptSymmetric(System.String,System.Byte[])">
+            <summary>
+            지정된 symmetric 프로바이더를 이용해서 해당 바이트 배열을 암호화한다.
+            </summary>
+            <param name="symmetricInstance">symmetric 프로바이더</param>
+            <param name="plaintext">암호화할 바이트 배열(base64 인코딩된 바이트 배열)</param>
+            <returns>암호화된 바이트 배열(base64 인코딩된 바이트 배열)</returns>
+        </member>
+        <member name="M:Skcc.Security.Cryptography.CryptoWrapper.DecryptSymmetric(System.String,System.String)">
+            <summary>
+            지정된 symmetric 프로바이더를 이용해서 해당 문자열을 복호화한다.
+            </summary>
+            <param name="symmetricInstance">symmetric 프로바이더</param>
+            <param name="ciphertextBase64">복호화할 문자열(base64 인코딩된 문자열)</param>
+            <returns>복호화된 문자열</returns>
+        </member>
+        <member name="M:Skcc.Security.Cryptography.CryptoWrapper.DecryptSymmetric(System.String,System.Byte[])">
+            <summary>
+            지정된 symmetric 프로바이더를 이용해서 해당 문자열을 복호화한다.
+            </summary>
+            <param name="symmetricInstance">symmetric 프로바이더</param>
+            <param name="ciphertextBase64">복호화할 바이트 배열(base64 인코딩된 바이트 배열)</param>
+            <returns>복호화된 바이트 배열</returns>
+        </member>
+        <member name="M:Skcc.Security.Cryptography.CryptoWrapper.CreateHash(System.String,System.String)">
+            <summary>
+            주어진 해쉬 프로바이더를 이용해서 plaintext의 해쉬 값을 계산한다.
+            </summary>
+            <param name="hashInstance">해쉬 프로바이더</param>
+            <param name="plaintext">해쉬 값을 계산할 문자열</param>
+            <returns>계산된 해쉬 값(문자열)</returns>
+        </member>
+        <member name="M:Skcc.Security.Cryptography.CryptoWrapper.CreateHash(System.String,System.Byte[])">
+            <summary>
+            주어진 해쉬 프로바이더를 이용해서 plaintext의 해쉬 값을 계산한다.
+            </summary>
+            <param name="hashInstance">해쉬 프로바이더</param>
+            <param name="plaintext">해쉬 값을 계산할 바이트 배열</param>
+            <returns>계산된 해쉬 값(바이트 배열)</returns>
+        </member>
+        <member name="M:Skcc.Security.Cryptography.CryptoWrapper.CompareHash(System.String,System.String,System.String)">
+            <summary>
+            주어진 해쉬 프로바이더를 이용해서 입력된 텍스트와 해쉬 값을 비교
+            </summary>
+            <param name="hashInstance">해쉬 프로바이더</param>
+            <param name="plaintext">텍스트</param>
+            <param name="hashedText">해쉬값</param>
+            <returns></returns>
+        </member>
+        <member name="M:Skcc.Security.Cryptography.CryptoWrapper.CompareHash(System.String,System.Byte[],System.Byte[])">
+            <summary>
+            주어진 해쉬 프로바이더를 이용해서 입력된 텍스트와 해쉬 값을 비교(바이트 배열)
+            </summary>
+            <param name="hashInstance">해쉬 프로바이더</param>
+            <param name="plaintext">텍스트(바이트 배열)</param>
+            <param name="hashedText">해쉬값(바이트 배열)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Skcc.Security.Cryptography.CryptoWrapper.ChangePassword(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="password"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Skcc.Security.Cryptography.CryptoWrapper.EncryptString(System.String)">
+            <summary>
+            Rihndael을 이용한 단순 String 암호화, EncryptKey를 config에 구성해야 함.
+            </summary>
+            <param name="InputText">암호화할 문자열</param>
+            <returns>암호화된 문자열</returns>
+        </member>
+        <member name="M:Skcc.Security.Cryptography.CryptoWrapper.EncryptString(System.String,System.String)">
+            <summary>
+            Rihndael을 이용한 단순 String 암호화
+            </summary>
+            <param name="InputText">암호화할 문자열</param>
+            <param name="EncryptKey">암호화 Key</param>
+            <returns>암호화된 문자열</returns>
+        </member>
+        <member name="M:Skcc.Security.Cryptography.CryptoWrapper.DecryptString(System.String)">
+            <summary>
+            Rihndael을 이용한 단순 String 복호화, EncryptKey를 config에 구성해야 함.
+            </summary>
+            <param name="InputText">복호화할 문자열</param>
+            <returns>복호화된 문자열</returns>
+        </member>
+        <member name="M:Skcc.Security.Cryptography.CryptoWrapper.DecryptString(System.String,System.String)">
+            <summary>
+            Rihndael을 이용한 단순 String 복호화.
+            </summary>
+            <param name="InputText">복호화할 문자열</param>
+            <param name="EncryptKey">복호화 key</param>
+            <returns>복호화된 문자열</returns>
+        </member>
+        <member name="T:Skcc.Security.UserInfoContext">
+            <summary>
+            UserInfoContext 클래스는 사용자 정보를 포함하는 Remoting CallContext로서
+            호출한 사용자의 정보를 담고 있다.
+            </summary>
+            <remarks>
+            이 클래스는 사용자 ID 정보를 비롯하여 사용자 정보를 담는 일반적인 사용자 정보
+            컨테이너 클래스이다. 인스턴스의 인덱서를 사용하여 사용자 정보를 설정하거나
+            읽을 수 있으며 이 클래스는 버전에 무관한 Serailize/Deserialize를 제공하기 때문에
+            인증 여부(로그온 여부)를 판단하는데도 사용될 수 있다.<br/>
+            예를 들어, 웹 서비스 호출에 UserInfoContext 인스턴스의 Serialize 된 결과 문자열을
+            전송함으로써 서버측에서 성공적으로 UserInfoContext를 Deserialize 한다면
+            인증된 호출로 판단할 수 있는 것이다.<br/>
+            UserInfoContext 클래스는 ILogicalThreadAffinative 인터페이스를 구현하는
+            LogicalCallContext 객체이다. 이 클래스는 Remoting 메소드 호출/반환마다 serialize 되어
+            호출 메시지에 포함된다.<br/>
+            이 클래스를 상속 받는 경우, 상속한 클래스는 반드시 Serializable 어트리뷰트가
+            명시 되어야 한다.
+            <br/><br/>
+            UserInfoContext, 혹은 그 파생 클래스는 .NET Remoting 호출에만 자동으로 그 정보가
+            전달된다. XML 웹 서비스를 사용하는 경우, 그 정보를 SOAP 메시지에 포함시키기 위해서는
+            쿠키, SOAP 메시지 헤더, HTTP 세팅 등의 다양한 기법을 사용해야 한다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Security.UserInfoContext.#ctor">
+            <summary>
+            내부 Deserialize 용 생성자
+            </summary>
+        </member>
+        <member name="M:Skcc.Security.UserInfoContext.#ctor(System.String)">
+            <summary>
+            UserInfoContext 객체를 생성하고 사용자 ID를 설정한다.
+            </summary>
+            <param name="userID">CallContext에 기록할 사용자 ID</param>
+        </member>
+        <member name="M:Skcc.Security.UserInfoContext.GetValue``1(System.String)">
+             <summary>
+             GetItem
+             </summary>
+             <typeparam name="T">Casting 타입</typeparam>
+            <param name="key">사용자 정보 key 값</param>
+             <returns>사용자 정보 value 값</returns>
+        </member>
+        <member name="M:Skcc.Security.UserInfoContext.ContainsKey(System.String)">
+            <summary>
+            key값이 존재하는지 여부 확인
+            </summary>
+            <param name="key"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Skcc.Security.UserInfoContext.SetCallContext">
+            <summary>
+            UserInfoContext 객체를 CallContext에 설정한다.
+            </summary>
+            <remarks>
+            사용되는 디폴트 CallContext 키는 __context_userid 이다.
+            <br/><br/>
+            CallContext에 설정된 사용자 정보는 thread 범위에서 고정적으로
+            설정/유지된다. 그러나 다른 스레드에는 영향을 주지 않는다.
+            주의할 점은 ASP .NET은 스레드 풀링을 사용하고 페이지의 처리를
+            어떤 스레드가 수행할 것인지 미리 알 수 없다는 점을 유의해야 한다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Security.UserInfoContext.SetThreadPrincipal">
+            <summary>
+            주어진 사용자 ID를 이용하여 스레드의 Principal 객체를 설정한다.
+            </summary>
+            <example>
+            string userID = txtUserID.Text;
+            string password = txtPassword.Text;
+            
+            if (DoAuth(userID, password) == true) {
+                UserInfoContext userCtx = new UserInfoContext(userID);
+                userCtx.SetThreadPrincipal();
+            }
+            // 이제 언제든지 UserInfoContext.GetUserInfoContext() 메쏘드를 호출하여
+            // 사용자 정보 UserInfo를 얻을 수 있다. 
+            </example>
+        </member>
+        <member name="M:Skcc.Security.UserInfoContext.GetUserInfoContext">
+            <summary>
+            CallContext로 부터 UserInfoContext 객체를 읽는다.
+            </summary>
+            <returns>CallContext에 기록된 UserInfoContext 객체</returns>
+        </member>
+        <member name="M:Skcc.Security.UserInfoContext.ClearCallContext">
+            <summary>
+            CallContext 정보를 클리어 한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Security.UserInfoContext.ClearThreadPrincipal">
+            <summary>
+            Thread의 Principal을 제거 한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Security.UserInfoContext.Serialize(Skcc.Security.UserInfoContext)">
+            <summary>
+            UserContextInfo 정보를 문자열로 Serialize 한다.
+            </summary>
+            <param name="ctx">Serialize 할 UserContextInfo 객체 혹은 파생 클래스의 객체</param>
+            <returns>Serialize 된 문자열</returns>
+        </member>
+        <member name="M:Skcc.Security.UserInfoContext.Deserialize(System.String)">
+            <summary>
+            문자열로부터 UserInfoContext 정보를 Deserialize 한다.
+            </summary>
+            <param name="authInfoString">Deserialize 할 문자열</param>
+            <returns>Deserialize 된 UserInfoContext 객체 혹은 그 파생 클래스의 객체</returns>
+        </member>
+        <member name="M:Skcc.Security.UserInfoContext.VersionIndependantSerialize(Skcc.Security.UserInfoContext)">
+            <summary>
+            프레임워크 버전에 무관하게 문자열로 Serailize 한다. 즉, BinaryFormatter를 사용하지 않고
+            Serailize를 수행한다. Value 값이 string 인 경우에만 사용하여야 한다.
+            </summary>
+            <returns>Serilize된 결과 문자열</returns>
+        </member>
+        <member name="M:Skcc.Security.UserInfoContext.VersionIndependantDeserialize(System.String)">
+            <summary>
+            프레임워크 버전에 무관하게 serialize된 문자열로부터 UserInfoContext 객체를
+            Deserialize 한다. 즉, BinaryFormatter를 사용하지 않고 Deserialize를 수행한다.
+            Value 값이 string 인 경우에만 사용하여야 한다.
+            </summary>
+            <param name="data">버전에 무관하게 serailize 된 문자열</param>
+            <returns>Deserialize된 결과 UserInfoContext 객체</returns>
+        </member>
+        <member name="M:Skcc.Security.UserInfoContext.ToString">
+            <summary>
+            ToString()을 오버라이드함. 사용자 정보를 키/값 쌍으로 표시한다.
+            </summary>
+            <returns>사용자 정보에 대한 키/값 쌍</returns>
+        </member>
+        <member name="M:Skcc.Security.UserInfoContext.SetCallContext(System.String)">
+            <summary>
+            UserInfoContext 객체를 CallContext에 설정한다.
+            </summary>
+            <remarks>
+            CallContext에 설정된 사용자 정보는 thread 범위에서 고정적으로
+            설정/유지된다. 그러나 다른 스레드에는 영향을 주지 않는다.
+            주의할 점은 ASP .NET은 스레드 풀링을 사용하고 페이지의 처리를
+            어떤 스레드가 수행할 것인지 미리 알 수 없다는 점을 유의해야 한다.
+            </remarks>
+            <param name="key">CallContext에 저장될 키</param>
+        </member>
+        <member name="M:Skcc.Security.UserInfoContext.GetUserInfoContext(System.String)">
+            <summary>
+            CallContext로 부터 UserInfoContext 객체를 읽는다.
+            </summary>
+            <param name="key">UserInfoContext 객체에 대한 키</param>
+            <returns>CallContext에 기록된 UserInfoContext 객체</returns>
+        </member>
+        <member name="P:Skcc.Security.UserInfoContext.UserID">
+            <summary>
+            사용자 ID를 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Security.UserInfoContext.Item(System.String)">
+            <summary>
+            주어진 키의 사용자 정보 데이터를 읽거나 설정한다.
+            </summary>
+        </member>
+        <member name="T:Skcc.Connector.IConnector">
+            <summary>
+            Services Layer를 위한 인터페이스
+            </summary>
+            <remarks>
+            WebServiceBase 클래스를 위한 인터페이스로 향후 확장점을 위해 만들었다
+            Remoting 사용시 REmoting 서버가 IConnector 인터페이스를 상속을 받아 Invoke 메소드를 구현하면 된다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Connector.IConnector.InvokeMethod(System.String,System.String,System.String,System.Object[])">
+            <summary>
+            Biz 어셈블리의 메소드를 찾아 호출해 주는 메소드 (Generic)
+            </summary>
+            <param name="assemblyName">Biz 어셈블리명</param>
+            <param name="typeName">Biz 클래스명</param>
+            <param name="methodName">Biz 메소드명</param>
+            <param name="param">파라미터로 객체의 배열</param>
+            <returns>결과 객체</returns>
+        </member>
+        <member name="M:Skcc.Connector.IConnector.InvokeMethod(System.String,System.String,System.String,System.Data.DataSet)">
+            <summary>
+            Biz 어셈블리의 메소드를 찾아 호출해 주는 메소드 (CUD의 경우)
+            </summary>
+            <param name="assemblyName">Biz 어셈블리명</param>
+            <param name="typeName">Biz 클래스명</param>
+            <param name="methodName">Biz 메소드명</param>
+            <param name="ds">파라미터로 DataSet</param>
+            <returns>결과 객체</returns>
+        </member>
+        <member name="T:Skcc.Configuration.ConfigManager">
+            <summary>
+            Configuration 정보를 관리하기 위한 클래스
+            </summary>
+            <remarks>
+            프레임워크에서 사용하는 configuration 정보를 관리하기 위한 static 클래스로 
+            static constructor에서 Configuration 값을 일괄적으로 NameTypeCollection에 넣은 후 
+            static 메소드를 통해서 값을 제공한다.
+            </remarks>
+            <example>
+            다음 코드는 ConfigManager를 이용해 integer 값을 가져오는 예제이다.
+            지원되는 return type은 integer, string, double 등이다.
+            <code>
+            int j = ConfigManager.GetInt32("file1");
+            string path = ConfigManager.GetString("file2");
+            </code>
+            </example>
+        </member>
+        <member name="M:Skcc.Configuration.ConfigManager.GetString(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            </summary>
+            <param name="name">이름</param>
+            <returns>string 값</returns>
+        </member>
+        <member name="M:Skcc.Configuration.ConfigManager.TryGetString(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            Key 값이 없는 경우 Exception을 return 하지 않고 empty string를 return
+            </summary>
+            <param name="name">이름</param>
+            <returns>string 값</returns>
+        </member>
+        <member name="M:Skcc.Configuration.ConfigManager.GetInt32(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            </summary>
+            <param name="name">이름</param>
+            <returns>integer 값</returns>
+        </member>
+        <member name="M:Skcc.Configuration.ConfigManager.TryGetInt32(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            Key 값이 없는 경우 Exception을 return 하지 않고 0를 return
+            </summary>
+            <param name="name">이름</param>
+            <returns>integer 값</returns>
+        </member>
+        <member name="M:Skcc.Configuration.ConfigManager.GetDouble(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            </summary>
+            <param name="name">이름</param>
+            <returns>double 값</returns>
+        </member>
+        <member name="M:Skcc.Configuration.ConfigManager.TryGetDouble(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            Key 값이 없는 경우 Exception을 return 하지 않고 0를 return
+            </summary>
+            <param name="name">이름</param>
+            <returns>double 값</returns>
+        </member>
+        <member name="M:Skcc.Configuration.ConfigManager.GetBoolean(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            </summary>
+            <param name="name">이름</param>
+            <returns>bool 값</returns> 
+        </member>
+        <member name="M:Skcc.Configuration.ConfigManager.TryGetBoolean(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            Key 값이 없는 경우 Exception을 return 하지 않고 false를 return 
+            </summary>
+            <param name="name">이름</param>
+            <returns>bool 값</returns> 
+        </member>
+        <member name="M:Skcc.Configuration.ConfigManager.GetParameters">
+            <summary>
+            모든 Key, value를 반환한다.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:Skcc.Configuration.ConfigManager._nexcoreCollection">
+            <summary>
+            NEXCORE configuration에 대한 collection property
+            </summary>
+        </member>
+        <member name="T:Skcc.Configuration.SkccFxConfigManager">
+            <summary>
+            SkccFramework Configuration 정보를 관리하기 위한 클래스
+            </summary>
+            <remarks>
+            SkccFramework에서 사용하는 configuration 정보를 관리하기 위한 static 클래스로 
+            static constructor에서 Configuration 값을 일괄적으로 NameTypeCollection에 넣은 후 
+            static 메소드를 통해서 값을 제공한다.
+            </remarks>
+            <example>
+            다음 코드는 SkccFxConfigManager를 이용해 integer 값을 가져오는 예제이다.
+            지원되는 return type은 integer, string, double 등이다.
+            <code>
+            int j = SkccFxConfigManager.GetInt32("file1");
+            string path = SkccFxConfigManager.GetString("file2");
+            </code>
+            </example>
+        </member>
+        <member name="M:Skcc.Configuration.SkccFxConfigManager.GetString(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            </summary>
+            <param name="name">이름</param>
+            <returns>string 값</returns>
+        </member>
+        <member name="M:Skcc.Configuration.SkccFxConfigManager.TryGetString(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            Key 값이 없는 경우 Exception을 return 하지 않고 empty string를 return
+            </summary>
+            <param name="name">이름</param>
+            <returns>string 값</returns>
+        </member>
+        <member name="M:Skcc.Configuration.SkccFxConfigManager.GetInt32(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            </summary>
+            <param name="name">이름</param>
+            <returns>integer 값</returns>
+        </member>
+        <member name="M:Skcc.Configuration.SkccFxConfigManager.TryGetInt32(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            Key 값이 없는 경우 Exception을 return 하지 않고 0를 return
+            </summary>
+            <param name="name">이름</param>
+            <returns>integer 값</returns>
+        </member>
+        <member name="M:Skcc.Configuration.SkccFxConfigManager.GetDouble(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            </summary>
+            <param name="name">이름</param>
+            <returns>double 값</returns>
+        </member>
+        <member name="M:Skcc.Configuration.SkccFxConfigManager.TryGetDouble(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            Key 값이 없는 경우 Exception을 return 하지 않고 0를 return
+            </summary>
+            <param name="name">이름</param>
+            <returns>double 값</returns>
+        </member>
+        <member name="M:Skcc.Configuration.SkccFxConfigManager.GetBoolean(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            </summary>
+            <param name="name">이름</param>
+            <returns>bool 값</returns> 
+        </member>
+        <member name="M:Skcc.Configuration.SkccFxConfigManager.TryGetBoolean(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            Key 값이 없는 경우 Exception을 return 하지 않고 false를 return 
+            </summary>
+            <param name="name">이름</param>
+            <returns>bool 값</returns> 
+        </member>
+        <member name="M:Skcc.Configuration.SkccFxConfigManager.GetParameters">
+            <summary>
+            모든 Key, value를 반환한다.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="F:Skcc.Configuration.SkccFxConfigManager._SkFrameworkCollection">
+            <summary>
+            skccFramework configuration에 대한 collection property
+            </summary>
+        </member>
+        <member name="T:Skcc.Configuration.CustomConfigManager">
+            <summary>
+            Custom Configuration 정보를 관리하기 위한 클래스
+            </summary>
+            <remarks>
+            Custom Configuration 정보를 관리하기 위한 static 클래스로 
+            static constructor에서 Configuration 값을 일괄적으로 NameTypeCollection에 넣은 후 
+            static 메소드를 통해서 값을 제공한다.
+            </remarks>
+            <example>
+            다음 코드는 CustomConfigManager를 이용해 integer 값을 가져오는 예제이다.
+            지원되는 return type은 integer, string, double 등이다.
+            <code>
+            int i = CustomConfigManager.GetInt32("file1");
+            string connStr = CustomConfigManager.GetConnection("conn1");
+            </code>
+            </example>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigManager.GetConnection(System.String)">
+            <summary>
+            Connection 정보를 가져오는 메소드
+            </summary>
+            <param name="name">이름</param>
+            <returns>connectionstring</returns>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigManager.GetString(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            </summary>
+            <param name="name">이름</param>
+            <returns>string 값</returns>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigManager.GetInt32(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            </summary>
+            <param name="name">이름</param>
+            <returns>integer 값</returns>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigManager.GetDouble(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            </summary>
+            <param name="name">이름</param>
+            <returns>double 값</returns>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigManager.GetBoolean(System.String)">
+            <summary>
+            configuration 값을 반환하는 메소드
+            </summary>
+            <param name="name">이름</param>
+            <returns>bool 값</returns> 
+        </member>
+        <member name="F:Skcc.Configuration.CustomConfigManager._CustomCollection">
+            <summary>
+            custom configuration에 대한 collection property
+            </summary>
+        </member>
+        <member name="F:Skcc.Configuration.CustomConfigManager._ConnCollection">
+            <summary>
+            connectionString configuration에 대한 collection property
+            </summary>
+        </member>
+        <member name="T:Skcc.Configuration.CustomConfigData">
+            <summary>
+            Configuration object for Custom Providers.
+            </summary>
+        </member>
+        <member name="T:Skcc.Configuration.CustomConfigDataBase">
+            <summary>
+            skccFramework의 SkccFrameworkData 데이터에 매핑되는 클래스
+            </summary>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigDataBase.#ctor">
+            <summary>
+            CustomData의 기본 생성자
+            </summary>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigDataBase.#ctor(System.String,System.String,System.String)">
+            <summary>
+            CustomData 생성자
+            </summary>
+            <param name="name">이름</param>
+            <param name="value">값</param>
+            <param name="type">타입</param>
+        </member>
+        <member name="P:Skcc.Configuration.CustomConfigDataBase.CustomValue">
+            <summary>
+            CustomData의 Value에 대한 property
+            </summary>
+        </member>
+        <member name="P:Skcc.Configuration.CustomConfigDataBase.CustomType">
+            <summary>
+            CustomData의 Type에 대한 property
+            </summary>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigData.#ctor">
+            <summary>
+            Initializes with default values.
+            </summary>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigData.#ctor(System.String,System.Type)">
+            <summary>
+            Initializes with name and provider type.
+            </summary>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigData.#ctor(System.String,System.String)">
+            <summary>
+            Initializes with name and provider type.
+            </summary>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigData.SetAttributeValue(System.String,System.String)">
+            <summary>
+            Sets the attribute value for a key.
+            </summary>
+            <param name="key">The attribute name.</param>
+            <param name="value">The attribute value.</param>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigData.Unmerge(System.Configuration.ConfigurationElement,System.Configuration.ConfigurationElement,System.Configuration.ConfigurationSaveMode)">
+            <summary>
+            Modifies the <see cref="!:CustomCacheManagerData"/> object to remove all values that should not be saved. 
+            </summary>
+            <param name="sourceElement">A <see cref="T:System.Configuration.ConfigurationElement"/> object at the current level containing a merged view of the properties.</param>
+            <param name="parentElement">A parent <see cref="T:System.Configuration.ConfigurationElement"/> object or <see langword="null"/> if this is the top level.</param>		
+            <param name="saveMode">One of the <see cref="T:System.Configuration.ConfigurationSaveMode"/> values.</param>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigData.Reset(System.Configuration.ConfigurationElement)">
+            <summary>
+            Resets the internal state of the <see cref="!:CustomCacheManagerData"/> object, 
+            including the locks and the properties collection.
+            </summary>
+            <param name="parentElement">The parent element.</param>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigData.IsModified">
+            <summary>
+            Indicates whether this configuration element has been modified since it was last 
+            saved or loaded when implemented in a derived class.
+            </summary>
+            <returns><see langword="true"/> if the element has been modified; otherwise, <see langword="false"/>. </returns>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigData.OnDeserializeUnrecognizedAttribute(System.String,System.String)">
+            <summary>
+            Called when an unknown attribute is encountered while deserializing the <see cref="!:CustomCacheManagerData"/> object.
+            </summary>
+            <param name="name">The name of the unrecognized attribute.</param>
+            <param name="value">The value of the unrecognized attribute.</param>
+            <returns><see langword="true"/> if the processing of the element should continue; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigData.Microsoft#Practices#EnterpriseLibrary#Common#Configuration#IHelperAssistedCustomConfigurationData{Skcc#Configuration#CustomConfigData}#BaseGetPropertyValue(System.Configuration.ConfigurationProperty)">
+            <summary>Invokes the inherited behavior.</summary>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigData.Microsoft#Practices#EnterpriseLibrary#Common#Configuration#IHelperAssistedCustomConfigurationData{Skcc#Configuration#CustomConfigData}#BaseSetPropertyValue(System.Configuration.ConfigurationProperty,System.Object)">
+            <summary>Invokes the inherited behavior.</summary>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigData.Microsoft#Practices#EnterpriseLibrary#Common#Configuration#IHelperAssistedCustomConfigurationData{Skcc#Configuration#CustomConfigData}#BaseUnmerge(System.Configuration.ConfigurationElement,System.Configuration.ConfigurationElement,System.Configuration.ConfigurationSaveMode)">
+            <summary>Invokes the inherited behavior.</summary>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigData.Microsoft#Practices#EnterpriseLibrary#Common#Configuration#IHelperAssistedCustomConfigurationData{Skcc#Configuration#CustomConfigData}#BaseReset(System.Configuration.ConfigurationElement)">
+            <summary>Invokes the inherited behavior.</summary>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigData.Microsoft#Practices#EnterpriseLibrary#Common#Configuration#IHelperAssistedCustomConfigurationData{Skcc#Configuration#CustomConfigData}#BaseIsModified">
+            <summary>Invokes the inherited behavior.</summary>
+        </member>
+        <member name="P:Skcc.Configuration.CustomConfigData.Attributes">
+            <summary>
+            Gets or sets custom configuration attributes.
+            </summary>        		
+        </member>
+        <member name="P:Skcc.Configuration.CustomConfigData.Properties">
+            <summary>
+            Gets a <see cref="T:System.Configuration.ConfigurationPropertyCollection"/> of the properties that are defined for 
+            this configuration element when implemented in a derived class. 
+            </summary>
+            <value>
+            A <see cref="T:System.Configuration.ConfigurationPropertyCollection"/> of the properties that are defined for this
+            configuration element when implemented in a derived class. 
+            </value>
+        </member>
+        <member name="P:Skcc.Configuration.CustomConfigData.Microsoft#Practices#EnterpriseLibrary#Common#Configuration#IHelperAssistedCustomConfigurationData{Skcc#Configuration#CustomConfigData}#Helper">
+            <summary>
+            Gets the helper.
+            </summary>
+        </member>
+        <member name="T:Skcc.Configuration.ConfigurationException">
+            <summary>
+            Configuration에 대한 Exception 클래스
+            </summary>
+            <remarks>
+            SkccException을 상속 받아 Configuration 관련 Exception을 처리하기 위해 만든 클래스로
+            SkccException에서 추가된 기능은 없으며 Exception을 구분하기 위한 클래스이다.
+            </remarks>
+            <example>
+            사용예는 아래와 같다.
+            <code>
+            throw new ConfigurationException(message, code, innerException);
+            </code>
+            </example> 
+        </member>
+        <member name="M:Skcc.Configuration.ConfigurationException.#ctor">
+            <summary>
+            ConfigurationException 객체를 생성한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Configuration.ConfigurationException.#ctor(System.String)">
+            <summary>
+            ConfigurationException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+        </member>
+        <member name="M:Skcc.Configuration.ConfigurationException.#ctor(System.String,System.Exception)">
+            <summary>
+            ConfigurationException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+            <param name="innerException">Inner Exception</param>
+        </member>
+        <member name="M:Skcc.Configuration.ConfigurationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            ConfigurationException 객체를 생성한다.
+            </summary>
+            <param name="info">Serialize된 객체의 데이터</param>
+            <param name="context">Context 정보</param>
+        </member>
+        <member name="M:Skcc.Configuration.ConfigurationException.#ctor(System.String,System.Int32)">
+            <summary>
+            SkccException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+            <param name="code">예외 코드</param>
+        </member>
+        <member name="M:Skcc.Configuration.ConfigurationException.#ctor(System.String,System.Int32,System.Exception)">
+            <summary>
+            ConfigurationException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+            <param name="code">예외 코드</param>
+            <param name="innerException">Inner Exception</param>
+        </member>
+        <member name="M:Skcc.Configuration.ConfigurationException.#ctor(System.Int32)">
+            <summary>
+            ConfigurationException 객체를 생성한다.
+            </summary>
+            <param name="Code">예외 코드</param>
+        </member>
+        <member name="T:Skcc.ExceptionPolicyWrapper">
+            <summary>
+            Enterprise Library 4.0의 Exception Policy에 대한 Wrapper 클래스
+            </summary>
+            <remarks>
+            Exception Policy의 Wrapper 클래스로 Exception 정보와 Exception Policy 명을 파라미터로 받으며
+            Exception을 처리하는 Handler는 기본적으로 다음 3가지를 제공한다.
+            <para>
+            1. Wrap Handler: Exception을 다른 Exception으로 Wrapping 한다.
+            </para>
+            <para>
+            2. Replace Handler: Exception을 다른 Exception으로 교체한다.
+            </para>
+            <para>
+            3. Logging Handler: Exception 정보에 대해서 Logging Application Block을 이용해 Log를 남긴다.
+            </para>
+            </remarks>
+            <example>
+            사용예는 다음과 같다. 
+            <code>
+            bool flag = ExceptionPolicyWrapper.HandleException(ex, "SkccPolicy");
+            </code>
+            </example>
+        </member>
+        <member name="M:Skcc.ExceptionPolicyWrapper.HandleException(System.Exception,System.String)">
+            <summary>
+            ExceptionPolicy 클래스에 대한 wrapper
+            </summary>
+            <param name="ex">처리할 Exception</param>
+            <param name="policyName">Configuration의 Policy Name</param>
+            <returns></returns>
+        </member>
+        <member name="T:Skcc.Configuration.CustomConfigSettings">
+            <summary>
+            skccFramework의 SkccFrameworkConfiguration Section에 매핑되는 클래스
+            </summary>
+        </member>
+        <member name="F:Skcc.Configuration.CustomConfigSettings.SectionName">
+            <summary>
+            CustomConfigSettings 클래스와 매핑되는 Configuration Section 이름
+            </summary>
+        </member>
+        <member name="M:Skcc.Configuration.CustomConfigSettings.GetCustomSettings(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource)">
+            <summary>
+            Configuration 정보로 부터 Section 정보를 읽어서 매핑되는 클래스를 반환하는 메소드
+            </summary>
+            <param name="configurationSource">Configuration 정보를 읽어올 수 있는 소스</param>
+            <returns>CustomConfigSettings 클래스의 객체</returns>
+        </member>
+        <member name="P:Skcc.Configuration.CustomConfigSettings.CustomProviders">
+            <summary>
+            Configuration Section 정보의 하위 데이터를 읽어서 CustomData의 컬렉션을 만든 후 반환하는 메소드
+            여기서 CustomProviderProperty가 하위 데이터의 노드명이다.
+            </summary>
+        </member>
+        <member name="T:Skcc.Configuration.NEXCOREConfigSettings">
+            <summary>
+            NEXCORE의 nexcoreConfiguration Section에 매핑되는 클래스
+            </summary>
+        </member>
+        <member name="F:Skcc.Configuration.NEXCOREConfigSettings.SectionName">
+            <summary>
+            CustomConfigSettings 클래스와 매핑되는 Configuration Section 이름
+            </summary>
+        </member>
+        <member name="M:Skcc.Configuration.NEXCOREConfigSettings.GetCustomSettings(Microsoft.Practices.EnterpriseLibrary.Common.Configuration.IConfigurationSource)">
+            <summary>
+            Configuration 정보로 부터 Section 정보를 읽어서 매핑되는 클래스를 반환하는 메소드
+            </summary>
+            <param name="configurationSource">Configuration 정보를 읽어올 수 있는 소스</param>
+            <returns>CustomConfigSettings 클래스의 객체</returns>
+        </member>
+        <member name="P:Skcc.Configuration.NEXCOREConfigSettings.CustomProviders">
+            <summary>
+            Configuration Section 정보의 하위 데이터를 읽어서 CustomData의 컬렉션을 만든 후 반환하는 메소드
+            여기서 CustomProviderProperty가 하위 데이터의 노드명이다.
+            </summary>
+        </member>
+        <member name="T:Skcc.Properties.Resources">
+            <summary>
+              지역화된 문자열 등을 찾기 위한 강력한 형식의 리소스 클래스입니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Properties.Resources.ResourceManager">
+            <summary>
+              이 클래스에서 사용하는 캐시된 ResourceManager 인스턴스를 반환합니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Properties.Resources.Culture">
+            <summary>
+              이 강력한 형식의 리소스 클래스를 사용하여 모든 리소스 조회에 대한 현재 스레드의 CurrentUICulture
+              속성을 재정의합니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Properties.Resources.ConfigurationReadErrorMsg">
+            <summary>
+              설정 정보를 읽어올 수 없습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="M:Skcc.IoC.ContextManager.GetObjectList">
+            <summary>
+            모든 Object List를 Context에 상관 없이, 모두 가져 온다.
+            </summary>
+            <returns>Object Name List</returns>
+        </member>
+        <member name="M:Skcc.IoC.ContextManager.GetObjectList(System.String)">
+            <summary>
+            Object List를 Context별로 가져 온다.
+            </summary>
+            <param name="context">Context Name</param>
+            <returns>Object Name List</returns>
+        </member>
+        <member name="M:Skcc.IoC.ContextManager.GetContextList">
+            <summary>
+            Root Context를 포함한 모든 Context를 가져 온다.
+            </summary>
+            <returns>Context Name List</returns>
+        </member>
+        <member name="M:Skcc.IoC.ContextManager.GetChildContextList(System.String)">
+            <summary>
+            인자로 넘어 온 Context에 포함되는 하위 Context 를 가져 온다.
+            </summary>
+            <param name="parentContext">Parent Context Name</param>
+            <returns>Child Context Name List</returns>
+        </member>
+        <member name="M:Skcc.IoC.ContextManager.GetRootContext">
+            <summary>
+            Root Context의 이름을 가져 온다.
+            </summary>
+            <returns>Root Context Name</returns>
+        </member>
+        <member name="F:Skcc.IoC.Parser.FileName">
+            <summary>
+            App.Config, Web.Config File의 Full Name
+            </summary>
+        </member>
+        <member name="F:Skcc.IoC.Parser.Doc">
+            <summary>
+            App.Config, Web.Config File을 Loading 한다.
+            </summary>
+        </member>
+        <member name="F:Skcc.IoC.Parser.rootContextName">
+            <summary>
+            Root Context Name은 초기화 후에 Global 변수에서 저장 한다.
+            </summary>
+        </member>
+        <member name="F:Skcc.IoC.Parser.dicXmlObjectFactory">
+            <summary>
+            string : FileName
+            XmlObjectFactory : object Factory
+            </summary>
+        </member>
+        <member name="F:Skcc.IoC.Parser.dicChildContext">
+            <summary>
+            string : ContextName
+            string : ParentContextName
+            </summary>
+        </member>
+        <member name="F:Skcc.IoC.Parser.dicContextResource">
+            <summary>
+            string : FileName
+            string : ContextName
+            </summary>
+        </member>
+        <member name="F:Skcc.IoC.Parser.dicXmlDocumentList">
+            <summary>
+            string : fileName
+            string : XmlDocument
+            </summary>
+        </member>
+        <member name="F:Skcc.IoC.Parser.resourceFileList">
+            <summary>
+            모든 Object Resource File을 관리 한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.IoC.Parser.LoadParser(System.String)">
+            <summary>
+            File(Web.Config, App.Config) Full Name을 통해 IoC Config 정보를 읽는다.
+            </summary>
+            <param name="fileName">Full Name of Config File</param>
+            
+        </member>
+        <member name="M:Skcc.IoC.Parser.Init">
+            <summary>
+            Resource File 정보 읽기, Context 관계 정리, Object Factory 생성
+            </summary>
+        </member>
+        <member name="M:Skcc.IoC.Parser.ReadResourceFiles">
+            <summary>
+            Config File에서 Resource File정보를 읽어 멤버 변수 에 저장 한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.IoC.Parser.ReadChildContext">
+            <summary>
+            모든 Context 정보를 읽어서, Global 변수에 저장 한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.IoC.Parser.InitObjectFactory">
+            <summary>
+            Resource File의 Full Name을 이용하여 Loading 한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.IoC.Parser.AddResourceInfo(System.String,System.Xml.XmlNode)">
+            <summary>
+            Object Resource File 정보를 읽어, Backup File을 만들고, 정보를 읽고 저장하기위해
+            Backup File을 XmlDocument 로 Laoding 한다.
+            </summary>
+            <param name="ctxName">Context Name</param>
+            <param name="currentContext">Context Node</param>
+        </member>
+        <member name="M:Skcc.IoC.Parser.GetResourceFiles">
+            <summary>
+            Resource File 정보를 읽어 온다.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Skcc.IoC.Parser.AddObject(System.String,System.String,System.String)">
+            <summary>
+            Context에 해당하는 Xml file에 새로운 Object를 생성 한다.
+            </summary>
+            <param name="ctxName">생성할 ContextName</param>
+            <param name="id">새로운 Object ID</param>
+            <param name="springTypeStr">Type String</param>
+        </member>
+        <member name="M:Skcc.IoC.Parser.AddProperty(System.String,System.String,System.String,System.String)">
+            <summary>
+            특정 Context의 해당 Object에 Property를 생성 한다.
+            </summary>
+            <param name="ctxName">Context Name</param>
+            <param name="objectID">Object ID</param>
+            <param name="propertyName">Property Name</param>
+            <param name="refObjectID">참조할 Object ID</param>
+        </member>
+        <member name="M:Skcc.IoC.Parser.ModifyProperty(System.String,System.String,System.String,System.String)">
+            <summary>
+            Property의 type, name을 수정 한다.
+            </summary>
+            <param name="objectID">Property가 속해 있는 Object ID</param>
+            <param name="oldPropertyName">기존 Property명</param>
+            <param name="newPropertyName">새로운 Property명</param>
+            <param name="newValue">새로운 Value</param>
+        </member>
+        <member name="M:Skcc.IoC.Parser.AddContext(System.Xml.XmlNode,System.Xml.XmlNode)">
+            <summary>
+            부모 Context와 Child Context의 정보를 읽어, Context의 포함 관계를 
+            dicChildContext에 저장 한다.
+            </summary>
+            <param name="parentNode">부모 Context의 XML Node</param>
+            <param name="currentContext">자식 Context 의 XML Node</param>
+        </member>
+        <member name="M:Skcc.IoC.Parser.CreateObject(System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Object Node를 생성 하여 해당 Context의 XmlDocument 에 생성 한다.
+            </summary>
+            <param name="objectID">생성 할 Object ID</param>
+            <param name="type">Object Type</param>
+            <param name="ctxName">Object를 생성 할 곳의 Context Name</param>
+            <param name="parentObj">Reference Object 일 경우 부모 Object Name</param>
+            <param name="propertyName">Property 일 경우 Property Name</param>
+        </member>
+        <member name="M:Skcc.IoC.Parser.CreateInjection(System.String,System.String,System.String,System.String)">
+            <summary>
+            Object가 Proeprty로 선언 되는 , DI 일 경우 , Property 를 생성한다.
+            </summary>
+            <param name="parentObj"></param>
+            <param name="objectID"></param>
+            <param name="propertyName"></param>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Skcc.IoC.Parser.CreateObject(System.String,System.String,System.String)">
+            <summary>
+            Object XmlNode를 생성 하여, XmlDocument에 저장 한다.
+            </summary>
+            <param name="objectID"></param>
+            <param name="type"></param>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Skcc.IoC.Parser.ModifyObject(System.String,Spring.Objects.Factory.Config.IObjectDefinition,System.String,System.String,System.String)">
+            <summary>
+            XML File에서 Object 정보를 수정한다.
+            </summary>
+            <param name="objectID">수정할 Object ID</param>
+            <param name="objDef">수정할 Object의 정보</param>
+            <param name="newObjectID">새로운 ID</param>
+            <param name="newTypeString">새로운 Type String</param>
+            <param name="newAssemblyString">새로운 Assembly String</param>
+        </member>
+        <member name="M:Skcc.IoC.Parser.RemoveObject(System.String)">
+            <summary>
+            Object ID를 통해 Object를 File에서 제거 한다.
+            </summary>
+            <param name="objectID"></param>
+        </member>
+        <member name="M:Skcc.IoC.Parser.AddSpringConfiguration">
+            <summary>
+            Spring에 관련된 Configuration이 없을 경우, 기본적인 Spring 관련 Configuration을 추가 한다.
+            Default로 Root Context와 Root Context의 Object를 정의 하는 XML File도 생성 한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.IoC.Parser.AddRootCtxName(System.String)">
+            <summary>
+            Root Context Name이 없을 경우, Root Context Name을 삽입한다.
+            </summary>
+            <param name="rootCtxName"></param>
+        </member>
+        <member name="M:Skcc.IoC.Parser.ReLoadXmlObjectFactory(System.String)">
+            <summary>
+            File이 변경 되었을 경우 File을 Reloading 하여 Object 정보를 Refresh 한다.
+            </summary>
+            <param name="fileName"></param>
+        </member>
+        <member name="M:Skcc.IoC.Parser.ReloadXmlObjectFactory">
+            <summary>
+            Memory상에 Loading된 Object Factory를 Reloading 한다. (XML file이 수정 된 경우)
+            </summary>
+        </member>
+        <member name="M:Skcc.IoC.Parser.ReloadRootXML">
+            <summary>
+            Root XML을 Reloading 한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.IoC.Parser.Save">
+            <summary>
+            File을 저장 한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.IoC.Parser.GetObjectList(System.String)">
+            <summary>
+            Resource File에 들어 있는 Object List를 반환 한다.
+            </summary>
+            <param name="fileName">Full Name of the file</param>
+            <returns>string : Object Name , IObjectDefinition : Object Information</returns>
+        </member>
+        <member name="M:Skcc.IoC.Parser.GetObject(System.String)">
+            <summary>
+            Object Name으로 Object의 Inforamtion을 반환 한다.
+            </summary>
+            <param name="objName">Object Name</param>
+            <returns>Object Inforamtion</returns>
+        </member>
+        <member name="M:Skcc.IoC.Parser.GetContextList">
+            <summary>
+            Context Name List와 그에 해당하는 부모 Context의 이름을 Dictionary로 반환 한다.
+            </summary>
+            <returns>string : Context Name , string : parent ContextName</returns>
+        </member>
+        <member name="M:Skcc.IoC.Parser.GetContextList(System.String)">
+            <summary>
+            Parent Context에 속해 있는 Child Context List를 Dictionary 형태로 반환 한다.
+            </summary>
+            <param name="parentCtx">Parent Context Name</param>
+            <returns>string : Child Context Name, string : Parent Context Name</returns>
+        </member>
+        <!-- 잘못된 형식의 XML 주석은 "M:Skcc.IoC.Parser.GetObjectListByContextName(System.String)" 멤버에 대해 무시됩니다. -->
+        <member name="M:Skcc.IoC.Parser.GetRootContextName">
+            <summary>
+            Root Context Name을 반환 한다.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Skcc.IoC.Parser.GetFileNameByContextName(System.String)">
+            <summary>
+            Context에 해당하는 Object Resource File을 반환 한다.
+            </summary>
+            <param name="ctxName">Context Name</param>
+            <returns>Full Name of File</returns>
+        </member>
+        <member name="M:Skcc.IoC.Parser.GetContextNameByObjectID(System.String)">
+            <summary>
+            Object ID로 Context Name을 반환 한다.
+            </summary>
+            <param name="objectID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Skcc.IoC.Parser.GetFileNameByObjectID(System.String)">
+            <summary>
+            Object ID로 해당 Object가 정의된 File의 정보를 가져 온다.
+            </summary>
+            <param name="objectID"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Skcc.IoC.Parser.GetAllObjectList">
+            <summary>
+            Context에 상관 없이 모든 Object를 반환 한다.
+            </summary>
+            <returns>string : object ID, IObjectDefinition : Object Information</returns>
+        </member>
+        <member name="M:Skcc.IoC.Parser.HasRootContext">
+            <summary>
+            Configfile의 검증을 위해 Root Context가 정의 되어 있는 지 확인 한다.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Skcc.Security.AuthenticationException">
+            <summary>
+            인증되지 않은 사용자가 인증을 요구하는 컨트롤에 접근할 때 발생한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Security.AuthenticationException.#ctor">
+            <summary>
+            ConfigurationException 객체를 생성한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Security.AuthenticationException.#ctor(System.String)">
+            <summary>
+            ConfigurationException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+        </member>
+        <member name="M:Skcc.Security.AuthenticationException.#ctor(System.String,System.Exception)">
+            <summary>
+            ConfigurationException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+            <param name="innerException">Inner Exception</param>
+        </member>
+        <member name="M:Skcc.Security.AuthenticationException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            ConfigurationException 객체를 생성한다.
+            </summary>
+            <param name="info">Serialize된 객체의 데이터</param>
+            <param name="context">Context 정보</param>
+        </member>
+        <member name="M:Skcc.Security.AuthenticationException.#ctor(System.String,System.Int32)">
+            <summary>
+            SkccException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+            <param name="code">예외 코드</param>
+        </member>
+        <member name="M:Skcc.Security.AuthenticationException.#ctor(System.String,System.Int32,System.Exception)">
+            <summary>
+            ConfigurationException 객체를 생성한다.
+            </summary>
+            <param name="message">예외 메세지</param>
+            <param name="code">예외 코드</param>
+            <param name="innerException">Inner Exception</param>
+        </member>
+        <member name="T:Skcc.IoC.ComponentFactory">
+            <summary>
+            <history>
+            2008-07-09, ComponentFactory -> ComponentFactory로 변경
+            2008-07-07, 이진우, 생성
+            </history>
+            </summary>
+        </member>
+        <member name="F:Skcc.IoC.ComponentFactory._ComponentFactory">
+            <summary>
+            Object를 관리 하는 Singleton Pattern의 ObjectFactory.
+            </summary>
+        </member>
+        <member name="F:Skcc.IoC.ComponentFactory._DicChildContext">
+            <summary>
+            Child Context와 Parent Context를 쌍으로 저장한다.
+            string : child Context Name
+            string : parent Context Name
+            </summary>
+        </member>
+        <member name="M:Skcc.IoC.ComponentFactory.This">
+            <summary>
+            Component Factory Object를 반환 한다.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Skcc.IoC.ComponentFactory.GetObject(System.String)">
+            <summary>
+            Object Name을 Key로 하여 Object를 가져 온다.
+            </summary>
+            <param name="id">object ID</param>
+            <returns>Object</returns>
+        </member>
+        <member name="M:Skcc.IoC.ComponentFactory.GetObject``1(System.String)">
+            <summary>
+            Object Name을 Key로 하여 타입 T를 가져 온다.
+            </summary>
+            <param name="id">object ID</param>
+            <returns>Object</returns>
+        </member>
+        <member name="M:Skcc.IoC.ComponentFactory.GetObject``1">
+            <summary>
+            Object Name을 Key로 하여 타입 T를 가져 온다.
+            </summary>
+            <param name="id">object ID</param>
+            <returns>Object</returns>
+        </member>
+        <member name="M:Skcc.IoC.ComponentFactory.GetObject(System.String,System.String)">
+            <summary>
+            해당 Context에 있는 Object를 반환 한다.
+            </summary>
+            <param name="id">Object ID</param>
+            <param name="contextName">Context Name</param>
+            <returns>Object</returns>
+        </member>
+        <member name="M:Skcc.IoC.ComponentFactory.GetObject``1(System.String,System.String)">
+            <summary>
+            해당 Context에 있는 타입 T를 반환 한다.
+            </summary>
+            <param name="id">Object ID</param>
+            <param name="contextName">Context Name</param>
+            <returns>Object</returns>
+        </member>
+        <member name="M:Skcc.IoC.ComponentFactory.InitObjectFactory">
+            <summary>
+            생성자에서 호출 된다. Configuration 정보를 읽어 Context를 Loading 하고,
+            Child Context 정보를 Dictionary 에 저장 한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.IoC.ComponentFactory.AddContext(System.Xml.XmlNode,System.Xml.XmlNode)">
+            <summary>
+            재귀 호출 함수, Child Context 이름을 등록 해 놓는다.
+            </summary>
+            <param name="parentNode"></param>
+            <param name="currentContext"></param>
+        </member>
+        <member name="M:Skcc.IoC.ComponentFactory.Refresh(System.String)">
+            <summary>
+            Configuration정보를 다시 Loading 한다.
+            실제적으로 바뀌어진 정보를 적용 하려면, Dispose를 호출 한 후에 Refresh를 해주어야 한다.
+            </summary>
+            <param name="contextID"></param>
+        </member>
+        <member name="M:Skcc.IoC.ComponentFactory.Dispose(System.String)">
+            <summary>
+            해당 Context를 Dispose 한다.
+            </summary>
+            <param name="contextID">Conext ID</param>
+        </member>
+        <member name="M:Skcc.IoC.ComponentFactory.GetContextList">
+            <summary>
+            Context List를 반환한다. List는 ChildContext와 Parent Context의 쌍이다.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Skcc.Diagnostics.DebugTraceListener">
+            <summary>
+            Trace listener that writes formatted messages to the Visual Studio debugger output.
+            </summary>
+        </member>
+        <member name="M:Skcc.Diagnostics.DebugTraceListener.TraceData(System.Diagnostics.TraceEventCache,System.String,System.Diagnostics.TraceEventType,System.Int32,System.Object)">
+            <summary>
+            TraceData
+            </summary>
+            <param name="eventCache"></param>
+            <param name="source"></param>
+            <param name="eventType"></param>
+            <param name="id"></param>
+            <param name="data"></param>
+        </member>
+        <member name="M:Skcc.Diagnostics.DebugTraceListener.Write(System.String)">
+            <summary>
+            Writes a message to the debug window 
+            </summary>
+            <param name="message">The string to write to the debug window</param>
+        </member>
+        <member name="M:Skcc.Diagnostics.DebugTraceListener.WriteLine(System.String)">
+            <summary>
+            Writes a message to the debug window 
+            </summary>
+            <param name="message">The string to write to the debug window</param>
+        </member>
+        <member name="T:Skcc.MessageMgr">
+            <summary>
+            메시지 관리를 위한 메시지 관리자 클래스
+            </summary>
+        </member>
+        <member name="M:Skcc.MessageMgr.GetMessage(System.String)">
+            <summary>
+            주어진 메시지 Id의 메시지를 반환한다.
+            </summary>
+            <param name="id">메시지 Id</param>
+            <returns>메시지 문자열</returns>
+            <remarks>
+            메시지를 찾는데 사용할 언어는 현재 쓰레드의 언어 설정(현재 운영체제 언어 설정)이 사용된다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.MessageMgr.GetMessage(System.Int32)">
+            <summary>
+            주어진 메시지 Id의 메시지를 반환한다.
+            </summary>
+            <param name="id">int 형식의 메시지 id</param>
+            <returns>메시지 문자열</returns>
+        </member>
+        <member name="M:Skcc.MessageMgr.GetMessage(System.String,System.String)">
+            <summary>
+            주어진 메시지 Id, 언어의 메시지를 반환한다.
+            </summary>
+            <param name="id">메시지 Id</param>
+            <param name="culture">언어 이름(ko-KR, ko, en-US, en 등)</param>
+            <returns>메시지 문자열</returns>
+            <remarks>
+            Culture 이름은 ISO의 언어 이름 혹은 언어-지역 형태의 culture 이름이 사용될 수 있다. <br/>
+            ex) ko-KR, ko, en-US, en-CA, en 등
+            </remarks>
+        </member>
+    </members>
+</doc>

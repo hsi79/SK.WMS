@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ProgramService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:25000/ProgramService.svc?xsd=xsd2" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:25000/ProgramService.svc?xsd=xsd0" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:25000/ProgramService.svc?xsd=xsd1" namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import schemaLocation="http://localhost:25000/ProgramService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/NEXCORE.Common.Data" />
+      <xsd:import schemaLocation="http://localhost:25000/ProgramService.svc?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IProgramService_DoWork_InputMessage">
+    <wsdl:part name="parameters" element="tns:DoWork" />
+  </wsdl:message>
+  <wsdl:message name="IProgramService_DoWork_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DoWorkResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProgramService_GetProgramList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProgramList" />
+  </wsdl:message>
+  <wsdl:message name="IProgramService_GetProgramList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProgramListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProgramService_GetProgramSelect_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProgramSelect" />
+  </wsdl:message>
+  <wsdl:message name="IProgramService_GetProgramSelect_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProgramSelectResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProgramService_GetProgram_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProgram" />
+  </wsdl:message>
+  <wsdl:message name="IProgramService_GetProgram_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProgramResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProgramService_GetProgramListWhereQuery_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetProgramListWhereQuery" />
+  </wsdl:message>
+  <wsdl:message name="IProgramService_GetProgramListWhereQuery_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetProgramListWhereQueryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProgramService_Reload_InputMessage">
+    <wsdl:part name="parameters" element="tns:Reload" />
+  </wsdl:message>
+  <wsdl:message name="IProgramService_Reload_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ReloadResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProgramService_AddProgram_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddProgram" />
+  </wsdl:message>
+  <wsdl:message name="IProgramService_AddProgram_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddProgramResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProgramService_DeleteProgram_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteProgram" />
+  </wsdl:message>
+  <wsdl:message name="IProgramService_DeleteProgram_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteProgramResponse" />
+  </wsdl:message>
+  <wsdl:message name="IProgramService_UpdateProgram_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProgram" />
+  </wsdl:message>
+  <wsdl:message name="IProgramService_UpdateProgram_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateProgramResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IProgramService">
+    <wsdl:operation name="DoWork">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProgramService/DoWork" message="tns:IProgramService_DoWork_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProgramService/DoWorkResponse" message="tns:IProgramService_DoWork_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProgramList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProgramService/GetProgramList" message="tns:IProgramService_GetProgramList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProgramService/GetProgramListResponse" message="tns:IProgramService_GetProgramList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProgramSelect">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProgramService/GetProgramSelect" message="tns:IProgramService_GetProgramSelect_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProgramService/GetProgramSelectResponse" message="tns:IProgramService_GetProgramSelect_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProgram">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProgramService/GetProgram" message="tns:IProgramService_GetProgram_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProgramService/GetProgramResponse" message="tns:IProgramService_GetProgram_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetProgramListWhereQuery">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProgramService/GetProgramListWhereQuery" message="tns:IProgramService_GetProgramListWhereQuery_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProgramService/GetProgramListWhereQueryResponse" message="tns:IProgramService_GetProgramListWhereQuery_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Reload">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProgramService/Reload" message="tns:IProgramService_Reload_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProgramService/ReloadResponse" message="tns:IProgramService_Reload_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddProgram">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProgramService/AddProgram" message="tns:IProgramService_AddProgram_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProgramService/AddProgramResponse" message="tns:IProgramService_AddProgram_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProgram">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProgramService/DeleteProgram" message="tns:IProgramService_DeleteProgram_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProgramService/DeleteProgramResponse" message="tns:IProgramService_DeleteProgram_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProgram">
+      <wsdl:input wsaw:Action="http://tempuri.org/IProgramService/UpdateProgram" message="tns:IProgramService_UpdateProgram_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IProgramService/UpdateProgramResponse" message="tns:IProgramService_UpdateProgram_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IProgramService" type="tns:IProgramService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DoWork">
+      <soap:operation soapAction="http://tempuri.org/IProgramService/DoWork" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProgramList">
+      <soap:operation soapAction="http://tempuri.org/IProgramService/GetProgramList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProgramSelect">
+      <soap:operation soapAction="http://tempuri.org/IProgramService/GetProgramSelect" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProgram">
+      <soap:operation soapAction="http://tempuri.org/IProgramService/GetProgram" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetProgramListWhereQuery">
+      <soap:operation soapAction="http://tempuri.org/IProgramService/GetProgramListWhereQuery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Reload">
+      <soap:operation soapAction="http://tempuri.org/IProgramService/Reload" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddProgram">
+      <soap:operation soapAction="http://tempuri.org/IProgramService/AddProgram" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteProgram">
+      <soap:operation soapAction="http://tempuri.org/IProgramService/DeleteProgram" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateProgram">
+      <soap:operation soapAction="http://tempuri.org/IProgramService/UpdateProgram" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ProgramService">
+    <wsdl:port name="BasicHttpBinding_IProgramService" binding="tns:BasicHttpBinding_IProgramService">
+      <soap:address location="http://localhost:25000/ProgramService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

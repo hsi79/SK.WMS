@@ -1,0 +1,309 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0BDFA583-7E68-4FD2-922E-9B3D9FB8F713}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SK.WMS.WinControls</RootNamespace>
+    <AssemblyName>SK.WMS.WinControls</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>C:\SK.WMS\Assembly\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>C:\SK.WMS\Assembly\SK.WMS.WinControls.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="C1.Win.C1Command.4, Version=4.0.20111.19475, Culture=neutral, PublicKeyToken=e808566f358766d8, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1FlexGrid.4, Version=4.6.20111.602, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1Input.4, Version=4.0.20111.33260, Culture=neutral, PublicKeyToken=7e7ff60f0c214f9a, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1Input.4.Design, Version=4.0.20111.33260, Culture=neutral, PublicKeyToken=7e7ff60f0c214f9a, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1InputPanel.4, Version=4.0.20111.116, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1List.4, Version=4.1.20111.176, Culture=neutral, PublicKeyToken=6b24f8f981dbd7bc, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="NEXCORE.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\70.External Library\NEXCORE.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="NEXCORE.Common.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\70.External Library\NEXCORE.Common.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="NEXCORE.Interfaces, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\70.External Library\NEXCORE.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="NEXCORE.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\70.External Library\NEXCORE.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="Office, Version=12.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c" />
+    <Reference Include="PresentationCore">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Skcc.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=d8562a1c4a42c0a1, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\WINDOWS\assembly\GAC_MSIL\System.Web.Services\2.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ColorVar.cs" />
+    <Compile Include="CommonButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CommonButton.Designer.cs">
+      <DependentUpon>CommonButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="helpForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="helpForm.Designer.cs">
+      <DependentUpon>helpForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="SKButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SKButton.Designer.cs">
+      <DependentUpon>SKButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SKComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SKPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SKLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SKListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SKGroupBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SKTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SKDateEdit.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SKCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SKNumericEdit.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SKTitleLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SKDockingTab.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FileUpControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="FileUpControl.Designer.cs">
+      <DependentUpon>FileUpControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SKGridView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SKGridView.Designer.cs">
+      <DependentUpon>SKGridView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="helpWindow.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="helpWindow.Designer.cs">
+      <DependentUpon>helpWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SKCommonButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SKCommonButton.Designer.cs">
+      <DependentUpon>SKCommonButton.cs</DependentUpon>
+    </Compile>
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CommonButton.resx">
+      <DependentUpon>CommonButton.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="helpForm.resx">
+      <DependentUpon>helpForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FileUpControl.resx">
+      <DependentUpon>FileUpControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SKGridView.resx">
+      <DependentUpon>SKGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="helpWindow.resx">
+      <DependentUpon>helpWindow.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SKCommonButton.resx">
+      <DependentUpon>SKCommonButton.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SKButton.resx">
+      <DependentUpon>SKButton.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\main_btn_disable.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\main_btn_over.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\main_btn_up.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sub_btn_over.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sub_btn_up.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\glasses22.gif" />
+    <Content Include="Resources\공백_2_disable.png" />
+    <Content Include="Resources\공백_2_normal.png" />
+    <Content Include="Resources\공백_2_over.png" />
+    <Content Include="Resources\삭제_1_disable.png" />
+    <Content Include="Resources\삭제_1_normal.png" />
+    <Content Include="Resources\삭제_1_over.png" />
+    <Content Include="Resources\신규_1_disable.png" />
+    <Content Include="Resources\신규_1_normal.png" />
+    <Content Include="Resources\신규_1_over.png" />
+    <Content Include="Resources\엑셀_1_disable.png" />
+    <Content Include="Resources\엑셀_1_normal.png" />
+    <Content Include="Resources\엑셀_1_over.png" />
+    <Content Include="Resources\인쇄_1_disable.png" />
+    <Content Include="Resources\인쇄_1_normal.png" />
+    <Content Include="Resources\인쇄_1_over.png" />
+    <Content Include="Resources\저장_1_disable.png" />
+    <Content Include="Resources\저장_1_normal.png" />
+    <Content Include="Resources\저장_1_over.png" />
+    <Content Include="Resources\조회_1_disable.png" />
+    <Content Include="Resources\조회_1_normal.png" />
+    <Content Include="Resources\조회_1_over.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /Q /Y "$(TargetDir)$(TargetName).dll" "$(SolutionDir)70.External Library"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

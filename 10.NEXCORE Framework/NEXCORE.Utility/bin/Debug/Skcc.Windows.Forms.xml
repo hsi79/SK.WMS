@@ -1,0 +1,2341 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Skcc.Windows.Forms</name>
+    </assembly>
+    <members>
+        <member name="T:Skcc.Windows.Forms.Utilities.FileTransInfoEventHandler">
+            <summary>
+            파일전송시 필요한 전송정보를 발신하는 대리자이다.
+            </summary>
+        </member>
+        <member name="T:Skcc.Windows.Forms.Utilities.IFileTransferHelper">
+            <summary>
+            IFileTransferHelper는 FileUpload,FileDownload,FileDelete와 기타 필요한 기능들을 제공하는 Interface이다.
+            </summary>
+            <remarks>
+            FileTransferHelper는 Server측 UploadForm.aspx, DownloadForm.aspx, DeleteForm.aspx에 요청형태로 파일전송을 수행한다.
+            파일전송은 8Kbyte단위로 잘라서 진행하며 망전송중단으로 실패하는 경우에는 다시 연결하여 전송작업을 수행할수 있다.
+            파일전송에서 례외가 발생하는 경우 이를 처리하기 위한 례외처리오브젝트를 반환한다.
+            FileTransferHelper는 TransferControl과 독자적인 응용프로그람들에서 이용된다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.Utilities.IFileTransferHelper.FileUpload(System.String,System.String,System.String,System.Boolean,System.String)">
+            <summary>
+            선택된 로컬파일을 서버에로 업로드한다.
+            만일 이어전송이라면 로컬파일자료를 전송하여 지정된 서버파일에 연결한다.
+            </summary>
+            <param name="filePath">업로드하려는 로컬파일의 완전경로</param>
+            <param name="sFileName">연결일때 지정하는 서버측파일명(이름,확장자)</param>
+            <param name="serverURL">upload처리를 요청하는 uploadForm.aspx의 경로</param>
+            <param name="m_bStart">새로시작(true),연결(false)</param>
+            <param name="serverPath">파일이 upload될 서버 경로</param>
+            <returns>업로드성공이면 true,실패이면 false</returns>
+            <remarks>
+            업로드처리는 서버측 UploadForm.aspx에 http요청을 보내는 방법으로 이루어진다.
+            파일전송은 8Kbyte씩 잘라서 수행한다.
+            업로드하는 파일은 서버측에서 뒤붙이 ~Number(~1,~2,…)을 붙여서 유일하게 보관한다.
+            업로드가 새로 시작되는 경우에는 m_bStart를 true로 설정하며 서버측 파일명(sFileName)은 사용하지 않는다. 서버에서 파일이름이 자동생성된다.
+            업로드가 중단되였던 작업을 다시 이어서 수행하기 위해서는 m_bStart를 false로 지정하며 
+            서버측파일명으로는 이전upload처리후 Helper의 GetServerFileName()을 통하여 얻어진 파일명을 
+            지정해주어야 한다.
+            업로드처리가 진행되는 동안 8Kbyte의 파일자료를 전송할때마다 FileTransInfo이벤트가 발생한다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.Utilities.IFileTransferHelper.GetServerFileName">
+            <summary>
+            FileUpload()가 끝난시점에서 Server 측에 Upload된 파일명을 얻는다.
+            이때 서버파일은 업로드완료 및 업로드중지된 상태에 있다.
+            </summary>
+            <returns>Server 측에 Upload된 파일명</returns>
+            <remarks>
+            FileUpload()처리가 완료 혹은 중지되였을경우 서버측에 업로드된 파일이름을 얻는다.
+            이 파일이름은 후에 업로드 연결작업에서 서버측파일명으로 이용될수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.Utilities.IFileTransferHelper.GetServerFileSize">
+            <summary>
+            FileUpload()가 끝난시점에서 Server 측에 Upload된 파일크기를 얻는다.
+            </summary>
+            <returns>Server 측에 Upload된 파일크기</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.Utilities.IFileTransferHelper.GetDownloadFileSize(System.String,System.String,System.String)">
+            <summary>
+            서버측파일의 크기를 얻는다.
+            </summary>
+            <param name="sFileName">서버측파일명</param>
+            <param name="serverURL">서버측 DownloadForm.aspx의 경로</param>
+            <returns>서버측파일의 크기를 돌린다.(-1이면 오유,0이면 크기가 영이거나 존재안함)</returns>
+            <remarks>
+            서버측 파일의 크기를 얻는데 사용한다.
+            만일 함수의 실행이 실패하는 경우 ?1을 반환하며 서버에 지정한 파일이 존재하지 않거나 
+            크기가 영인경우에는 0을 반환한다.
+            이함수는 서버측 파일의 다운로드나 혹은 서버측 파일의 삭제를 위한 서버측 파일의 
+            유무판정이든가 다운로드처리의 진행률을 표시하는 전체전송바이트수를 얻는데 사용될수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.Utilities.IFileTransferHelper.FileDownload(System.String,System.String,System.String,System.Boolean,System.String)">
+            <summary>
+            서버측파일을 말단에 다운로드한다.
+            만일 이어전송이라면 선택된 서버파일자료를 전송하여 지정된 말단파일에 연결한다.
+            </summary>
+            <param name="filePath">다운로드받을 말단파일의 완전경로</param>
+            <param name="sFileName">Download하려는 Server측 파일명</param>
+            <param name="serverURL">Download처리를 요청하는 DownloadForm.aspx의 URL</param>
+            <param name="m_bStart">이어전송인가 아닌가 기발설정(true:새로시작,false:이어전송)</param>
+            <returns>다운로드 성공이면 true,실패이면 false</returns>
+            <remarks>
+            다운로드처리는 서버측 DownloadForm.aspx에 http요청을 보내는 방법으로 이루어진다.
+            파일전송은 8Kbyte씩 잘라서 수행한다.
+            다운로드 새로시작일 경우는 m_bStart를 true로 설정하며 이때 filePath에 지정한 말단파일에 
+            새로 쓰기한다.
+            다운로드중단되였던 작업을 다시 이어서 수행하기위해서는 m_bStart를 false로 지정하며 
+            이때 filePath로 지정한 말단파일의 뒤에 연결하여 쓰기한다.
+            다운로드 처리중 8Kbyte의 파일자료를 전송할때마다 FileTransInfo이벤트가 발생한다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.Utilities.IFileTransferHelper.FileDelete(System.String,System.String,System.String)">
+            <summary>
+            선택된 파일을 Server측에서 삭제한다.
+            </summary>
+            <param name="sFileName">삭제하려는 Server측 파일명</param>
+            <param name="serverURL">delete처리를 요청하는 deleteForm.aspx의 경로</param>
+            <returns>정확히 삭제하면 true,아니면 false</returns>
+            <remarks>
+            삭제처리는 서버측 DeleteForm.aspx에 http요청을 보내는 방법으로 이루어진다.
+            서버측 파일이 없거나 성과적으로 삭제된 경우에는 true를,실패한 경우에는 false를 돌려준다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.Utilities.IFileTransferHelper.CatchException">
+            <summary>
+            CatchException()는 함수들의 사용이 실패하는경우
+            례외처리를 위한 Exception클라스의 오브젝트를 반환한다.
+            </summary>
+            <returns>례외처리오브젝트</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.Utilities.IFileTransferHelper.CloseCurrentStream">
+            <summary>
+            파일전송시 중단이라든가 례외발생시 전송을 위하여 열려져있던 Stream을 모두 닫는다.
+            </summary>
+        </member>
+        <member name="E:Skcc.Windows.Forms.Utilities.IFileTransferHelper.FileTransInfo">
+            <summary>
+            파일전송시 일정한 바이트전송간격으로 발생한다.
+            </summary>
+        </member>
+        <member name="T:Skcc.Windows.Forms.Utilities.FileTransferHelper">
+            <summary>
+            FileTransferHelper는 파일의 Upload, Download, Delete와 기타 필요한 기능들을 수행하는 클라스이다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.Utilities.FileTransferHelper.FileUpload(System.String,System.String,System.String,System.Boolean,System.String)">
+             <summary>
+             선택된 로컬파일을 서버에로 업로드한다.
+             만일 이어전송이라면 로컬파일자료를 전송하여 지정된 서버파일에 연결한다.
+             </summary>
+             <param name="filePath">업로드하려는 로컬파일의 완전경로</param>
+             <param name="sFileName">연결일때 지정하는 서버측파일명(이름,확장자)</param>
+             <param name="serverURL">upload처리를 요청하는 uploadForm.aspx의 경로</param>
+             <param name="m_bStart">새로시작(true),연결(false)</param>
+             <returns>업로드성공이면 true,실패이면 false</returns>
+             <remarks>
+            	업로드처리는 서버측 UploadForm.aspx에 http요청을 보내는 방법으로 이루어진다.
+            	파일전송은 8Kbyte씩 잘라서 수행한다.
+            	업로드하는 파일은 서버측에서 뒤붙이 ~Number(~1,~2,…)을 붙여서 유일하게 보관한다.
+            	업로드가 새로 시작되는 경우에는 m_bStart를 true로 설정하며 서버측 파일명(sFileName)은 사용하지 않는다. 서버에서 파일이름이 자동생성된다.
+            	업로드가 중단되였던 작업을 다시 이어서 수행하기 위해서는 m_bStart를 false로 지정하며 
+            	서버측파일명으로는 이전upload처리후 Helper의 GetServerFileName()을 통하여 얻어진 파일명을 
+            	지정해주어야 한다.
+            	업로드처리가 진행되는 동안 8Kbyte의 파일자료를 전송할때마다 FileTransInfo이벤트가 발생한다.
+             </remarks>
+             <example>FileTransferHelper를 이용하여 서버에 파일을 업로드하는 실례이다.
+             <code>
+             //FileTransferHelper Object를 생성한다.
+            	FileTransferHelper fHelper = new FileTransferHelper();
+            
+            	//Upload처리를 진행한다.
+            	if(fHelper.FileUpload(txtUpFile.Text,"",uploadURL,true))
+            	{
+            		MessageBox.Show("업로드가 정확히 수행되였습니다.\n\n" 
+            		+ "서버파일명:"+fHelper.GetServerFileName()	+"\n크기:"+fHelper.GetServerFileSize() + "Byte","알림");	
+            	}
+            	else
+            		MessageBox.Show("업로드처리시 례외가 발생했습니다.\n\n례외정보
+            		:\n"+fHelper.CatchException().Message,"례외");
+             </code>
+             </example>
+        </member>
+        <member name="M:Skcc.Windows.Forms.Utilities.FileTransferHelper.GetServerFileName">
+            <summary>
+            FileUpload()가 끝난시점에서 Server 측에 Upload된 파일명을 얻는다.
+            이때 서버파일은 업로드완료 및 업로드중지된 상태에 있다.
+            </summary>
+            <returns>Server 측에 Upload된 파일명</returns>
+            <remarks>
+            FileUpload()처리가 완료 혹은 중지되였을경우 서버측에 업로드된 파일이름을 얻는다.
+            이 파일이름은 후에 업로드 연결작업에서 서버측파일명으로 이용될수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.Utilities.FileTransferHelper.GetServerFileSize">
+            <summary>
+            FileUpload()가 끝난시점에서 Server 측에 Upload된 파일크기를 얻는다.
+            </summary>
+            <returns>Server 측에 Upload된 파일크기</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.Utilities.FileTransferHelper.CatchException">
+            <summary>
+            CatchException()는 함수들의 사용이 실패하는경우
+            례외처리를 위한 Exception클라스의 오브젝트를 반환한다.
+            </summary>
+            <returns>례외처리오브젝트</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.Utilities.FileTransferHelper.GetDownloadFileSize(System.String,System.String,System.String)">
+             <summary>
+             서버측파일의 크기를 얻는다.
+             </summary>
+             <param name="sFileName">서버측파일명</param>
+             <param name="serverURL">서버측 DownloadForm.aspx의 경로</param>
+             <returns>서버측파일의 크기를 돌린다.(-1이면 오유,0이면 크기가 영이거나 존재안함)</returns>
+             <remarks>
+            	서버측 파일의 크기를 얻는데 사용한다.
+            	만일 함수의 실행이 실패하는 경우 ?1을 반환하며 서버에 지정한 파일이 존재하지 않거나 
+            	크기가 영인 경우에는 0을 반환한다.
+            	이함수는 서버측 파일의 다운로드나 혹은 서버측 파일의 삭제를 위한 서버측 파일의 
+            	유무판정이든가 다운로드처리의 진행률을 표시하는 전체전송바이트수를 얻는데 사용될수 있다.
+             </remarks>
+             <example>서버측 파일의 크기를 알아보는 실례이다.
+             <code>
+            	//FileTransferHelper Object를 생성한다.
+            	FileTransferHelper fHelper = new FileTransferHelper();
+            	
+            	//서버측 파일의 크기를 얻는다.
+            	Long m_lTotalByte = fHelper.GetDownloadFileSize(cbDownList.Text,downloadURL) ;
+            
+            	if(m_lTotalByte == -1)
+            		MessageBox.Show(“크기를 얻을수 없습니다.”,"알림");
+            	Else if(m_lTotalByte == 0)
+            		MessageBox.Show(“파일이 존재하지 않습니다.”,"알림");
+             </code>
+             </example>
+             
+        </member>
+        <member name="M:Skcc.Windows.Forms.Utilities.FileTransferHelper.FileDownload(System.String,System.String,System.String,System.Boolean,System.String)">
+             <summary>
+             서버측파일을 말단에 다운로드한다.
+             만일 이어전송이라면 선택된 서버파일자료를 전송하여 지정된 말단파일에 연결한다.
+             </summary>
+             <param name="filePath">다운로드받을 말단파일의 완전경로</param>
+             <param name="sFileName">Download하려는 Server측 파일명</param>
+             <param name="serverURL">Download처리를 요청하는 DownloadForm.aspx의 URL</param>
+             <param name="m_bStart">이어전송인가 아닌가 기발설정(true:새로시작,false:이어전송)</param>
+             <returns>다운로드 성공이면 true,실패이면 false</returns>
+             <remarks>
+            	다운로드처리는 서버측 DownloadForm.aspx에 http요청을 보내는 방법으로 이루어진다.
+            	파일전송은 8Kbyte씩 잘라서 수행한다.
+            	다운로드 새로시작일 경우는 m_bStart를 true로 설정하며 이때 filePath에 지정한 말단파일에 
+            	새로 쓰기한다.
+            	다운로드중단되였던 작업을 다시 이어서 수행하기위해서는 m_bStart를 false로 지정하며 
+            	이때 filePath로 지정한 말단파일의 뒤에 연결하여 쓰기한다.
+            	다운로드 처리중 8Kbyte의 파일자료를 전송할때마다 FileTransInfo이벤트가 발생한다.
+             </remarks>
+             <example>FileTransferHelper를 이용하여 서버측 파일을 말단에 다운로드하는 실례이다.
+             <code>
+            	//FileTransferHelper Object를 생성한다.
+            	FileTransferHelper fHelper = new FileTransferHelper();
+            
+            	//Download처리를 진행한다.
+            	if(fHelper.FileDownload(filePath,sFileName,downloadURL,true))
+            		MessageBox.Show("정확히 다운로드되였습니다”);
+            	Else
+            		MessageBox.Show("다운로드처리시 례외가 발생했습니다.\n\n례외정보:\n"
+            			+fHelper.CatchException().Message,"례외");
+             </code>
+             </example>
+        </member>
+        <member name="M:Skcc.Windows.Forms.Utilities.FileTransferHelper.CloseCurrentStream">
+            <summary>
+            파일전송시 중단이라든가 례외발생시 전송을 위하여 열려져있던 Stream을 모두 닫는다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.Utilities.FileTransferHelper.FileDelete(System.String,System.String,System.String)">
+            <summary>
+            선택된 파일을 Server측에서 삭제한다.
+            </summary>
+            <param name="sFileName">삭제하려는 Server측 파일명</param>
+            <param name="serverURL">delete처리를 요청하는 deleteForm.aspx의 경로</param>
+            <returns>정확히 삭제하면 true,아니면 false</returns>
+            <remarks>
+            삭제처리는 서버측 DeleteForm.aspx에 http요청을 보내는 방법으로 이루어진다.
+            서버측 파일이 없거나 성과적으로 삭제된 경우에는 true를,실패한 경우에는 false를 돌려준다.
+            </remarks>
+            <example>서버측 파일을 삭제하는 실례이다.
+            <code>
+            //FileTransferHelper Object를 생성한다.
+            FileTransferHelper fHelper = new FileTransferHelper();
+            
+            //지정된 서버측 파일을 삭제한다.
+            if(fHelper.FileDelete(sFileName,deleteURL))
+            	MessageBox.Show("서버파일 "+sFileName+"이 정확히 삭제되였습니다","알림");
+            else
+            	MessageBox.Show("삭제시 례외가 발생했습니다.\n\n례외정보:\n"+fHelper.CatchException().Message,"례외");
+            </code>
+            </example>
+        </member>
+        <member name="E:Skcc.Windows.Forms.Utilities.FileTransferHelper.FileTransInfo">
+            <summary>
+            파일전송시 일정한 바이트전송간격으로 발생한다.
+            </summary>
+            <example>파일전송정보를 발신하는 이벤트를 이용하는 실례입니다.
+            <code>
+            //FilTransferHelper Object를 생성한다.
+            FileTransferHelper fHelper = new FileTransferHelper();
+            
+            //전송정보를 받아처리할 사건처리부
+            fHelper.FileTransInfo += new FileTransInfoEventHandler(fHelper_FileTransByte);
+            
+            ....
+            
+            
+            private void fHelper_FileTransByte(object sender , FileTransInfoEventArgs e)
+            {
+            	long curByte = e.m_iCurTransByte;
+            	int percent = 100;
+            	if(m_lTotalByte!=0)
+            	{	
+            		percent = (int)(curByte*100/m_lTotalByte);
+            		if(percent>100)percent = 100;	
+            	}
+            	
+            	workProgressBar.Value = percent;
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:Skcc.Windows.Forms.Utilities.FileTransEventArg">
+            <summary>
+            FileTransEventArgs는 일정한 바이트전송간격으로 보내지는 이벤트의
+            파라메터정보를 저장하는 기초클라스이다.
+            </summary>
+        </member>
+        <member name="F:Skcc.Windows.Forms.Utilities.FileTransEventArg.m_blUpload">
+            <summary>
+            현재 전송이 파일업로드인가를 나타낸다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.Utilities.FileTransEventArg.#ctor(System.Boolean)">
+            <summary>
+            업로드인가,다운로드인가를 초기화화는 재정의된 구축자이다.
+            </summary>
+            <param name="blUpload">업로드인가를 설정한다.</param>
+        </member>
+        <member name="T:Skcc.Windows.Forms.Utilities.FileTransInfoEventArgs">
+            <summary>
+            FileTransInfoEventArgs는 일정한 바이트전송간격으로 보내지는 이벤트의
+            파라메터정보를 저장하는 클라스이다.
+            </summary>
+        </member>
+        <member name="F:Skcc.Windows.Forms.Utilities.FileTransInfoEventArgs.m_iFileSize">
+            <summary>
+            전송파일의 크기를 나타낸다 
+            </summary>
+        </member>
+        <member name="F:Skcc.Windows.Forms.Utilities.FileTransInfoEventArgs.m_iCurTransByte">
+            <summary>
+            현재전송된 바이트수를 나타낸다 
+            </summary>
+        </member>
+        <member name="F:Skcc.Windows.Forms.Utilities.FileTransInfoEventArgs.m_sLocalFileName">
+            <summary>
+            전송에 참가하는 말단측 파일경로를 나타낸다
+            </summary>
+        </member>
+        <member name="F:Skcc.Windows.Forms.Utilities.FileTransInfoEventArgs.m_sServerFileName">
+            <summary>
+            전송에 참가하는 서버측 파일명을 나타낸다
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.Utilities.FileTransInfoEventArgs.#ctor(System.Int32,System.Int32,System.String,System.String)">
+            <summary>
+            클래스의 성원변수들을 초기화하는 재정의된 구축자이다.
+            </summary>
+            <param name="iFileSize">전체 파일크기</param>
+            <param name="iCurTransByte">현재 전송된 바이트수</param>
+            <param name="sLocalFileName">말단측 파일경로</param>
+            <param name="sServerFileName">서버측 파일명</param>
+        </member>
+        <member name="T:Skcc.Windows.Forms.ButtonEx">
+            <summary>
+            Skcc Framework 에서 사용하는 표준 버튼 클래스이다.
+            </summary>
+            <remarks>
+            버튼의 타입에 따라 어셈블리에 포함되어 있는 이미지를 버튼 이미지로 설정한다. 
+            Custom 타입의 버튼은 배경 이미지로 사용된다. 
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ButtonEx.#ctor">
+            <summary>
+            Framework 표준 버튼 컨트롤
+            </summary>
+            <remarks>
+            표준 버튼은 System.Windows.Forms.Button 에서 상속 받은 버튼이다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ButtonEx.SetButtonImage">
+            <summary>
+            표준 버튼의 이미지를 설정한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ButtonEx.SetButtonImageRecursive(System.Windows.Forms.Control)">
+            <summary>
+            재귀 호출을 통해 컨트롤의 모든 하위 컨트롤을 검사하여 
+            표준 버튼에 대해 이미지 설정을 해준다.
+            </summary>
+            <param name="control">설정을 시작할 컨트롤(폼 혹은 최상위 컨트롤)</param>
+        </member>
+        <member name="P:Skcc.Windows.Forms.ButtonEx.ButtonExType">
+            <summary>
+            표준 버튼 타입
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.ButtonEx.Text">
+            <summary>
+            버튼 문자열
+            </summary>
+        </member>
+        <member name="T:Skcc.Windows.Forms.ButtonExTypes">
+            <summary>
+            표준 버튼들에 대한 열거 상수
+            </summary>
+        </member>
+        <member name="F:Skcc.Windows.Forms.ButtonExTypes.None">
+            <summary>
+            임의의 버튼
+            </summary>
+        </member>
+        <member name="F:Skcc.Windows.Forms.ButtonExTypes.Background">
+            <summary>
+            배경 이미지로 설정(텍스트 보임)
+            </summary>
+        </member>
+        <member name="F:Skcc.Windows.Forms.ButtonExTypes.Left">
+            <summary>
+            왼쪽 이미지로 설정(텍스트 보임)
+            </summary>
+        </member>
+        <member name="F:Skcc.Windows.Forms.ButtonExTypes.Custom">
+            <summary>
+            전체 이미지로 설정(텍스트 안보임)
+            </summary>
+        </member>
+        <member name="T:Skcc.Windows.Forms.FormBase">
+            <summary>
+            폼 기반 화면에 대한 베이스 클래스
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.FormBase.#ctor">
+            <summary>
+            FormBase 객체를 생성한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.FormBase.PurgeMouseKeyboardEvent">
+            <summary>
+            마우스 이벤트와 키보드 이벤트를 필터링 하여 발생하지 않도록 한다.
+            </summary>
+            <remarks>
+            서버 호출이나 기타 시간을 요하는 동기(synchronous)작업 후, 작업 시간동안
+            사용자의 마우스/키보드 입력을 필터링 하는 용도로 사용한다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.FormBase.BeforeInvokeServer">
+            <summary>
+            서버 호출 등과 같이 시간을 소요하는 동기 작업을 수행하기 전에 호출한다.
+            </summary>
+            <remarks>
+            BeforeInvokeServer 메쏘드는 마우스 커서를 모래 시계로 바꾸고
+            필요에 따라 작업 진행 다이얼로그(Progress Dialog)를 표시하는 등의
+            작업을 수행한다.
+            <br/><br/>
+            필요에 따라 이 메쏘드를 오버라이드 하여 각 화면에서 버튼, 입력 상자들을
+            disable 하는 작업을 수행할 수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.FormBase.BeforeInvokeServer(System.Boolean)">
+            <summary>
+            서버 호출 등과 같이 시간을 소요하는 동기 작업을 수행하기 전에 호출한다.
+            </summary>
+            <param name="showProgress">작업 진행 다이얼로그 표시 여부</param>
+            <remarks>
+            BeforeInvokeServer 메쏘드는 마우스 커서를 모래 시계로 바꾸고
+            필요에 따라 작업 진행 다이얼로그(Progress Dialog)를 표시하는 등의
+            작업을 수행한다.
+            <br/><br/>
+            필요에 따라 이 메쏘드를 오버라이드 하여 각 화면에서 버튼, 입력 상자들을
+            disable 하는 작업을 수행할 수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.FormBase.BeforeInvokeServer(System.String)">
+            <summary>
+            서버 호출 등과 같이 시간을 소요하는 동기 작업을 수행하기 전에 호출한다.
+            </summary>
+            <param name="message">작업 진행 다이얼로그에 표시할 메시지</param>
+            <remarks>
+            BeforeInvokeServer 메쏘드는 마우스 커서를 모래 시계로 바꾸고
+            필요에 따라 작업 진행 다이얼로그(Progress Dialog)를 표시하는 등의
+            작업을 수행한다.
+            <br/><br/>
+            필요에 따라 이 메쏘드를 오버라이드 하여 각 화면에서 버튼, 입력 상자들을
+            disable 하는 작업을 수행할 수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.FormBase.BeforeInvokeServer(System.Boolean,System.String,System.Boolean,System.Int32)">
+            <summary>
+            서버 호출 등과 같이 시간을 소요하는 동기 작업을 수행하기 전에 호출한다.
+            </summary>
+            <param name="showProgress">작업 진행 다이얼로그 표시 여부</param>
+            <param name="message">작업 진행 다이얼로그에 표시할 메시지</param>
+            <param name="showProgressValue">작업 진행 상황 값 표시 여부</param>
+            <param name="progressMaxValue">작업 진행 다이얼로그의 진행 상황 최대 값</param>
+            <remarks>
+            BeforeInvokeServer 메쏘드는 마우스 커서를 모래 시계로 바꾸고
+            필요에 따라 작업 진행 다이얼로그(Progress Dialog)를 표시하는 등의
+            작업을 수행한다.
+            <br/><br/>
+            필요에 따라 이 메쏘드를 오버라이드 하여 각 화면에서 버튼, 입력 상자들을
+            disable 하는 작업을 수행할 수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.FormBase.SetCurrentProgressValue(System.Int32)">
+            <summary>
+            진행 상태 값을 설정한다.
+            </summary>
+            <param name="currentValue">진행 상태 값</param>
+        </member>
+        <member name="M:Skcc.Windows.Forms.FormBase.AfterInvokeServer">
+            <summary>
+            서버 호출 등과 같이 시간을 소요하는 동기 작업을 수행한 후에 호출한다.
+            </summary>
+            <remarks>
+            반드시 BeforeInvokeServer 메쏘드 호출과 짝을 이루어 호출되어야 하므로
+            try ~ finally로 묶어주는 것이 좋다. AfterInvokeServer는 마우스 커서를 원상
+            복구하고 표시된 다이얼로그를 감추는 등의 작업을 수행한다.
+            <br/><br/>
+            필요에 따라 이 메쏘드를 오버라이드 하여 각 화면에서 버튼, 입력 상자들을
+            원상 복구하는 작업을 수행할 수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.FormBase.SetUserInfoContext(Skcc.Security.UserInfoContext)">
+            <summary>
+            사용자 인증 정보 객체를 설정한다.
+            </summary>
+            <param name="ctx">UserInfoContext 객체 혹은 그 파생 객체</param>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.FormBase.SetSecurityContext(Skcc.Security.SecurityContext)">
+            <summary>
+            권한 정보 객체를 설정한다.
+            </summary>
+            <param name="ctx">SecurityContext 객체</param>
+            <remarks>
+            팝업 폼 내에 UserControl이 포함될 때, UserControl 자체가 권한 정보를 읽지 않고
+            팝업을 호출한 부모에 의해 권한 정보가 설정된다면 이 메쏘드를 통해 권한 정보를 설정할 수
+            있다. 이 메쏘드에 의해 ..............
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.FormBase.InitControl(System.Object)">
+            <summary>
+            UI 컨트롤이 Load되었고 초기화를 수행하는 메쏘드
+            </summary>
+            <param name="args">임의의 매개변수</param>
+            <remarks>
+            이 메쏘드는 프레임워크 메뉴 컨트롤에 의해 호출되거나 UI 컨트롤이 포함된
+            웹 페이지의 스크립트가 초기화 시에 호출해 주는 메쏘드로서 Load 이벤트가
+            발생한 이후에 호출되어 진다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.FormBase.TerminateControl">
+            <summary>
+            UI 컨트롤이 제거됨을 알리는 메쏘드
+            </summary>
+            <returns>컨트롤을 닫을 것인지 여부</returns>
+            <remarks>
+            이 메쏘드는 프레임워크 메뉴 컨트롤이 컨트롤을 제거할 때 호출되는 메쏘드이다.
+            이 메쏘드가 false를 반환하면 UI 컨트롤은 닫히지 않는다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.FormBase.CreateUserInfoContext">
+            <summary>
+            사용자 정보를 담는 UserInfoContext 객체를 반환한다.
+            </summary>
+            <returns>UserInfoContext 객체 혹은 그 파생 객체</returns>
+            <remarks>
+            UserControlBase에서 파생되는 사용자 정의 컨트롤은 사용자 정보 및 추가 인증 및 개인
+            정보를 UserInfoContext 클래스를 통해 기록해 둘 수 있다.
+            UserControlBase의 파생클래스는 CreateUserInfoContext 메쏘드를 오버라이드 함으로써
+            필요한 정보를 가지고 있는 UserInfoContext 객체를 생성하도록 하고 이 메쏘드에서 생성된
+            UserInfoContext 객체는 UserInfo 프로퍼티를 통해 액세스 가능하다.
+            <br/><br/>
+            UserInfoContext 객체를 생성하기 위한 정보는 UserControlBase 의 컨테이너(메뉴 컨트롤 혹은 IE 브라우저)가
+            설정해 주는 AuthString 프로퍼티를 통해 얻거나, 필요에 따라 웹 서비스 호출, COM+ 컴포넌트 호출 등을
+            통해 정보를 얻어 낼 수도 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.FormBase.CreateSecurityContext">
+            <summary>
+            사용자 권한 정보를 담는 SecurityContext 객체를 반환한다.
+            </summary>
+            <returns>SecurityContext 클래스에서 파생된 SecurityContext 객체</returns>
+            <remarks>
+            SecurityContext 객체는 사용자의 현재 화면에 대한 권한 정보를 담는 객체로서
+            반드시 SecurityContext 클래스에서 파생되어야 한다.
+            이 메쏘드는 RuntimeEnvironment 클래스의 DefaultSecurityContextType 프로퍼티가
+            지시하는 타입의 SecurityContext 객체를 생성하여 반환한다.
+            생성되는 SecurityContext 객체에 전달되는 매개변수는 UserControlBase 인스턴스
+            혹은 그 파생 클래스의 인스턴스가 전달된다.
+            <br/><br/>
+            필요에 따라서 UserControlBase의 파생클래스에서 CreateSecurityContext 메쏘드를
+            오버라이드 하여 개별 SecurityContext 객체를 반환할 수도 있다.
+            <br/><br/>
+            이 메쏘드가 반환한 SecurityContext 객체는 UserControlBase 클래스의 SecurityContext 프로퍼티를
+            통해 접근할 수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.FormBase.SetButtonsByAuthLevel">
+            <summary>
+            필요에 의해 비 표준 버튼들에 대해 권한 레벨을 설정한다.
+            </summary>
+            <remarks>
+            버튼들에 대한 권한 설정은 OnLoad 이벤트 발생 전에 수행된다. 그리고 SetButtonsByAuthLevel 메쏘드 역시
+            OnLoad 이벤트 발생 전에 호출됨에 유의한다. 따라서 버튼의 권한 설정을 오버라이드 할 수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.FormBase.OnLoad(System.EventArgs)">
+            <summary>
+            OnLoad 이벤트 발생시 필요한 인증, 권한 확인 등의 작업을 수행한다.
+            </summary>
+            <param name="e">표준 이벤트 객체</param>
+        </member>
+        <member name="P:Skcc.Windows.Forms.FormBase.ProgramID">
+            <summary>
+            현재 UI 컨트롤(화면)의 프로그램 ID를 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.FormBase.UserID">
+            <summary>
+            현재 UI 컨트롤(화면)을 사용하는 사용자 ID를 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.FormBase.UserInfo">
+            <summary>
+            현재 사용자 정보를 포함하는 UserInfoContext 객체를 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.FormBase.UserInfoContextType">
+            <summary>
+            프레임워크에서 생성할 UserInfoContext 타입 정보
+            </summary>
+            <remarks>
+            프레임워크는 인증 정보를 생성할 때 UserInfoContextType 프로퍼티가
+            지정하는 타입의 UserInfoConetx 객체(UserInfoContext 클래스 혹은 그 파생 클래스)를
+            생성한다. 이 프로퍼티에 값은 생성자에서 설정할 때만 유효하며 디폴트 값은
+            UserInfoContext 클래스이다.
+            <br/><br/>
+            UserTypeInfoContextType 이 지정하는 클래스는 UserInfoContext 클래스에서 파생된 타입이어야
+            하며, 문자열을 매개변수로 하는 생성자를 반드시 가져야 한다. 생성자에 전달되는 매개변수는
+            인증 정보를 포함하는 문자열이다. 인증 정보 문자열을 파싱하여 적절한 정보로 변환하는 것은
+            UserInfoContext (및 그 파생 클래스) 객체의 역할이다.
+            </remarks>
+            <example>
+            public class MyUserControl : UserControlBase
+            {
+            	public MyUserControl()
+            	{
+            		this.UserInfoContextType = typeof(MyUserInfoContext);
+            		
+            		InitializeComponents();
+            	}
+            	
+            	// 보다 명확한 형정의를 위해 UserInfo 프로퍼티를 재정의 한다.
+            	protected new MyUserInfoContext UserInfo
+            	{
+            		get { return (MyUserInfoContext)base.UserInfo; }
+            	}
+            	
+            	// 이하 코드 생략
+            }
+            
+            public class MyUserInfoContext : UserInfoContext
+            {
+            	private string _DeptID;
+            	
+            	public MyUserInfoContext(string authString) : base("")
+            	{
+            		string[] info = authString.Split(";");
+            		base.SetUserID(info[0]);
+            		_DeptID = info[1];
+            	}
+            	
+            	public string DeptID
+            	{
+            		get { return _DeptID; }
+            	}
+            }
+            </example>
+        </member>
+        <member name="P:Skcc.Windows.Forms.FormBase.SecurityContext">
+            <summary>
+            현재 UI 컨트롤(화면)에 대한 사용자의 권한 정보를 담는 보안 객체를 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.FormBase.SecurityContextType">
+            <summary>
+            프레임워크에서 생성할 SecurityContext 타입 정보
+            </summary>
+            <remarks>
+            프레임워크는 권한 저보를 생성할 때 SecurityContextType 프로퍼티가
+            지정하는 타입의 SecurityContext 객체(SeucrityContext 에서 파생된 객체)를
+            생성한다. 이 프로퍼티에 값은 생성자에서 설정할 때만 유효하며 디폴트 값은
+            모든 권한을 허용하는 SecurityContext 클래스이다.
+            </remarks>
+        </member>
+        <member name="P:Skcc.Windows.Forms.FormBase.IsLogon">
+            <summary>
+            현재 로그온 상태를 반환한다.
+            </summary>
+            <remarks>
+            로그온 여부는 현재 UserControl에 UserInfoContext 객체가 설정되어 있는가와
+            UserInfoContext 객체의 UserID 프로퍼티가 설정되어 있느가에 의해 판별된다.
+            </remarks>
+        </member>
+        <member name="P:Skcc.Windows.Forms.FormBase.AuthString">
+            <summary>
+            인증 정보 문자열을 설정하는 프로퍼티
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.FormBase.RequireAuthentication">
+            <summary>
+            UI 컨트롤이 인증을 필요로 하는가 설정
+            </summary>
+            <remarks>
+            이 설정은 Load 이벤트가 발생하기 전, 즉 컨트롤 생성 후 부터
+            컨테이너의 Controls.Add 호출 전 사이에 설정되어야 한다.
+            </remarks>
+        </member>
+        <member name="P:Skcc.Windows.Forms.FormBase.RequireAuthority">
+            <summary>
+            UI 컨트롤이 권한검사를 필요로 하는가 설정
+            </summary>
+            <remarks>
+            이 설정은 Load 이벤트가 발생하기 전, 즉 컨트롤 생성 후 부터
+            컨테이너의 Controls.Add 호출 전 사이에 설정되어야 한다.
+            </remarks>
+        </member>
+        <member name="P:Skcc.Windows.Forms.FormBase.StdQueryButton">
+            <summary>
+            표준 조회 버튼을 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.FormBase.StdInsertButton">
+            <summary>
+            표준 추가 버튼을 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.FormBase.StdUpdateButton">
+            <summary>
+            표준 수정 버튼을 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.FormBase.StdDeleteButton">
+            <summary>
+            표준 삭제 버튼을 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.FormBase.StdSaveButton">
+            <summary>
+            표준 저장 버튼을 반환한다.
+            </summary>
+        </member>
+        <member name="T:Skcc.Windows.Forms.MsgBox">
+            <summary>
+            표준 메시지 박스를 제어하는 클래스
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgBox.#ctor">
+            <summary>
+            정적 클래스이므로 인스턴스를 생성할 수 없다
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgBox.Show(System.String)">
+            <summary>
+            표준 메시지 박스를 표시한다.
+            </summary>
+            <param name="message">메시지</param>
+            <returns>메시지 박스 버튼 선택 결과</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgBox.Show(System.String,System.String)">
+            <summary>
+            표준 메시지 박스를 표시한다.
+            </summary>
+            <param name="message">메시지</param>
+            <param name="caption">메시지 박스 캡션</param>
+            <returns>메시지 박스 버튼 선택 결과</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgBox.Show(System.String,System.String,System.Windows.Forms.MessageBoxButtons)">
+            <summary>
+            표준 메시지 박스를 표시한다.
+            </summary>
+            <param name="message">메시지</param>
+            <param name="caption">메시지 박스 캡션</param>
+            <param name="buttons">메시지 박스 버튼</param>
+            <returns>메시지 박스 버튼 선택 결과</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgBox.Show(System.String,System.String,System.Windows.Forms.MessageBoxButtons,Skcc.Windows.Forms.ImageKinds)">
+            <summary>
+            표준 메시지 박스를 표시한다.
+            </summary>
+            <param name="message">메시지</param>
+            <param name="caption">메시지 박스 캡션</param>
+            <param name="buttons">메시지 박스 버튼</param>
+            <param name="imageKind">메시지 박스에 표시할 이미지</param>
+            <returns>메시지 박스 버튼 선택 결과</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgBox.Show(System.Windows.Forms.IWin32Window,System.String,System.String,System.Windows.Forms.MessageBoxButtons,System.Int32)">
+            <summary>
+            표준 메시지 박스를 표시한다.
+            </summary>
+            <param name="owner">메시지 박스를 소유하는 부모 윈도우</param>
+            <param name="message">메시지</param>
+            <param name="caption">메시지 박스 캡션</param>
+            <param name="buttons">메시지 박스 버튼</param>
+            <param name="imageKind">메시지 박스에 표시할 이미지</param>
+            <returns>메시지 박스 버튼 선택 결과</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgBox.ShowFormat(System.String,System.Object[])">
+            <summary>
+            포매팅 된 문자열을 메시지 박스에 표시한다.
+            </summary>
+            <param name="fmt">메시지 포맷</param>
+            <param name="args">포매팅 매개변수</param>
+            <returns>메시지 박스 버튼 선택 결과</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgBox.ShowFormat(System.String,System.String,System.Object[])">
+            <summary>
+            포매팅 된 문자열을 메시지 박스에 표시한다.
+            </summary>
+            <param name="fmt">메시지 포맷</param>
+            <param name="caption">메시지 박스 캡션</param>
+            <param name="args">포매팅 매개변수</param>
+            <returns>메시지 박스 버튼 선택 결과</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgBox.ShowFormat(System.String,System.String,System.Windows.Forms.MessageBoxButtons,System.Object[])">
+            <summary>
+            포매팅 된 문자열을 메시지 박스에 표시한다.
+            </summary>
+            <param name="fmt">메시지 포맷</param>
+            <param name="caption">메시지 박스 캡션</param>
+            <param name="buttons">메시지 박스 버튼</param>
+            <param name="args">포매팅 매개변수</param>
+            <returns>메시지 박스 버튼 선택 결과</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgBox.ShowFormat(System.String,System.String,System.Windows.Forms.MessageBoxButtons,Skcc.Windows.Forms.ImageKinds,System.Object[])">
+            <summary>
+            포매팅 된 문자열을 메시지 박스에 표시한다.
+            </summary>
+            <param name="fmt">메시지 포맷</param>
+            <param name="caption">메시지 박스 캡션</param>
+            <param name="buttons">메시지 박스 버튼</param>
+            <param name="imageKind">메시지 박스에 표시할 이미지</param>
+            <param name="args">포매팅 매개변수</param>
+            <returns>메시지 박스 버튼 선택 결과</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgBox.ShowFormat(System.Windows.Forms.IWin32Window,System.String,System.String,System.Windows.Forms.MessageBoxButtons,System.Int32,System.Object[])">
+            <summary>
+            포매팅 된 문자열을 메시지 박스에 표시한다.
+            </summary>
+            <param name="owner">메시지 박스를 소유하는 부모 윈도우</param>
+            <param name="fmt">메시지 포맷</param>
+            <param name="caption">메시지 박스 캡션</param>
+            <param name="buttons">메시지 박스 버튼</param>
+            <param name="imageKind">메시지 박스에 표시할 이미지</param>
+            <param name="args">포매팅 매개변수</param>
+            <returns>메시지 박스 버튼 선택 결과</returns>
+        </member>
+        <member name="T:Skcc.Windows.Forms.ProgressUIManager">
+             <summary>
+             작업 진행 상황을 표시하기 위해 사용되는 Progress 매니저
+             </summary>
+             <remarks>
+             ProgressManager는 동기 작업을 수행하는 동안 작업의 진행 상황을 가시적으로
+             보여 주기 위해 별도의 쓰레드를 사용하여 다이얼로그를 표시하는 등의 작업을 관리한다.
+             </remarks>
+            	<example>
+             <code>
+            private void btnManualProgessTest_Click(object sender, EventArgs e)
+            {
+                ProgressUIManager manager = ProgressUIManager.CreateInstance();
+                manager.ParentWindow = this;
+                manager.Message = "테스트";
+                manager.MaxProgressValue = 60;
+                manager.ShowProgressValue = true;
+                manager.StartProgress();
+            
+                for (int i = 0; i &lt; 60; i++)
+                {
+                    System.Threading.Thread.Sleep(500);
+                    manager.CurrentProgressValue++;
+                }
+                manager.StopProgress();
+            }
+             </code>
+             </example>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ProgressUIManager.CreateInstance">
+            <summary>
+            ProgressUIManager 객체의 인스턴스를 생성하여 반환한다.
+            </summary>
+            <returns>ProgressUIManager 객체 인스턴스</returns>
+            <remarks>
+            ProgressUIManager 클래스는 Singleton 패턴를 사용하여 오직 하나의 인스턴스만이
+            존재한다. 따라서 new 를 통해 인스턴스를 생성할 수는 없고 CreateInstance 스태틱 메쏘드를
+            이용하여 인스턴스를 생성한다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ProgressUIManager.Finalize">
+            <summary>
+            Finalizer 구현
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ProgressUIManager.Dispose">
+            <summary>
+            ProgressUIManager에 할당된 자원들을 Dispose 한다
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ProgressUIManager.StartProgress">
+            <summary>
+            프로그래스 바를 표시한다
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ProgressUIManager.StopProgress">
+            <summary>
+            프로그래스 바를 감춘다
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ProgressUIManager.Shutdown">
+            <summary>
+            UI Manager에 대한 클린없을 수행한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.ProgressUIManager.ParentWindow">
+            <summary>
+            UI 표시의 기준을 제공하는 UI 다이얼로그의 부모 윈도우
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.ProgressUIManager.Message">
+            <summary>
+            UI 다이얼로그에 표시되는 메시지
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.ProgressUIManager.ShowProgressValue">
+            <summary>
+            진행 상황 값 표시 여부
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.ProgressUIManager.MaxProgressValue">
+            <summary>
+            표시되는 진행 상황 값의 최대 값
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.ProgressUIManager.CurrentProgressValue">
+            <summary>
+            표시되는 현재 진행 상황 값
+            </summary>
+        </member>
+        <member name="T:Skcc.Windows.Forms.GlobalExceptionHandler">
+            <summary>
+            전역 예외 핸들러. UI 화면에서 처리하지 못한 예외들을 처리하는 예외 핸들러<br></br>
+            이 클래스는 Skcc Framework 내부에서 사용하는 클래스이며 개발자가 직접 사용하지 않는다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.GlobalExceptionHandler.#cctor">
+            <summary>
+            정적 생성자
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.GlobalExceptionHandler.SetOutstandUIControl(System.Windows.Forms.Control)">
+            <summary>
+            예외 발생시 이벤트를 전달할 outstanding UI 컨트롤을 설정한다.
+            이 메쏘드는 프레임워크 내부 사용으로 제한됨.
+            </summary>
+            <param name="ctrl">설정할 Control</param>
+            <remarks>
+            스마트 클라이언트는 컨트롤이고 이 컨트롤이 외부와 접촉한다.
+            오류 처리 시에 컨트롤을 호스팅 하는 컨테이너와 통신하기 위해서는
+            컨테이너와 직접적으로 인터페이스하는 컨트롤을 파악할 필요가 있다.
+            이 때문에 메뉴 컨트롤 혹은 UI 컨트롤이 이 메쏘드를 호출하여 인터페이스를
+            담당할 컨트롤을 지정하는 것이다.
+            </remarks>
+        </member>
+        <member name="T:Skcc.Windows.Forms.MsgCodeBox">
+            <summary>
+            표준 메시지 박스를 제어하는 클래스
+            </summary>
+            <remarks>
+            메시지 박스에서 메시지 코드를 통해 표준 메시지를 표시하기 위해서는
+            configruation 에서 메시지를 읽어 오기 위해 MessagePath을 명시 해야 한다.
+            MessagePath 이 명시하는 웹 페이지는 메시지를 담는 데이터 셋을 XML로
+            Serialize 하여 반환한다. 다음 예제 코드는 메시지를 반환하는 ASPX 예제
+            코드이다.
+            </remarks>
+            <example>
+            <code>
+            private void Page_Load(object sender, System.EventArgs e)
+            {
+            	DataSet ds = GetMessageData();	// DB에서 메시지 테이블을 읽는다
+            	Response.ContentType = "text/xml";
+            	ds.WriteXml(Response.OutputStream);
+            	Response.End();
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgCodeBox.#ctor">
+            <summary>
+            정적 클래스이므로 인스턴스를 생성할 수 없다
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgCodeBox.Show(System.String)">
+            <summary>
+            메시지 코드가 지시하는 메시지로 표준 메시지 박스를 표시한다.
+            </summary>
+            <param name="msgCode">표준 메시지 코드</param>
+            <returns>메시지 박스 버튼 선택 결과</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgCodeBox.Show(System.String,System.Windows.Forms.MessageBoxButtons)">
+            <summary>
+            메시지 코드가 지시하는 메시지로 표준 메시지 박스를 표시한다.
+            </summary>
+            <param name="msgCode">표준 메시지 코드</param>
+            <param name="buttons">메시지 박스 버튼</param>
+            <returns>메시지 박스 버튼 선택 결과</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgCodeBox.Show(System.Windows.Forms.IWin32Window,System.String,System.Windows.Forms.MessageBoxButtons,Skcc.Windows.Forms.ImageKinds)">
+            <summary>
+            메시지 코드가 지시하는 메시지로 표준 메시지 박스를 표시한다.
+            </summary>
+            <param name="owner">메시지 박스를 소유하는 부모 윈도우</param>
+            <param name="msgCode">표준 메시지 코드</param>
+            <param name="buttons">메시지 박스 버튼</param>
+            <param name="imageKind">메시지 박스에 표시할 이미지</param>
+            <returns>메시지 박스 버튼 선택 결과</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgCodeBox.Show(System.Windows.Forms.IWin32Window,System.String,System.Windows.Forms.MessageBoxButtons,System.Int32)">
+            <summary>
+            메시지 코드가 지시하는 메시지로 표준 메시지 박스를 표시한다.
+            </summary>
+            <param name="owner">메시지 박스를 소유하는 부모 윈도우</param>
+            <param name="msgCode">표준 메시지 코드</param>
+            <param name="buttons">메시지 박스 버튼</param>
+            <param name="imageKind">메시지 박스에 표시할 이미지</param>
+            <returns>메시지 박스 버튼 선택 결과</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgCodeBox.ShowFormat(System.String,System.Object[])">
+            <summary>
+            메시지 코드가 지시하는 메시지와 매개변수를 표준 메시지 박스에 표시한다.
+            </summary>
+            <param name="msgCode">표준 메시지 코드</param>
+            <param name="args">메시지 매개변수</param>
+            <returns>메시지 박스 버튼 선택 결과</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgCodeBox.ShowFormat(System.String,System.Windows.Forms.MessageBoxButtons,System.Object[])">
+            <summary>
+            메시지 코드가 지시하는 메시지와 매개변수를 표준 메시지 박스에 표시한다.
+            </summary>
+            <param name="msgCode">표준 메시지 코드</param>
+            <param name="buttons">메시지 박스 버튼</param>
+            <param name="args">메시지 매개변수</param>
+            <returns>메시지 박스 버튼 선택 결과</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgCodeBox.ShowFormat(System.String,System.Windows.Forms.MessageBoxButtons,Skcc.Windows.Forms.ImageKinds,System.Object[])">
+            <summary>
+            메시지 코드가 지시하는 메시지로 표준 메시지 박스를 표시한다.
+            </summary>
+            <param name="msgCode">표준 메시지 코드</param>
+            <param name="buttons">메시지 박스 버튼</param>
+            <param name="imageKind">메시지 박스에 표시할 이미지</param>
+            <param name="args">메시지 매개변수</param>
+            <returns>메시지 박스 버튼 선택 결과</returns>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MsgCodeBox.ShowFormat(System.Windows.Forms.IWin32Window,System.String,System.Windows.Forms.MessageBoxButtons,System.Int32,System.Object[])">
+            <summary>
+            메시지 코드가 지시하는 메시지와 매개변수를 표준 메시지 박스에 표시한다.
+            </summary>
+            <param name="owner">메시지 박스를 소유하는 부모 윈도우</param>
+            <param name="msgCode">표준 메시지 코드</param>
+            <param name="buttons">메시지 박스 버튼</param>
+            <param name="imageKind">메시지 박스에 표시할 이미지</param>
+            <param name="args">메시지 매개변수</param>
+            <returns>메시지 박스 버튼 선택 결과</returns>
+        </member>
+        <member name="T:Skcc.Windows.Forms.MessageBoxForm">
+            <summary>
+            표준 메세지 폼 클래스이다. 
+            </summary>
+            <remarks>
+            프레임워크 내부적으로 사용되는 표준 메세지 폼을 출력하는 클래스이다. 
+            사용자는 <see cref="T:Skcc.Windows.Forms.MsgBox"/> 클래스 또는 <see cref="T:Skcc.Windows.Forms.MsgCodeBox"/> 클래스의
+            메서드를 사용한다.
+            </remarks>
+        </member>
+        <member name="F:Skcc.Windows.Forms.MessageBoxForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MessageBoxForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MessageBoxForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MessageBoxForm.#ctor">
+            <summary>
+            생성자
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.MessageBoxForm.Buttons">
+            <summary>
+            메시지 박스의 버튼 스타일
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.MessageBoxForm.Caption">
+            <summary>
+            메시지 박스의 캡션. 디폴트 값은 "메시지 박스"
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.MessageBoxForm.Message">
+            <summary>
+            메시지 박스에 표시할 메시지
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.MessageBoxForm.Image">
+            <summary>
+            메시지 박스 이미지 설정
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.MessageBoxForm.ImageKind">
+            <summary>
+            메시지 박스 이미지 타입
+            </summary>
+        </member>
+        <member name="T:Skcc.Windows.Forms.ExMenuItem">
+             <summary>
+             ExMenuItem은 MenuItem으로부터 파생되여 Menu.Xml을 통한
+             메뉴생성에 필요한 정보와 기능들을 추가적으로 제공해주는 클래스이다.
+             </summary>
+             <remarks>
+             구성파일에서 
+             메뉴파일에서 메뉴구성정보들을 얻어내고, 메뉴를 만들고, MenuItem정보를 추출하는 
+             메뉴에 관한 기능을 제공한다. 
+             </remarks>
+             <example>메뉴파일을 읽어서 MainMenu형태의 메뉴를 생성하여주는 예제이다.
+             <code>
+            	//MenuHelper 오브젝트를 생성한다.
+            	MenuHelper mHelper = new MenuHelper();
+            
+            	//Menu를 생성하고 Application의 Menu로 설정한다.
+            	MainMenu menu = mHelper.CreateMenu(“Menu.Xml”);
+            	This.Menu = menu;
+            	</code>
+            	</example>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ExMenuItem.#ctor(System.Int32)">
+            <summary>
+            파라메터로 입력한 속성개수로 메뉴항목의 속성정보배열을 구축한다.
+            </summary>
+            <param name="m_nProp">속성정보의 개수</param>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ExMenuItem.SetMenuItemInfo(System.Int32,System.String)">
+            <summary>
+            Menu항목의 선택된 첨수에 해당한 속성값을 설정한다.
+            </summary>
+            <param name="m_nIndex">속성항목의 첨수번호</param>
+            <param name="PropValue">속성값</param>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ExMenuItem.GetMenuItemInfo(System.Int32)">
+            <summary>
+            Menu항목의 선택된 첨수번호에 해당한 속성값을 얻는다.
+            </summary>
+            <param name="m_nIndex">속성항목의 첨수번호</param>
+            <returns>첨수번호에 해당하는 속성값</returns>
+        </member>
+        <member name="T:Skcc.Windows.Forms.IMenuHelper">
+            <summary>
+            IMenuHelper는 메뉴생성과 관리를 편리하게 해주는 Interface이다.
+            이 Interface를 이용하여 메뉴생성과 관리에 필요한 정보들을 쉽게 호출할수 있다.
+            </summary>
+            <remarks>
+            MenuHelper는 메뉴생성프로그램을 통하여 만들어진 Menu.Xml파일을 사용하여 메뉴를 생성한다.
+            메뉴를 생성하기전에 먼저 메뉴파일에서 Config정보를 얻어내며 이에 기초하여 메뉴자료를 읽어들인다.
+            읽어들인 메뉴자료중에서 Name속성만을 메뉴항목의 제목으로 하여 MainMenu를 생성한다.
+            생성된 메뉴항목의 속성과 Evnet설정은 이 MenuHelper의 함수들을 사용하여 진행할수 있다.
+            </remarks>
+            <example>
+            본 형식의 Menu를 이용하기 위해서는 MenuHelper를 구현해야 한다. 
+            <code>
+            public class NewMenuHelper : IMenuHelper
+            </code>
+            </example>
+        </member>
+        <member name="M:Skcc.Windows.Forms.IMenuHelper.GetConfigItemCount">
+             <summary>
+             MenuHelper를 이용하여 MainMenu를 생성한 후에 Menu의 구성항목의 개수를 얻는다.
+             </summary>
+             <returns>메뉴의 구성항목개수</returns>
+             <remarks>
+             메뉴항목들은 그 생성과 관리를 위하여 여러가지 구성정보들(예제로 ID, Name, Class, URL
+            , Icon, Visible…등)을 가지는데 이것들의 전체수를 반환한다.
+             </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.IMenuHelper.GetConfigInfo(System.Int32)">
+            <summary>
+            첨수에 해당한 메뉴구성항목의 구체적인 정보를 얻는다.
+            </summary>
+            <param name="index">첨수번호</param>
+            <returns>첨수번호에 따르는 구성항목내용</returns>
+            <remarks>
+            메뉴구성항목은 ItemConfig구조체형이며 이름, 항목의 타입, 제목으로 이루어진다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.IMenuHelper.GetConfigItemIndex(System.String)">
+            <summary>
+            선택된 속성명의 첨수번호를 얻는다.
+            </summary>
+            <param name="propName">속성명</param>
+            <returns>선택된 속성명의 첨수번호</returns>
+            <remarks>
+            이 함수의 결과값은 메뉴구성항목의 구체적인 정보를 얻는데 첨수번호로 이용된다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.IMenuHelper.CreateMenu(System.String)">
+            <summary>
+            메뉴생성기를 이용하여 만들어진 Menu.xml파일을 읽어서
+            Menu항목과 구조를 MainMenu형태로 생성한다.
+            </summary>
+            <param name="FileName">Menu.xml파일지정(경로포함)</param>
+            <returns>생성된 메뉴</returns>
+            <remarks>
+            이 함수는 메뉴를 생성하기전에 먼저 메뉴파일에서 메뉴구성정보들을 얻어낸다.
+            다음 구성정보의 Name속성을 매개 메뉴항목의 제목으로 하는 MainMenu를 생성한다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.IMenuHelper.GetMenuItemCount">
+            <summary>
+            생성된 메뉴항목의 총개수를 얻는다.
+            </summary>
+            <returns>메뉴항목의 총개수</returns>
+            <remarks>
+            CreateMenu()함수 호출후 얻어진 MainMenu의 전체 메뉴항목의 개수를 반환한다.
+            이것은 메뉴항목의 속성설정과 같은 조작의 반복수행에서 이용할수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.IMenuHelper.GetMenuItem(System.Int32)">
+            <summary>
+            첨수번호로 지정된 메뉴항목을 얻는다.
+            </summary>
+            <param name="index">첨수번호</param>
+            <returns>첨수번호에 해당한 메뉴항목</returns>
+            <remarks>
+            메뉴생성시 Helper가 붙인 첨수번호에 따르는 메뉴항목을 얻어낸다.
+            메뉴항목은 ExMenuItem형으로써 메뉴구성항목에 들어있는 속성정보들을 추가적으로 더 가지고있다.
+            얻어진 메뉴항목은 GetMenuItemInfo함수를 이용하여 속성정보들을 얻어낼수있으며 메뉴항목의 
+            속성 혹은 이벤트설정등에 이용할수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.IMenuHelper.GetMenuItem(System.String,System.String)">
+            <summary>
+            검색키와 검색어에 해당한 Menu항목을 얻는다.
+            </summary>
+            <param name="KeyName">키로 사용하는 속성명</param>
+            <param name="KeyValue">키에 대한 값</param>
+            <returns>검색된 메뉴항목</returns>
+            <remarks>
+            생성된 메뉴중에서 사용자가 원하는 메뉴항목을 검색할수 있다.
+            이때 메뉴항목을 식별하는 키를 설정하고 그값을 지정하는 방법으로 검색을 진행한다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.IMenuHelper.GetItemInfo(System.String,System.String,System.String)">
+            <summary>
+            키명과 키값으로 검색된 Menu항목의 선택된 속성값을 얻는다.
+            </summary>
+            <param name="KeyName">키로 사용하는 속성명</param>
+            <param name="KeyValue">키에 대한 값</param>
+            <param name="PropName">얻으려는 속성명</param>
+            <returns>검색된 속성값(찾을수없으면 null)</returns>
+            <remarks>
+            생성된 메뉴에서 사용자가 원하는 메뉴항목의 속성값을 얻어낼수 있다.
+            이때 메뉴항목을 식별하는 키를 설정하고 그 값과 얻으려는 속성명을 지정해준다.
+            </remarks>
+        </member>
+        <member name="T:Skcc.Windows.Forms.MenuHelper">
+            <summary>
+            MenuHelper는 메뉴생성프로그램으로 만들어진 Menu.xml파일을 읽어서 
+            메뉴를 생성하고 xml파일에서 필요한 메뉴정보를 쉽게 찾아볼수 
+            있게 하는 클래스이다.
+            </summary>
+            <remarks>
+            MenuHelper는 메뉴생성프로그램을 통하여 만들어진 Menu.Xml파일을 사용하여 메뉴를 생성한다.
+            메뉴생성하기전에 먼저 메뉴파일에서 Config정보를 얻어내며 다음 메뉴자료를 읽어들인다.
+            읽어들인 메뉴자료중에서 Name부분만을 실지 메뉴항목의 제목으로 하여 MainMenu를 생성한다.
+            생성된 메뉴항목의 속성과 Evnet설정은 이 MenuHelper의 함수들을 사용하여 진행할수있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MenuHelper.#ctor">
+            <summary>
+            Constructor of MenuHelper
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MenuHelper.GetConfigItemCount">
+             <summary>
+             MenuHelper를 이용하여 MainMenu를 생성한 후에 Menu의 구성항목의 개수를 얻는다.
+             </summary>
+             <returns>메뉴의 구성항목개수</returns>
+             <remarks>
+             메뉴항목들은 그생성과 관리를 위하여 여러가지 구성정보들(예제로 ID,Name,Class,URL
+            ,Icon,Visible…등)을 가지는데 이것들의 전체수를 반환한다.
+             </remarks>
+             <example>메뉴의 구성항목 개수를 얻어내는 예제이다.
+            	<code>
+            	//MenuHelper 오브젝트를 생성한다.
+            	MenuHelper mHelper = new MenuHelper();
+            
+            	//Menu를 생성하고 메뉴구성항목의 개수를 얻는다
+            	MainMenu menu = mHelper.CreateMenu(“Menu.Xml”);
+            	Int m_nConfigItem = mHelper.GetConfigItemCount();
+            	</code>
+            	</example>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MenuHelper.GetConfigInfo(System.Int32)">
+             <summary>
+             첨수에 해당한 메뉴구성항목의 구체적인 정보를 얻는다.
+             </summary>
+             <param name="index">첨수번호</param>
+             <returns>첨수번호에 따르는 구성항목내용</returns>
+             <remarks>
+             메뉴구성항목은 ItemConfig구조체형이며 이름,항목의 타입,제목으로 이루어진다.
+             </remarks>
+             <example>첨수에 해당한 메뉴구성항목의 구체적인 정보를 얻는 예제이다.
+             <code>
+            	//MenuHelper 오브젝트를 생성하고 메뉴를 창조한다.
+            	MenuHelper mHelper = new MenuHelper();
+            	MainMenu menu = mHelper.CreateMenu(“Menu.Xml”);
+            	
+             //Menu항목이 가지는 구성항목의 첨수번호를 얻는다.
+            	Int m_nIndex = mHelper.GetConfigItemIndex(“Name”);
+            
+            	//Menu항목의 구성정보를 얻는다.
+            	ItemConfig itemConf = mHelper.GetConfigInfo(m_nIndex);
+             </code>
+             </example>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MenuHelper.GetConfigItemIndex(System.String)">
+             <summary>
+             선택된 속성명의 첨수번호를 얻는다.
+             </summary>
+             <param name="propName">속성명</param>
+             <returns>선택된 속성명의 첨수번호</returns>
+             <remarks>
+             이함수의 결과값은 메뉴구성항목의 구체적인 정보를 얻는데 첨수번호로 이용된다.
+             </remarks>
+             <example>선택된 속성명의 첨수번호를 얻어서 이용하는 예제이다.
+             <code>
+            	MenuHelper mHelper = new MenuHelper();
+            	...
+            	
+             //Menu항목이 가지는 구성항목의 첨수번호를 얻는다.
+            	Int m_nIndex = mHelper.GetConfigItemIndex(“Name”);
+            
+            	//Menu항목의 구성정보를 얻는다.
+            	ItemConfig itemConf = mHelper.GetConfigInfo(m_nIndex);
+             </code>
+             </example>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MenuHelper.CreateMenu(System.String)">
+             <summary>
+             메뉴생성기를 이용하여 만들어진 Menu.xml파일을 읽어서
+             Menu항목과 구조를 MainMenu형태로 생성한다.
+             </summary>
+             <param name="FileName">Menu.xml파일지정(경로포함)</param>
+             <returns>생성된 메뉴</returns>
+             <remarks>
+             이함수는 메뉴를 생성하기전에 먼저 메뉴파일에서 메뉴구성정보들을 얻어낸다.
+            	다음 구성정보의 Name속성을 매개 메뉴항목의 제목으로 하는 MainMenu를 생성한다.
+             </remarks>
+             <example>메뉴파일을 읽어서 MainMenu형태의 메뉴를 생성하여주는 예제이다.
+             <code>
+            	//MenuHelper 오브젝트를 생성한다.
+            	MenuHelper mHelper = new MenuHelper();
+            
+            	//Menu를 생성하고 Application의 Menu로 설정한다.
+            	MainMenu menu = mHelper.CreateMenu(“Menu.Xml”);
+            	This.Menu = menu;
+            	</code>
+            	</example>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MenuHelper.CreateMenuItem(System.Windows.Forms.Menu,System.Xml.XmlElement)">
+            <summary>
+            Xml마디를  항행하면서 대응하는 Menu항목을 창조하는 재귀함수이다
+            </summary>
+            <param name="pMenu">현 위치에서 어미 Menu 항목</param>
+            <param name="pXmlNode">현 위치에서 어미 Xml 항목</param>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MenuHelper.GetMenuItemCount">
+            <summary>
+            생성된 메뉴항목의 총개수를 얻는다.
+            </summary>
+            <returns>메뉴항목의 총개수</returns>
+            <remarks>
+            CreateMenu()함수 호출후 얻어진 MainMenu의 전체 메뉴항목의 개수를 반환한다.
+            이것은 메뉴항목의 속성설정과 같은 조작의 반복수행에서 이용할수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MenuHelper.GetMenuItem(System.Int32)">
+             <summary>
+             첨수번호로 지정된 메뉴항목을 얻는다.
+             </summary>
+             <param name="index">첨수번호</param>
+             <returns>첨수번호에 해당한 메뉴항목</returns>
+             <remarks>
+            	메뉴생성시 Helper가 붙인 첨수번호에 따르는 메뉴항목을 얻어낸다.
+            	메뉴항목은 ExMenuItem형으로써 메뉴구성항목에 들어있는 속성정보들을 추가적으로 더 가지고있다.
+            	얻어진 메뉴항목은 GetMenuItemInfo함수를 이용하여 속성정보들을 얻어낼수있으며 메뉴항목의 
+            	속성 혹은 이벤트설정등에 이용할수 있다.
+             </remarks>
+             <example>생성된 메뉴의 전체 메뉴항목을 얻어서 이용하는 예제이다.
+             <code>
+            	//MenuHelper 오브젝트를 생성한다.
+            	MenuHelper mHelper = new MenuHelper();
+            
+            	//Menu를 생성하고 Application의 Menu로 설정한다.
+            	MainMenu menu = mHelper.CreateMenu(“Menu.Xml”);
+            	This.Menu = menu;
+            	
+             //생성된 Menu항목들의 속성값에 따라 처리를 진행한다.
+            	for(int i=0;i&lt;mHelper.GetMenuItemCount();i++)
+            	{
+            		ExMenuItem menuItem = mHelper.GetMenuItem(i);
+            		
+            		int m_nIndex = mHelper.GetConfigItemIndex("Show");
+            		if(m_nIndex != -1)
+            		{
+            			string m_sVal = menuItem.GetMenuItemInfo(m_nIndex);
+            			if(m_sVal.Length != 0 &amp;&amp; m_sVal == "0")
+            			menuItem.Visible = false;
+            		}
+            	}
+             </code>
+             </example>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MenuHelper.GetMenuItem(System.String,System.String)">
+             <summary>
+             검색키와 검색어에 해당한 Menu항목을 얻는다.
+             </summary>
+             <param name="KeyName">키로 사용하는 속성명</param>
+             <param name="KeyValue">키에 대한 값</param>
+             <returns>검색된 메뉴항목</returns>
+             <remarks>
+            	생성된 메뉴중에서 사용자가 원하는 메뉴항목을 검색할수 있다.
+            	이때 메뉴항목을 식별하는 키를 설정하고 그값을 지정하는 방법으로 검색을 진행한다.
+             </remarks>
+             <example>Menu항목과 지정된 속성값을 얻어내는 예제이다.
+             <code>
+            	//MenuHelper 오브젝트를 생성한다.
+            	MenuHelper mHelper = new MenuHelper();
+            	...
+            	
+            	//키와 키값을 가지고 Menu항목을 검색한다.
+            	ExMenuItem menuItem = mHelper.GetMenuItem(“ID”,”ID_FILE_NEW”);
+            
+            	//키값이 지정된 문자열과 일치하는 Menu항목의 지정된 속성값을 얻는다.
+            	Int m_nIcon = Convert.ToInt(mHelper.GetItemInfo(“ID”,”ID_FILE_NEW”,”Icon”));
+             </code>
+             </example>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MenuHelper.GetItemInfo(System.String,System.String,System.String)">
+             <summary>
+             키명과 키값으로 검색된 Menu항목의 선택된 속성값을 얻는다.
+             </summary>
+             <param name="KeyName">키로 사용하는 속성명</param>
+             <param name="KeyValue">키에 대한 값</param>
+             <param name="PropName">얻으려는 속성명</param>
+             <returns>검색된 속성값(찾을수없으면 null)</returns>
+             <remarks>
+             생성된 메뉴에서 사용자가 원하는 메뉴항목의 속성값을 얻어낼수있다.
+            	이때 메뉴항목을 식별하는 키를 설정하고 그값과 얻으려는 속성명을 지정해준다.
+             </remarks>
+             <example>Menu항목과 지정된 속성값을 얻어내는 예제이다.
+             <code>
+            	//MenuHelper 오브젝트를 생성한다.
+            	MenuHelper mHelper = new MenuHelper();
+            	...
+            	
+            	//키와 키값을 가지고 Menu항목을 검색한다.
+            	ExMenuItem menuItem = mHelper.GetMenuItem(“ID”,”ID_FILE_NEW”);
+            
+            	//키값이 지정된 문자열과 일치하는 Menu항목의 지정된 속성값을 얻는다.
+            	Int m_nIcon = Convert.ToInt(mHelper.GetItemInfo(“ID”,”ID_FILE_NEW”,”Icon”));
+             </code>
+             </example>
+        </member>
+        <member name="M:Skcc.Windows.Forms.MenuHelper.ReadMenuItemConfigInfo">
+            <summary>
+            Menu.Xml파일에서 구성정보를 읽어들인다.
+            </summary>
+            <returns>성공하면 true, 실패하면 false</returns>
+        </member>
+        <member name="T:Skcc.Windows.Forms.ItemConfig">
+            <summary>
+            메뉴항목이 가지는 매개속성에 대한 구체적인 정보를 보관하는 구조체이다.
+            </summary>
+        </member>
+        <member name="F:Skcc.Windows.Forms.ItemConfig.name">
+            <summary>
+            속성명을 보관한다.
+            </summary>
+        </member>
+        <member name="F:Skcc.Windows.Forms.ItemConfig.type">
+            <summary>
+            속성정보의 타입을 보관한다.
+            </summary>
+        </member>
+        <member name="F:Skcc.Windows.Forms.ItemConfig.caption">
+            <summary>
+            속성정보의 제목을 보관한다.
+            </summary>
+        </member>
+        <member name="T:Skcc.Windows.Forms.ImageKinds">
+            <summary>
+            표준 메세지 박스의 이미지 종류
+            </summary>
+        </member>
+        <member name="F:Skcc.Windows.Forms.ImageKinds.Ask">
+            <summary>
+            의문
+            </summary>
+        </member>
+        <member name="F:Skcc.Windows.Forms.ImageKinds.Warnning">
+            <summary>
+            경고
+            </summary>
+        </member>
+        <member name="F:Skcc.Windows.Forms.ImageKinds.Information">
+            <summary>
+            정보
+            </summary>		
+        </member>
+        <member name="F:Skcc.Windows.Forms.ImageKinds.Error">
+            <summary>
+            에러
+            </summary>
+        </member>
+        <member name="F:Skcc.Windows.Forms.ImageKinds.None">
+            <summary>
+            없음
+            </summary>
+        </member>
+        <member name="T:Skcc.Windows.Forms.Win32.Win32API">
+            <summary>
+            Win32 API 들에 대한 Wrapper 클래스
+            </summary>
+        </member>
+        <member name="T:Skcc.Windows.Forms.UserControlBase">
+             <summary>
+             스마트 클라이언트 화면에 대한 베이스 클래스
+             </summary>
+             <remarks>
+             스마트 클라이언트 화면을 개발할 때 사용하는 베이스 클래스로써 사용자 인증및 권한 체크 기능, 
+             외부 컨테이너와 통신을 수행하는 기능, ProgressDialog를 출력하는 메서드, ExceptionDialog 관리 기능등이
+             포함되어 있다.
+             </remarks>
+             <example>
+            	<code>
+            public class ProjectBaseControl : UserControlBase
+            {
+                public ProjectBaseControl()
+                {
+                    InitializeComponent();
+                }
+            
+                private void InitializeComponent()
+                {
+                    this.SuspendLayout();
+                }
+            
+                protected override SecurityContext CreateSecurityContext()
+                {
+                    if (this.UserID == "admin")
+                        return new SecurityContext(true, true, true, true);
+                    else if (this.UserID == "manager")
+                    {
+                        if (this.ProgramID == "OrderMgr")
+                            return new SecurityContext(true, true, true, true);
+                        else
+                            return new SecurityContext(false, true, false, false);
+                    }
+                    else
+                        return new SecurityContext(false, false, false, false);
+                }
+            
+                protected override UserInfoContext CreateUserInfoContext()
+                {
+                    return null;
+                }
+            }
+             </code>
+             </example>
+        </member>
+        <member name="T:Skcc.Windows.Forms.DSmartClientEventSource">
+            <summary>
+            컨테이너에게 이벤트를 발생시키기 위한 인터페이스
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.DSmartClientEventSource.Fire_Redirect(System.Int32,System.String)">
+            <summary>
+            Redirect 이벤트를 발생시킨다
+            </summary>
+            <param name="reason">Redirect의 원인코드</param>
+            <param name="url">Redirect할 URL</param>
+        </member>
+        <member name="M:Skcc.Windows.Forms.DSmartClientEventSource.Fire_AuthenticationError">
+            <summary>
+            인증 오류 이벤트를 발생시킨다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.DSmartClientEventSource.Fire_AuthorityError">
+            <summary>
+            권한 오류 이벤트를 발생시킨다.
+            </summary>
+        </member>
+        <member name="E:Skcc.Windows.Forms.DSmartClientEventSource.Redirect">
+            <summary>
+            Redirect 이벤트
+            </summary>
+        </member>
+        <member name="E:Skcc.Windows.Forms.DSmartClientEventSource.AuthenticationError">
+            <summary>
+            인증 오류 이벤트
+            </summary>
+        </member>
+        <member name="E:Skcc.Windows.Forms.DSmartClientEventSource.AuthorityError">
+            <summary>
+            권한 오류 이벤트
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.#ctor">
+            <summary>
+            스마트 클라이언트 용 사용자 정의 컨트롤의 생성자
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.Dispose(System.Boolean)">
+            <summary> 
+            Clean up any resources being used.
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.InitializeComponent">
+            <summary> 
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.Skcc#Windows#Forms#DSmartClientEventSource#Fire_Redirect(System.Int32,System.String)">
+            <summary>
+            Redirect 가 필요함을 컨테이너(웹 페이지, 윈폼)에게 알린다.
+            </summary>
+            <param name="reason">Redirect 원인 코드 (어플리케이션 정의)</param>
+            <param name="url">리다이렉트할 URL</param>
+            <remarks>
+            스마트 클라이언트의 컨테이너(웹 페이지, 윈폼)에게 Redirect 이벤트를 발생시킨다.
+            Framework 내부적으로는 호출하지 않고 있으며, 개발자가 명시적으로 Fire_Redirect 메서드를
+            호출함으로써 컨테이너(웹 페이지, 윈폼)에게 Redirect 이벤트를 발생시킨다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.Skcc#Windows#Forms#DSmartClientEventSource#Fire_AuthenticationError">
+            <summary>
+            인증(로그온) 오류가 발생했음을 컨테이너(웹 페이지, 윈폼)에게 알린다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.Skcc#Windows#Forms#DSmartClientEventSource#Fire_AuthorityError">
+            <summary>
+            권한 오류가 발생했음을 컨테이너(웹 페이지, 윈폼)에게 알린다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.PurgeMouseKeyboardEvent">
+            <summary>
+            마우스 이벤트와 키보드 이벤트를 필터링 하여 발생하지 않도록 한다.
+            </summary>
+            <remarks>
+            서버 호출이나 기타 시간을 요하는 동기(synchronous)작업 후, 작업 시간동안
+            사용자의 마우스/키보드 입력을 필터링 하는 용도로 사용한다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.BeforeInvokeServer">
+            <summary>
+            서버 호출 등과 같이 시간을 소요하는 동기 작업을 수행하기 전에 호출한다.
+            </summary>
+            <remarks>
+            BeforeInvokeServer 메쏘드는 마우스 커서를 모래 시계로 바꾸고
+            필요에 따라 작업 진행 다이얼로그(Progress Dialog)를 표시하는 등의
+            작업을 수행한다.
+            <br/><br/>
+            필요에 따라 이 메쏘드를 오버라이드 하여 각 화면에서 버튼, 입력 상자들을
+            disable 하는 작업을 수행할 수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.BeforeInvokeServer(System.Boolean)">
+            <summary>
+            서버 호출 등과 같이 시간을 소요하는 동기 작업을 수행하기 전에 호출한다.
+            </summary>
+            <param name="showProgress">작업 진행 다이얼로그 표시 여부</param>
+            <remarks>
+            BeforeInvokeServer 메쏘드는 마우스 커서를 모래 시계로 바꾸고
+            필요에 따라 작업 진행 다이얼로그(Progress Dialog)를 표시하는 등의
+            작업을 수행한다.
+            <br/><br/>
+            필요에 따라 이 메쏘드를 오버라이드 하여 각 화면에서 버튼, 입력 상자들을
+            disable 하는 작업을 수행할 수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.BeforeInvokeServer(System.String)">
+            <summary>
+            서버 호출 등과 같이 시간을 소요하는 동기 작업을 수행하기 전에 호출한다.
+            </summary>
+            <param name="message">작업 진행 다이얼로그에 표시할 메시지</param>
+            <remarks>
+            BeforeInvokeServer 메쏘드는 마우스 커서를 모래 시계로 바꾸고
+            필요에 따라 작업 진행 다이얼로그(Progress Dialog)를 표시하는 등의
+            작업을 수행한다.
+            <br/><br/>
+            필요에 따라 이 메쏘드를 오버라이드 하여 각 화면에서 버튼, 입력 상자들을
+            disable 하는 작업을 수행할 수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.BeforeInvokeServer(System.Boolean,System.String,System.Boolean,System.Int32)">
+            <summary>
+            서버 호출 등과 같이 시간을 소요하는 동기 작업을 수행하기 전에 호출한다.
+            </summary>
+            <param name="showProgress">작업 진행 다이얼로그 표시 여부</param>
+            <param name="message">작업 진행 다이얼로그에 표시할 메시지</param>
+            <param name="showProgressValue">작업 진행 상황 값 표시 여부</param>
+            <param name="progressMaxValue">작업 진행 다이얼로그의 진행 상황 최대 값</param>
+            <remarks>
+            BeforeInvokeServer 메쏘드는 마우스 커서를 모래 시계로 바꾸고
+            필요에 따라 작업 진행 다이얼로그(Progress Dialog)를 표시하는 등의
+            작업을 수행한다.
+            <br/><br/>
+            필요에 따라 이 메쏘드를 오버라이드 하여 각 화면에서 버튼, 입력 상자들을
+            disable 하는 작업을 수행할 수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.SetCurrentProgressValue(System.Int32)">
+            <summary>
+            진행 상태 값을 설정한다.
+            </summary>
+            <param name="currentValue">진행 상태 값</param>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.AfterInvokeServer">
+            <summary>
+            서버 호출 등과 같이 시간을 소요하는 동기 작업을 수행한 후에 호출한다.
+            </summary>
+            <remarks>
+            반드시 BeforeInvokeServer 메쏘드 호출과 짝을 이루어 호출되어야 하므로
+            try ~ finally로 묶어주는 것이 좋다. AfterInvokeServer는 마우스 커서를 원상
+            복구하고 표시된 다이얼로그를 감추는 등의 작업을 수행한다.
+            <br/><br/>
+            필요에 따라 이 메쏘드를 오버라이드 하여 각 화면에서 버튼, 입력 상자들을
+            원상 복구하는 작업을 수행할 수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.SetUserInfoContext(Skcc.Security.UserInfoContext)">
+            <summary>
+            사용자 인증 정보 객체를 설정한다.
+            </summary>
+            <param name="ctx">UserInfoContext 객체 혹은 그 파생 객체</param>
+            <remarks>
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.SetSecurityContext(Skcc.Security.SecurityContext)">
+            <summary>
+            권한 정보 객체를 설정한다.
+            </summary>
+            <param name="ctx">SecurityContext 객체</param>
+            <remarks>
+            팝업 폼 내에 UserControl이 포함될 때, UserControl 자체가 권한 정보를 읽지 않고
+            팝업을 호출한 부모에 의해 권한 정보가 설정된다면 이 메쏘드를 통해 권한 정보를 설정할 수
+            있다. 이 메쏘드에 의해 ..............
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.InitControl(System.Object)">
+            <summary>
+            UI 컨트롤이 Load되었고 초기화를 수행하는 메쏘드
+            </summary>
+            <param name="args">임의의 매개변수</param>
+            <remarks>
+            이 메쏘드는 프레임워크 메뉴 컨트롤에 의해 호출되거나 UI 컨트롤이 포함된
+            웹 페이지의 스크립트가 초기화 시에 호출해 주는 메쏘드로서 Load 이벤트가
+            발생한 이후에 호출되어 진다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.TerminateControl">
+            <summary>
+            UI 컨트롤이 제거됨을 알리는 메쏘드
+            </summary>
+            <returns>컨트롤을 닫을 것인지 여부</returns>
+            <remarks>
+            이 메쏘드는 프레임워크 메뉴 컨트롤이 컨트롤을 제거할 때 호출되는 메쏘드이다.
+            이 메쏘드가 false를 반환하면 UI 컨트롤은 닫히지 않는다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.CreateUserInfoContext">
+            <summary>
+            사용자 정보를 담는 UserInfoContext 객체를 반환한다.
+            </summary>
+            <returns>UserInfoContext 객체 혹은 그 파생 객체</returns>
+            <remarks>
+            UserControlBase에서 파생되는 사용자 정의 컨트롤은 사용자 정보 및 추가 인증 및 개인
+            정보를 UserInfoContext 클래스를 통해 기록해 둘 수 있다.
+            UserControlBase의 파생클래스는 CreateUserInfoContext 메쏘드를 오버라이드 함으로써
+            필요한 정보를 가지고 있는 UserInfoContext 객체를 생성하도록 하고 이 메쏘드에서 생성된
+            UserInfoContext 객체는 UserInfo 프로퍼티를 통해 액세스 가능하다.
+            <br/><br/>
+            UserInfoContext 객체를 생성하기 위한 정보는 UserControlBase 의 컨테이너(메뉴 컨트롤 혹은 IE 브라우저)가
+            설정해 주는 AuthString 프로퍼티를 통해 얻거나, 필요에 따라 웹 서비스 호출, COM+ 컴포넌트 호출 등을
+            통해 정보를 얻어 낼 수도 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.CreateSecurityContext">
+            <summary>
+            사용자 권한 정보를 담는 SecurityContext 객체를 반환한다.
+            </summary>
+            <returns>SecurityContext 클래스에서 파생된 SecurityContext 객체</returns>
+            <remarks>
+            SecurityContext 객체는 사용자의 현재 화면에 대한 권한 정보를 담는 객체로서
+            반드시 SecurityContext 클래스에서 파생되어야 한다.
+            이 메쏘드는 RuntimeEnvironment 클래스의 DefaultSecurityContextType 프로퍼티가
+            지시하는 타입의 SecurityContext 객체를 생성하여 반환한다.
+            생성되는 SecurityContext 객체에 전달되는 매개변수는 UserControlBase 인스턴스
+            혹은 그 파생 클래스의 인스턴스가 전달된다.
+            <br/><br/>
+            필요에 따라서 UserControlBase의 파생클래스에서 CreateSecurityContext 메쏘드를
+            오버라이드 하여 개별 SecurityContext 객체를 반환할 수도 있다.
+            <br/><br/>
+            이 메쏘드가 반환한 SecurityContext 객체는 UserControlBase 클래스의 SecurityContext 프로퍼티를
+            통해 접근할 수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.SetButtonsByAuthLevel">
+            <summary>
+            필요에 의해 비 표준 버튼들에 대해 권한 레벨을 설정한다.
+            </summary>
+            <remarks>
+            버튼들에 대한 권한 설정은 OnLoad 이벤트 발생 전에 수행된다. 그리고 SetButtonsByAuthLevel 메쏘드 역시
+            OnLoad 이벤트 발생 전에 호출됨에 유의한다. 따라서 버튼의 권한 설정을 오버라이드 할 수 있다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.OnLoad(System.EventArgs)">
+            <summary>
+            OnLoad 이벤트 발생시 필요한 인증, 권한 확인 등의 작업을 수행한다.
+            </summary>
+            <param name="e">표준 이벤트 객체</param>
+        </member>
+        <member name="M:Skcc.Windows.Forms.UserControlBase.ProcessTabKey(System.Boolean)">
+            <summary>
+            탭키를 통한 이동이 사용자 정의 컨트롤 바깥으로 나가지 않도록 제어 한다.
+            </summary>
+            <param name="forward">전/후 방향</param>
+            <returns>컨트롤 선택 여부</returns>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.DefaultRequireAuthentication">
+            <summary>
+            디폴트 인증 여부를 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.DefaultRequireAuthority">
+            <summary>
+            디폴트 권한 검사 여부를 가져오거나 설정한다. 
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.DefaultUserInfoContextType">
+            <summary>
+            디폴트 UserInfoContext 객체 타입을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.DefaultSecurityContextType">
+            <summary>
+            디폴트 SecurityContext 객체 타입을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="E:Skcc.Windows.Forms.UserControlBase.Redirect">
+            <summary>
+            리다이렉트 요청 이벤트
+            </summary>
+        </member>
+        <member name="E:Skcc.Windows.Forms.UserControlBase.AuthenticationError">
+            <summary>
+            인증 오류 알림 이벤트
+            </summary>
+        </member>
+        <member name="E:Skcc.Windows.Forms.UserControlBase.AuthorityError">
+            <summary>
+            권한 오류 알림 이벤트
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.ProgramID">
+            <summary>
+            현재 UI 컨트롤(화면)의 프로그램 ID를 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.UserID">
+            <summary>
+            현재 UI 컨트롤(화면)을 사용하는 사용자 ID를 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.UserInfo">
+            <summary>
+            현재 사용자 정보를 포함하는 UserInfoContext 객체를 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.UserInfoContextType">
+            <summary>
+            프레임워크에서 생성할 UserInfoContext 타입 정보
+            </summary>
+            <remarks>
+            프레임워크는 인증 정보를 생성할 때 UserInfoContextType 프로퍼티가
+            지정하는 타입의 UserInfoContext 객체(UserInfoContext 클래스 혹은 그 파생 클래스)를
+            생성한다. 이 프로퍼티에 값은 생성자에서 설정할 때만 유효하며 디폴트 값은
+            UserInfoContext 클래스이다.
+            <br/><br/>
+            UserTypeInfoContextType 이 지정하는 클래스는 UserInfoContext 클래스에서 파생된 타입이어야
+            하며, 문자열을 매개변수로 하는 생성자를 반드시 가져야 한다. 생성자에 전달되는 매개변수는
+            인증 정보를 포함하는 문자열이다. 인증 정보 문자열을 파싱하여 적절한 정보로 변환하는 것은
+            UserInfoContext (및 그 파생 클래스) 객체의 역할이다.
+            </remarks>
+            <example>
+            public class MyUserControl : UserControlBase
+            {
+            	public MyUserControl()
+            	{
+            		this.UserInfoContextType = typeof(MyUserInfoContext);
+            		
+            		InitializeComponents();
+            	}
+            	
+            	// 보다 명확한 형정의를 위해 UserInfo 프로퍼티를 재정의 한다.
+            	protected new MyUserInfoContext UserInfo
+            	{
+            		get { return (MyUserInfoContext)base.UserInfo; }
+            	}
+            	
+            	// 이하 코드 생략
+            }
+            
+            public class MyUserInfoContext : UserInfoContext
+            {
+            	private string _DeptID;
+            	
+            	public MyUserInfoContext(string authString) : base("")
+            	{
+            		string[] info = authString.Split(";");
+            		base.SetUserID(info[0]);
+            		_DeptID = info[1];
+            	}
+            	
+            	public string DeptID
+            	{
+            		get { return _DeptID; }
+            	}
+            }
+            </example>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.SecurityContext">
+            <summary>
+            현재 UI 컨트롤(화면)에 대한 사용자의 권한 정보를 담는 보안 객체를 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.SecurityContextType">
+            <summary>
+            프레임워크에서 생성할 SecurityContext 타입 정보
+            </summary>
+            <remarks>
+            프레임워크는 권한 정보를 생성할 때 SecurityContextType 프로퍼티가
+            지정하는 타입의 SecurityContext 객체(SeucrityContext 에서 파생된 객체)를
+            생성한다. 이 프로퍼티에 값은 생성자에서 설정할 때만 유효하며 디폴트 값은
+            모든 권한을 허용하는 SecurityContext 클래스이다.
+            </remarks>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.IsLogon">
+            <summary>
+            현재 로그온 상태를 반환한다.
+            </summary>
+            <remarks>
+            로그온 여부는 현재 UserControl에 UserInfoContext 객체가 설정되어 있는가와
+            UserInfoContext 객체의 UserID 프로퍼티가 설정되어 있느가에 의해 판별된다.
+            </remarks>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.AuthString">
+            <summary>
+            인증 정보 문자열을 설정하는 프로퍼티
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.RequireAuthentication">
+            <summary>
+            UI 컨트롤이 인증을 필요로 하는가 설정
+            </summary>
+            <remarks>
+            이 설정은 Load 이벤트가 발생하기 전, 즉 컨트롤 생성 후 부터
+            컨테이너의 Controls.Add 호출 전 사이에 설정되어야 한다.
+            </remarks>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.RequireAuthority">
+            <summary>
+            UI 컨트롤이 권한검사를 필요로 하는가 설정
+            </summary>
+            <remarks>
+            이 설정은 Load 이벤트가 발생하기 전, 즉 컨트롤 생성 후 부터
+            컨테이너의 Controls.Add 호출 전 사이에 설정되어야 한다.
+            </remarks>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.BrowserWindow">
+            <summary>
+            외부 브라우저 window 객체 포인터
+            </summary>
+            <remarks>
+            외부 브라우저 객체 포인터. 프레임워크에 의해서만 사용된다.
+            </remarks>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.IsOutstandingControl">
+            <summary>
+            예외 발생시 이벤트를 전달할 outstanding 컨트롤인지 여부를 가져오거나 설정한다.
+            </summary>
+            <remarks>
+            <para>이 설정은 Load 이벤트가 발생하기 전, 즉 컨트롤 생성 후 부터
+            컨테이너의 Controls.Add 호출 전 사이에 설정되어야 한다.</para>
+            <para>스마트 클라이언트는 컨트롤이고 이 컨트롤이 외부와 접촉한다.
+            오류 처리 시에 컨트롤을 호스팅 하는 컨테이너와 통신하기 위해서는
+            컨테이너와 직접적으로 인터페이스하는 컨트롤을 파악할 필요가 있다.
+            담당할 컨트롤을 지정하는 것이다.</para>
+            최상위 컨트롤인 경우에만 OutstandingControl이 될 수 있다.
+            </remarks>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.StdQueryButton">
+            <summary>
+            표준 조회 버튼을 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.StdInsertButton">
+            <summary>
+            표준 추가 버튼을 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.StdUpdateButton">
+            <summary>
+            표준 수정 버튼을 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.StdDeleteButton">
+            <summary>
+            표준 삭제 버튼을 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.UserControlBase.StdSaveButton">
+            <summary>
+            표준 저장 버튼을 반환한다.
+            </summary>
+        </member>
+        <member name="T:Skcc.Windows.Forms.ProgressDialog">
+            <summary>
+            작업 진행 상황을 알리는 기본 다이얼로그
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ProgressDialog.#ctor">
+            <summary>
+            ProgressDialog 객체를 생성한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ProgressDialog.StartProgress">
+            <summary>
+            진행 상황(progress) 다이얼로그를 표시한다
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ProgressDialog.StopProgress">
+            <summary>
+            진행 상황(progress) 다이얼로그를 감춘다
+            </summary>
+        </member>
+        <member name="F:Skcc.Windows.Forms.ProgressDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ProgressDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ProgressDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.ProgressDialog.ProgressMessage">
+            <summary>
+            진행 상황 메시지를 설정한다
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.ProgressDialog.ShowProgressValue">
+            <summary>
+            진행 상황 값 표시 여부를 설정한다.
+            </summary>        
+        </member>
+        <member name="P:Skcc.Windows.Forms.ProgressDialog.MaxValue">
+            <summary>
+            진행 상황 값의 최대치를 설정한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.ProgressDialog.CurrentValue">
+            <summary>
+            진행 상황의 현재값을 설정한다
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.ProgressDialog.ProgressStyle">
+            <summary>
+            진행 상황의 표현 형태를 설정한다.
+            </summary>
+        </member>
+        <member name="T:Skcc.Windows.Forms.Itf_Redirect">
+            <summary>
+            스마트 클라이언트가 컨테이너에게 Redirect를 요청하는 이벤트용 delegate
+            </summary>
+        </member>
+        <member name="T:Skcc.Windows.Forms.Itf_AuthenticationError">
+            <summary>
+            스마트 클라이언트가 컨테이너에게 인증 오류를 알리는 이벤트용 delegate
+            </summary>
+        </member>
+        <member name="T:Skcc.Windows.Forms.Itf_AuthorityError">
+            <summary>
+            스마트 클라이언트가 컨테이너에게 권한 오류를 알리는 이벤트용 delegate
+            </summary>
+        </member>
+        <member name="T:Skcc.Windows.Forms.SmartClientEvent">
+            <summary>
+            스마트 클라이언트와 외부 컨테이너와의 통신을 위한 이벤트 인터페이스<br></br>
+            이 인터페이스는 Skcc Framework 내부에서 사용하는 것으로 개발자가 직접 사용하지 않는다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.SmartClientEvent.Redirect(System.Int32,System.String)">
+            <summary>
+            컨테이너에게 Redirect를 요구한다.
+            </summary>
+            <param name="reason">Redirect의 원인 코드</param>
+            <param name="url">Redirect할 URL</param>
+        </member>
+        <member name="M:Skcc.Windows.Forms.SmartClientEvent.AuthenticationError">
+            <summary>
+            인증 오류가 발생했음을 컨테이너에게 알린다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.SmartClientEvent.AuthorityError">
+            <summary>
+            권한 오류가 발생했음을 컨테이너에게 알린다.
+            </summary>
+        </member>
+        <member name="T:Skcc.Windows.Forms.ExceptionDialog">
+             <summary>
+             Exception 정보를 보여주는 폼 클래스.
+             </summary>
+             <remarks>
+             Exception에 대한 정보를 보여주고, 서버에 전송하는 기능을 수행한다.
+             Exception 정보를 서버로 전송하기 위해서는 SkccConfiguration 에 "ExceptionReportUrl"값이
+             정의되어 있어야 한다.
+             </remarks>
+             <example>
+             application configuration 파일에 다음과 같은 설정이 필요하다.
+             <code>
+            &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+            &lt;configuration&gt;
+              &lt;configSections&gt;
+                &lt;section name="SkccFrameworkConfiguration" 
+                   type="Skcc.Configuration.CustomConfigSettings, Skcorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8f425ad02afbe845" /&gt;
+              &lt;/configSections&gt;  
+              &lt;SkccFrameworkConfiguration&gt;
+                &lt;SkccFrameworkData&gt;
+                  &lt;add value="http://localhost/SCWebSite/ExceptionReport.aspx" type="Skcc.Configuration.SkccFxConfigManager, Skcorlib"
+                      name="ExceptionReportUrl" /&gt;
+                  &lt;add value="http://localhost/SCWebSite/Messages.aspx" type="Skcc.Configuration.SkccFxConfigManager, Skcorlib"
+                      name="MessagePath" /&gt;
+                &lt;/SkccFrameworkData&gt;
+              &lt;/SkccFrameworkConfiguration&gt;
+            &lt;/configuration&gt;
+             </code>
+             </example>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ExceptionDialog.#ctor">
+            <summary>
+            ExceptionDialog 객체를 생성한다.
+            </summary>
+        </member>
+        <member name="F:Skcc.Windows.Forms.ExceptionDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ExceptionDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ExceptionDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.ExceptionDialog.Exception">
+            <summary>
+            다이얼로그에 표시할 예외 객체
+            </summary>
+        </member>
+        <member name="T:Skcc.Windows.Forms.ResourceHelper">
+            <summary>
+            다양한 이미지 리소스에 대한 관리 기능을 제공한다.
+            </summary>
+            <remarks>
+            어셈블리에 포함되어 있는 이미지 리소스를 반환한다. Skcc Framework 어셈블리에 포함되어 있는 이미지 리소스와
+            Skcc Framework을 참조하고 있는 어셈블리에 포함되어 있는 이미지 리소스를 반환한다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ResourceHelper.#ctor">
+            <summary>
+            정적 클래스이므로 인스턴스를 생성할 수 없다
+            </summary>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ResourceHelper.GetStandardImages(System.String)">
+            <summary>
+            프레임워크가 정의하는 표준 이미지를 로드 한다. 표준이미지는 Skcc.Windows.Forms 내에
+            리소스로 존재한다.
+            </summary>
+            <param name="name">이미지 파일 명</param>
+            <returns>Image 객체</returns>
+            <remarks>
+            리턴된 이미지 객체는 시스템 영역에서 공유되므로 이미지를 변형해서는 안된다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Windows.Forms.ResourceHelper.GetAssemblyImages(System.String,System.String)">
+            <summary>
+            호출한 어셈블리(DLL)에 존재하는 이미지를 로드 한다.
+            </summary>
+            <param name="nameSpace">네임스페이스 명</param>
+            <param name="name">이미지 파일 명</param>
+            <returns>Image 객체</returns>
+            <remarks>
+            GetAssemblyImages 메서드는 호출한 어셈블리의 리소스를 찾아서 리턴한다. 
+            현재 어셈블리에서 GetAssemblyImages 메서드를 호출하면 GetStandardImages 메서드와 
+            같은 동작을 수행한다. 어셈블리에 바로 추가한 이미지 리소스만을 반환할 수 있다.
+            </remarks>
+        </member>
+        <member name="T:Skcc.Windows.Forms.Properties.Resources">
+            <summary>
+              지역화된 문자열 등을 찾기 위한 강력한 형식의 리소스 클래스입니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.Properties.Resources.ResourceManager">
+            <summary>
+              이 클래스에서 사용하는 캐시된 ResourceManager 인스턴스를 반환합니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.Properties.Resources.Culture">
+            <summary>
+              이 강력한 형식의 리소스 클래스를 사용하여 모든 리소스 조회에 대한 현재 스레드의 CurrentUICulture
+              속성을 재정의합니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.Properties.Resources.AUTHENTICATE_DETAIL">
+            <summary>
+              로그온을 하지 않았거나 세션 타임아웃이 발생했습니다. 다시 로그온 해주십시요.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.Properties.Resources.AUTHENTICATE_ERROR">
+            <summary>
+              로그온 오류과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.Properties.Resources.AUTHENTICATE_MSG">
+            <summary>
+              인증되지 않은 사용자 입니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.Properties.Resources.AUTHORITY_DETAIL">
+            <summary>
+              로그온 된 사용자는 해당 액세스를 수행할 권한이 없습니다. 사용자에게 할당된 권한을 확인하십시요.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.Properties.Resources.AUTHORITY_ERROR">
+            <summary>
+              권한 오류과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.Properties.Resources.AUTHORITY_MSG">
+            <summary>
+              사용자 권한 오류 입니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.Properties.Resources.DETAIL1">
+            <summary>
+              상세 정보 &gt;&gt;과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.Properties.Resources.DETAIL2">
+            <summary>
+              상세 정보 &lt;&lt;과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.Properties.Resources.RESIZE1">
+            <summary>
+              크게과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.Properties.Resources.RESIZE2">
+            <summary>
+              작게과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.Properties.Resources.SERVER_FAIL">
+            <summary>
+              오류 정보를 서버에 전송하는데 실패하였습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.Properties.Resources.SERVER_SUCCESS">
+            <summary>
+              오류 정보를 서버에 전송하였습니다과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.Properties.Resources.UNKNOWN_ERROR">
+            <summary>
+              예외 발생과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Windows.Forms.Properties.Resources.UNKNOWN_MSG">
+            <summary>
+              프로그램에서 예상하지 못한 오류가 발생하였습니다. 오류 메시지는 다음과 같습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+    </members>
+</doc>

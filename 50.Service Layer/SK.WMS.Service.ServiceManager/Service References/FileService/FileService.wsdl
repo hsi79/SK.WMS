@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="FileService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:25000/FileService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:25000/FileService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IFileService_AppendChunk_InputMessage">
+    <wsdl:part name="parameters" element="tns:AppendChunk" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_AppendChunk_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AppendChunkResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_Write_InputMessage">
+    <wsdl:part name="parameters" element="tns:Write" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_Write_OutputMessage">
+    <wsdl:part name="parameters" element="tns:WriteResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_DivideFile_InputMessage">
+    <wsdl:part name="parameters" element="tns:DivideFile" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_DivideFile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DivideFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_DownloadChunk_InputMessage">
+    <wsdl:part name="parameters" element="tns:DownloadChunk" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_DownloadChunk_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DownloadChunkResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_FileView_InputMessage">
+    <wsdl:part name="parameters" element="tns:FileView" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_FileView_OutputMessage">
+    <wsdl:part name="parameters" element="tns:FileViewResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_GetFileSize_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetFileSize" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_GetFileSize_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetFileSizeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_RemoveFile_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveFile" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_RemoveFile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_DeleteDirectory_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteDirectory" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_DeleteDirectory_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteDirectoryResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_CopyFile_InputMessage">
+    <wsdl:part name="parameters" element="tns:CopyFile" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_CopyFile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CopyFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_MoveFile_InputMessage">
+    <wsdl:part name="parameters" element="tns:MoveFile" />
+  </wsdl:message>
+  <wsdl:message name="IFileService_MoveFile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MoveFileResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IFileService">
+    <wsdl:operation name="AppendChunk">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFileService/AppendChunk" message="tns:IFileService_AppendChunk_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFileService/AppendChunkResponse" message="tns:IFileService_AppendChunk_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Write">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFileService/Write" message="tns:IFileService_Write_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFileService/WriteResponse" message="tns:IFileService_Write_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DivideFile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFileService/DivideFile" message="tns:IFileService_DivideFile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFileService/DivideFileResponse" message="tns:IFileService_DivideFile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadChunk">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFileService/DownloadChunk" message="tns:IFileService_DownloadChunk_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFileService/DownloadChunkResponse" message="tns:IFileService_DownloadChunk_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="FileView">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFileService/FileView" message="tns:IFileService_FileView_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFileService/FileViewResponse" message="tns:IFileService_FileView_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFileSize">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFileService/GetFileSize" message="tns:IFileService_GetFileSize_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFileService/GetFileSizeResponse" message="tns:IFileService_GetFileSize_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveFile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFileService/RemoveFile" message="tns:IFileService_RemoveFile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFileService/RemoveFileResponse" message="tns:IFileService_RemoveFile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDirectory">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFileService/DeleteDirectory" message="tns:IFileService_DeleteDirectory_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFileService/DeleteDirectoryResponse" message="tns:IFileService_DeleteDirectory_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CopyFile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFileService/CopyFile" message="tns:IFileService_CopyFile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFileService/CopyFileResponse" message="tns:IFileService_CopyFile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="MoveFile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFileService/MoveFile" message="tns:IFileService_MoveFile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFileService/MoveFileResponse" message="tns:IFileService_MoveFile_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IFileService" type="tns:IFileService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="AppendChunk">
+      <soap:operation soapAction="http://tempuri.org/IFileService/AppendChunk" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Write">
+      <soap:operation soapAction="http://tempuri.org/IFileService/Write" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DivideFile">
+      <soap:operation soapAction="http://tempuri.org/IFileService/DivideFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadChunk">
+      <soap:operation soapAction="http://tempuri.org/IFileService/DownloadChunk" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FileView">
+      <soap:operation soapAction="http://tempuri.org/IFileService/FileView" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFileSize">
+      <soap:operation soapAction="http://tempuri.org/IFileService/GetFileSize" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveFile">
+      <soap:operation soapAction="http://tempuri.org/IFileService/RemoveFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteDirectory">
+      <soap:operation soapAction="http://tempuri.org/IFileService/DeleteDirectory" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CopyFile">
+      <soap:operation soapAction="http://tempuri.org/IFileService/CopyFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MoveFile">
+      <soap:operation soapAction="http://tempuri.org/IFileService/MoveFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FileService">
+    <wsdl:port name="BasicHttpBinding_IFileService" binding="tns:BasicHttpBinding_IFileService">
+      <soap:address location="http://localhost:25000/FileService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,1011 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Skcc.Transactions</name>
+    </assembly>
+    <members>
+        <member name="T:Skcc.Transactions.AutoCompleteAttribute">
+            <summary>
+            메쏘드의 트랜잭션 투표에 대한 제어를 자동으로 수행하도록 하는 attribute.
+            </summary>
+            <remarks>
+            이 특성은 System.EnterpriseServices 와 소스 호환성을 위해 제공될 뿐 프레임워크에서는
+            이 특성이 명시되었는가를 전혀 검사하지 않는다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Transactions.AutoCompleteAttribute.#ctor">
+            <summary>
+            AutoCompleteAttribute 객체를 기본값(true)으로 초기화 한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Transactions.AutoCompleteAttribute.#ctor(System.Boolean)">
+            <summary>
+            주어진 값으로 AutoCompleteAttribute 객체를 초기화한다.
+            </summary>
+            <param name="isAutoComplete">AutoComplete 여부</param>
+        </member>
+        <member name="P:Skcc.Transactions.AutoCompleteAttribute.IsAutoComplete">
+            <summary>
+            ManualComplete 여부 값 반환.
+            </summary>
+        </member>
+        <member name="T:Skcc.Transactions.TransactionInfo">
+            <summary>
+            트랜잭션 시작/종료와 관련되는 정보를 기록하기 위한 내부 트랜잭션 정보 클래스.
+            </summary>
+        </member>
+        <member name="P:Skcc.Transactions.TransactionInfo.ApplicationName">
+            <summary>
+            어플리케이션 이름
+            </summary>
+        </member>
+        <member name="P:Skcc.Transactions.TransactionInfo.ClassName">
+            <summary>
+            클래스 이름
+            </summary>
+        </member>
+        <member name="P:Skcc.Transactions.TransactionInfo.TransactionOption">
+            <summary>
+            트랜잭션 옵션
+            </summary>
+        </member>
+        <member name="P:Skcc.Transactions.TransactionInfo.TrackingEnabled">
+            <summary>
+            COM+ 컴포넌트 트래킹 표시 여부
+            </summary>
+        </member>
+        <member name="P:Skcc.Transactions.TransactionInfo.IsManualComplete">
+            <summary>
+            수동으로 트랜잭션 결과를 설정하는지 여부
+            </summary>
+        </member>
+        <member name="P:Skcc.Transactions.TransactionInfo.ComTransactionOption">
+            <summary>
+            COM+를 위한 TransactionOption 열거값을 반환한다.
+            </summary>
+            <remarks>
+            Skcc.Transactions 네임스페이스에서 사용하는 트랜잭션 옵션은 COM+ (ServicedComponent)의
+            트랜잭션 옵션이나 System.Transactions 네임스페이스의 트랜잭션 옵션(TransactionScopeOption)과
+            다른 제 3의 트랜잭션 옵션이다. 따라서 이 속성은 Skcc.Transactions 네임스페이스의
+            트랜잭션 옵션에 대응되는 COM+ 트랜잭션 옵션 열거값을 반환한다.
+            </remarks>
+        </member>
+        <member name="P:Skcc.Transactions.TransactionInfo.TxTransactionOption">
+            <summary>
+            System.Transactions를 위한 TransactionScopeOption 열거값을 반환한다.
+            </summary>
+            <remarks>
+            Skcc.Transactions 네임스페이스에서 사용하는 트랜잭션 옵션은 COM+ (ServicedComponent)의
+            트랜잭션 옵션이나 System.Transactions 네임스페이스의 트랜잭션 옵션(TransactionScopeOption)과
+            다른 제 3의 트랜잭션 옵션이다. 따라서 이 속성은 Skcc.Transactions 네임스페이스의
+            트랜잭션 옵션에 대응되는 TransactionScopeOption 트랜잭션 옵션을 반환한다.
+            </remarks>
+        </member>
+        <member name="P:Skcc.Transactions.TransactionInfo.ComIsolationLevel">
+            <summary>
+            COM+를 위한 TransactionIsolationLevel 열거값을 반환한다.
+            </summary>
+            <remarks>
+            Skcc.Transactions 네임스페이스에서 사용하는 트랜잭션 격리 수준 열거자
+            (<see href="IsolationLevel">IsolationLevel 참조</see>)는 COM+ 에서 사용하는
+            트랜잭션 격리 수준이나 System.Transactions 네임스페이스에서 사용하는 트랜잭션 격리 수준
+            열거자와는 다른 다른 제 3의 트랜잭션 격리 수준 열거자를 사용한다.
+            따라서 이 속성은 Skcc.Transactions 네임스페이스의 트랜잭션 격리 수준에 대응되는
+            COM+ 트랜잭션 격리 수준 열거값을 반환한다.
+            </remarks>
+        </member>
+        <member name="P:Skcc.Transactions.TransactionInfo.TxIsolationLevel">
+            <summary>
+            System.Transactions 네임스페이스를 위한 IsolationLevel 열거값을 반환한다.
+            </summary>
+            <remarks>
+            Skcc.Transactions 네임스페이스에서 사용하는 트랜잭션 격리 수준 열거자
+            (<see href="IsolationLevel">IsolationLevel 참조</see>)는 COM+ 에서 사용하는
+            트랜잭션 격리 수준이나 System.Transactions 네임스페이스에서 사용하는 트랜잭션 격리 수준
+            열거자와는 다른 다른 제 3의 트랜잭션 격리 수준 열거자를 사용한다.
+            따라서 이 속성은 Skcc.Transactions 네임스페이스의 트랜잭션 격리 수준에 대응되는
+            System.Transactions의 트랜잭션 격리 수준 열거값을 반환한다.
+            </remarks>
+        </member>
+        <member name="P:Skcc.Transactions.TransactionInfo.TimeOut">
+            <summary>
+            트랜잭션 타임아웃 값을 반환한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Transactions.TransactionInfo.RawData">
+            <summary>
+            내부 트랜잭션 관련 raw 데이터
+            </summary>
+            <remarks>
+            트랜잭션 컨트롤러에 따라 RawData의 내용은 달라지게 된다.
+            SWC의 경우 ServiceConfig 객체가, System.Transactions 의 경우
+            TransactionScope 객체가 RawData의 내용으로 설정된다.
+            </remarks>
+        </member>
+        <member name="T:Skcc.Transactions.ComponentBase">
+            <summary>
+            트랜잭션 처리를 수행하는 컴포넌트의 베이스 클래스.
+            </summary>
+            <remarks>
+            <para>
+            ComponentBase 클래스는 COM+ 1.5를 이용하여 선언적인 분산 트랜잭션 문맥 하에서
+            닷넷 코드가 수행되도록 해준다. 이는 System.EnterpriseServices 네임스페이스의
+            ServicedComponent 클래스가 제공하는 트랜잭션과 매우 비슷하다.
+            따라서 ComponentBase 클래스는 트랜잭션 처리를 위해 Services Without Components(SWC)의 트랜잭션 처리 기능 혹은
+            System.Transactions 네임스페이스의 트랜잭션 처리 기능을 내부적으로 사용하면서도
+            이전의 ServicedComponent 클래스 처럼 특성(attribute)를 통해 선언적으로 트랜잭션 코드를
+            작성할 수 있도록 해준다. SWC나 System.Transactions 네임스페이스는 보다 가벼운 트랜잭션 처리 능력을
+            제공하므로 성능 향상을 기대할 수 있다.
+            </para>
+            <para>
+            ComponentBase 클래스의 또 다른 장점은 ServicedComponent 클래스와는 달리 COM+ 카탈로그에
+            등록하는 과정을 요구하지 않는다는 점이다. 이 때문에 레지스트리를 액세스하는 등록과정에서
+            보안 문제, 업데이트 문제 등을 유발하지 않는다. 또 한가지 ComponentBase 클래스의 장점은 클래스 수준 뿐만 아니라
+            메쏘드 수준의 트랜잭션 속성을 지정할 수 있다. ServicedComponent 클래스의 경우,
+            클래스 수준에서만 트랜잭션 속성(Required, Supported 등)을 지정할 수 있었다. 이 때문에
+            트랜잭션 메쏘드와 비 트랜잭션 메쏘드는 별도의 클래스에 존재해야만 했다. 이러한 제약은
+            논리적 클래스 설계와 물리적 클래스 구현이 매우 달라지는 현상을 초래하곤 했었다.
+            </para>
+            <para>
+            ComponenetBase 클래스를 이용하여 트랜잭션을 처리하는 방법은 매우 간단하다. 이 클래스에서
+            파생된 클래스를 정의하고 클래스의 메쏘드에 트랜잭션 옵션(Required, RequiresNew, Supress 등)을 명세함으로써
+            트랜잭션이 암시적으로 그리고 자동적으로 처리되게 된다.
+            </para>
+            </remarks>
+            <example>
+            다음 코드는 ComponentBase 클래스를 이용하여 선언적으로 그리고 자동적으로 트랜잭션이 처리되는 것을
+            보여주고 있다. 메쏘드가 예외를 발생하면 트랜잭션은 자동으로 Abort 되며 그렇지 않은 경우 트랜잭션은
+            Commit 된다(CreateProduct 메쏘드). 반면 ManualComplete 특성을 사용하면 메쏘드 내에서 트랜잭션 투표를
+            코드를 통해 수동으로 제어할 수도 있다(RemoveProduct 메쏘드)
+            <code>
+            // 비즈니스 로직 컴포넌트
+            class BizComponent : ComponentBase
+            {
+            	// 제품을 추가하는 비즈니스 로직.
+            	[Transaction(TransactionOption.Required)]
+            	public void CreateProduct(int id, string name, decimal price)
+            	{
+            		if (id &lt; 0)
+            			throw new ArgumentOutOfRangeException("ID should be greater than or equal to 0.");
+            		DataAccessComponent dac = new DataAccessComponent();
+            		dac.InsertProduct(id, name, price);
+            	}
+            
+            	// 제품을 제거하는 비즈니스 로직.
+            	[Transaction(TransactionOption.Required)]
+            	[ManualComplete]
+            	public void RemoveProduct(int id)
+            	{
+            		try {
+            			DataAccessComponent dac = new DataAccessComponent();
+            			dac.DeleteProduct(id);
+            			base.SetComplete();
+            		}
+            		catch (Exception ex) {
+            			base.SetAbort();
+            			// 예외를 표시한다.
+            			Console.WriteLine("Error : {0}", ex.Message);
+            			throw;
+            		}
+            	}
+            }
+            
+            // 데이터 액세스 컴포넌트.
+            // 데이터 액세스 컴포넌트는 별도의 트랜잭션 옵션을 주지 않음에 유의한다.
+            // 트랜잭션 옵션을 주지 않음으로써, 이전의 COM+ 트랜잭션 옵션 중 Supported에 해당하는
+            // 동일한 효과가 난다.
+            class DataAccessComponent : ComponentBase
+            {
+            	private string _ConnectionString = null;
+            
+            	public DataAccessComponent()
+            	{
+            		_ConnectionString = ConfigurationManager.ConnectionStrings["Test"].ConnectionString;
+            	}
+            
+            	// 데이터 액세스 메쏘드. 데이터를 추가한다.
+            	public void InsertProduct(int id, string name, decimal price)
+            	{
+            		string sql = "INSERT INTO TestProducts(ProductID, ProductName, Price) " +
+            			"VALUES(@id, @name, @price)";
+            		SqlConnection conn = new SqlConnection(_ConnectionString);
+            		SqlCommand cmd = new SqlCommand(sql, conn);
+            
+            		cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+            		cmd.Parameters.Add("@name", SqlDbType.NVarChar, 40).Value = name;
+            		cmd.Parameters.Add("@price", SqlDbType.Money).Value = price;
+            
+            		conn.Open();
+            		try {
+            			cmd.ExecuteNonQuery();
+            		}
+            		finally {
+            			conn.Close();
+            		}
+            	}
+            
+            	// 데이터 액세스 메쏘드. 데이터를 삭제한다.
+            	public void DeleteProduct(int id)
+            	{
+            		string sql = "DELETE FROM TestProducts WHERE ProductID = @id";
+            		SqlConnection conn = new SqlConnection(_ConnectionString);
+            		SqlCommand cmd = new SqlCommand(sql, conn);
+            
+            		cmd.Parameters.Add("@id", SqlDbType.Int).Value = id;
+            
+            		conn.Open();
+            		try {
+            			cmd.ExecuteNonQuery();
+            		}
+            		finally {
+            			conn.Close();
+            		}
+            	}
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:Skcc.Transactions.ComponentBase.Activate">
+             <summary>
+             컴포넌트 메쏘드가 호출되기 전에 컴포넌트가 활성화 되었음을 알리는 메쏘드.
+             </summary>
+             <remarks>
+             ServicedComponent 클래스의 Activate 메쏘드의 역할과 동등한 역할을 수행하는
+             메쏘드로서 생성자를 제외한 컴포넌트의 모든 메쏘드 호출 전에 호출되어 진다.
+             메쏘드 수행전에 처리해야할 전처리(pre-processing)에 사용하면 유용하다.
+             이 메쏘드는 파생 클래스에서 오버라이드 해야만 하며, 디폴트 구현은 아무런 작업도
+             수행하지 않는다.
+             </remarks>
+             <example>
+             다음 코드는 Activate에서 데이터 베이스 연결을 Open 하고 Deactivate에서 연결을 Close 하는 예제 코드이다.
+             이렇게 함으로써 메쏘드 호출전에 항상 열려있는 Connection 객체를 사용할 수 있으며, 개발자는
+             데이터베이스에 대한 Open/Close에 대해 신경쓰지 않고 코드를 작성할 수 있다.
+             <code>
+             class Comp : ComponentBase
+             {
+                 internal SqlConnection _Connection;
+            
+                 // 모든 메쏘드 호출 전에 호출되어 진다.
+                 protected override void Activate()
+                 {
+                     string connString = ConfigurationManager.ConnectionStrings["Northwind"].ConnectionString;
+                     _Connection = new SqlConnection(connString);
+                     _Connection.Open();
+                 }
+            
+                 // 모든 메쏘드 호출 후에 호출되어 진다.
+                 // GetRecordCount 메쏘드가 예외를 발생하는지에 관계 없이 호출되어 짐에 유의 한다.
+                 // 따라서 항상 Connection 객체가 Close 되어진다.
+                 protected override void Deactivate()
+                 {
+                     if (_Connection != null &amp;&amp; _Connection.State != ConnectionState.Closed) {
+                         _Connection.Close();
+                     }
+                 }
+             
+                 [Transaction(TransactionOption.Required)]
+                 public int GetRecordCount()
+                 {
+                     SqlCommand cmd = new SqlCommand("SELECT Count(*) FROM Products", _Connection);
+                     int result = (int)cmd.ExecuteScalar();
+                     return result;
+                 }
+             }
+             
+             Comp obj = new Comp();
+             obj.GetRecordCount();     // data will be queryed
+             </code>
+             </example>
+        </member>
+        <member name="M:Skcc.Transactions.ComponentBase.Deactivate">
+             <summary>
+             컴포넌트의 메쏘드가 호출된 후에 컴포넌트가 비활성화 됨을 알리는 메쏘드.
+             </summary>
+             <remarks>
+             ServicedComponent 클래스의 Deactivate 메쏘드의 역할과 동등한 역할을 수행하는
+             메쏘드로서 생성자를 제외한 컴포넌트의 모든 메쏘드 호출 후에 호출되어 진다.
+             메쏘드 수행 후에 처리해야할 후처리(post-processing)에 사용하면 유용하다.
+             이 메쏘드는 파생 클래스에서 오버라이드 해야만 하며, 디폴트 구현은 아무런 작업도
+             수행하지 않는다.
+             </remarks>
+             <example>
+             다음 코드는 Activate에서 데이터 베이스 연결을 Open 하고 Deactivate에서 연결을 Close 하는 예제 코드이다.
+             이렇게 함으로써 메쏘드 호출전에 항상 열려있는 Connection 객체를 사용할 수 있으며, 개발자는
+             데이터베이스에 대한 Open/Close에 대해 신경쓰지 않고 코드를 작성할 수 있다.
+             <code>
+             class Comp : ComponentBase
+             {
+                 internal SqlConnection _Connection;
+            
+                 // 모든 메쏘드 호출 전에 호출되어 진다.
+                 protected override void Activate()
+                 {
+                     string connString = ConfigurationManager.ConnectionStrings["Northwind"].ConnectionString;
+                     _Connection = new SqlConnection(connString);
+                     _Connection.Open();
+                 }
+            
+                 // 모든 메쏘드 호출 후에 호출되어 진다.
+                 // GetRecordCount 메쏘드가 예외를 발생하는지에 관계 없이 호출되어 짐에 유의 한다.
+                 // 따라서 항상 Connection 객체가 Close 되어진다.
+                 protected override void Deactivate()
+                 {
+                     if (_Connection != null &amp;&amp; _Connection.State != ConnectionState.Closed) {
+                         _Connection.Close();
+                     }
+                 }
+             
+                 [Transaction(TransactionOption.Required)]
+                 public int GetRecordCount()
+                 {
+                     SqlCommand cmd = new SqlCommand("SELECT Count(*) FROM Products", _Connection);
+                     int result = (int)cmd.ExecuteScalar();
+                     return result;
+                 }
+             }
+             
+             Comp obj = new Comp();
+             obj.GetRecordCount();     // data will be queryed
+             </code>
+             </example>
+        </member>
+        <member name="M:Skcc.Transactions.ComponentBase.SetComplete">
+            <summary>
+            코드에 의해 트랜잭션의 Commit에 투표한다.
+            </summary>
+            <remarks>
+            <para>
+            이 메쏘드는 ManualComplete를 사용하는 경우에만 유효하며 AutoComplete를 사용하는 경우 
+            InvalidOperationException이 발생한다. 트랜잭션이 시작되지 않은 상황에서 SetComplete의 호출은
+            아무런 작업도 수행하지 않는다.
+            </para>
+            <para>
+            ComponentBase 클래스의 모든 메쏘드는 암시적으로 AutoComplete를 사용하며
+            명시적으로 메쏘드에 ManualComplete 특성(attribute)이 표시된 경우에만 SetComplete/SetAbort를
+            호출하여 수동으로 트랜잭션의 결과를 제어할 수 있다.
+            </para>
+            </remarks>
+            <example>
+            <code>
+            class Comp : ComponentBase
+            {
+                [ManualComplete]
+                public void DoDBWork()
+                {
+                    try {
+                        // 데이터 액세스 코드 생략
+                        base.SetComplete();
+                    }
+                    catch (Exception ex) {
+                        // 예외 처리 코드 생략
+                        base.SetAbort();
+                        throw;
+                    }
+                }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:Skcc.Transactions.ComponentBase.SetAbort">
+            <summary>
+            코드에 의해 트랜잭션의 Abort에 투표한다.
+            </summary>
+            <remarks>
+            <para>
+            이 메쏘드는 ManualComplete를 사용하는 경우에만 유효하며 AutoComplete를 사용하는 경우 
+            InvalidOperationException이 발생한다. 트랜잭션이 시작되지 않은 상황에서 SetComplete의 호출은
+            아무런 작업도 수행하지 않는다.
+            </para>
+            <para>
+            ComponentBase 클래스의 모든 메쏘드는 암시적으로 AutoComplete를 사용하며
+            명시적으로 메쏘드에 ManualComplete 특성(attribute)이 표시된 경우에만 SetComplete/SetAbort를
+            호출하여 수동으로 트랜잭션의 결과를 제어할 수 있다.
+            </para>
+            </remarks>
+            <example>
+            <code>
+            class Comp : ComponentBase
+            {
+                [ManualComplete]
+                public void DoDBWork()
+                {
+                    try {
+                        // 데이터 액세스 코드 생략
+                        base.SetComplete();
+                    }
+                    catch (Exception ex) {
+                        // 예외 처리 코드 생략
+                        base.SetAbort();
+                        throw;
+                    }
+                }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:Skcc.Transactions.ComponentBase.Dispose">
+            <summary>
+            컴포넌트를 해제한다.
+            </summary>
+        </member>
+        <member name="T:Skcc.Transactions.Utils">
+            <summary>
+            내부 유틸리티 용 메쏘드 모음
+            </summary>
+        </member>
+        <member name="T:Skcc.Transactions.TransactionAttribute">
+            <summary>
+            <para>ComponentBase 에서 파생된 클래스 혹은 이 클래스의 메쏘드, 프로퍼티에 적용되는
+            트랜잭션 속성을 명시한다.</para>
+            </summary>
+        </member>
+        <member name="M:Skcc.Transactions.TransactionAttribute.#ctor">
+            <summary>
+            트랜잭션 옵션값 Required 를 이용하여 클래스 혹은 메쏘드의 트랜잭션 속성을 설정한다.
+            </summary>
+            <remarks>
+            기본 트랜잭션 격리 수준은 ReadCommitted 이며 기본 트랜잭션 타임아웃은 60초이다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Transactions.TransactionAttribute.#ctor(Skcc.Transactions.TransactionOption)">
+            <summary>
+            주어진 트랜잭션 옵션값을 이용하여 클래스 혹은 메쏘드의 트랜잭션 속성을 설정한다.
+            </summary>
+            <param name="option">트랜잭션 옵션 열거상수</param>
+            <remarks>
+            기본 트랜잭션 격리 수준은 ReadCommitted 이며 기본 트랜잭션 타임아웃은 60초이다.
+            </remarks>
+        </member>
+        <member name="P:Skcc.Transactions.TransactionAttribute.TransactionOption">
+            <summary>
+            트랜잭션 옵션을 명시한다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Transactions.TransactionAttribute.IsolationLevel">
+            <summary>
+            트랜잭션의 트랜잭션 격리 수준(transaction isolation level)을 지정한다.
+            기본값은 ReadCommitted 이다.
+            </summary>
+        </member>
+        <member name="P:Skcc.Transactions.TransactionAttribute.Timeout">
+            <summary>
+            트랜잭션의 타임아웃을 초 단위로 설정한다. 기본값은 60초(COM+ 기본값과 동일) 이다.
+            </summary>
+        </member>
+        <member name="T:Skcc.Transactions.TransactionOption">
+            <summary>
+            ComponentBase 클래스에 의해 수행되는 메쏘드들의 트랜잭션 속성을 명시한다.
+            </summary>
+            <remarks>
+            <para>
+            TransactionOption 열거자는 System.EnterpriseServices 네임스페이스의 
+            TransactionOption 열거자와 다르다. System.EnterpriseServices.TransactionOption 열거자는
+            COM+가 명시하는 Disabled, NotSupported, Supported, Required, RequiesNew 다섯가지의 옵션을 명시할
+            수 있으나 TransactionOption 열거자는 Suppress, Required, RequiresNew 세가지만을 사용할 수 있다.
+            Suppress는 기존의 NotSupported와 동일하며 Required, RequiresNew는 이전과 같다.
+            트랜잭션 옵션을 명시하지 않는 경우가 COM+의 Supported와 동일한 효과를 갖는다.
+            </para>
+            <para>
+            EnterpriseServices의 Disabled는 트랜잭션을 아예 사용하지 않는 컴포넌트를 위한 것이므로,
+            닷넷의 경우 의미가 없다.
+            </para>
+            </remarks>
+        </member>
+        <member name="F:Skcc.Transactions.TransactionOption.None">
+            <summary>
+            트랜잭션 옵션이 주어지지 않는 상황으로 기존 트랜잭션이 있는 경우, 이 트랜잭션에
+            포함되어 코드가 수행되고 그렇지 않다면 트랜잭션과 무관하게 코드가 수행된다.
+            </summary>
+        </member>
+        <member name="F:Skcc.Transactions.TransactionOption.Suppress">
+            <summary>
+            코드는 항상 트랜잭션과 무관하게 수행된다. 
+            </summary>
+        </member>
+        <member name="F:Skcc.Transactions.TransactionOption.Required">
+            <summary>
+            트랜잭션이 이미 시작되었다면 코드는 이 트랜잭션에 포함되어 수행되고, 그렇지 않다면
+            새로운 트랜잭션을 시작하고 코드가 수행된다.
+            </summary>
+        </member>
+        <member name="F:Skcc.Transactions.TransactionOption.RequiresNew">
+            <summary>
+            항상 새로운 트랜잭션을 생성하고 코드는 새로이 생성된 트랜잭션 하에서 수행된다.
+            </summary>
+        </member>
+        <member name="T:Skcc.Transactions.IsolationLevel">
+            <summary>
+            트랜잭션 격리 수준을 명시하는 열거자.
+            </summary>
+            <remarks>
+            IsolationLevel 열거자는 트랜잭션의 격리 수준을 설정하는데 사용된다. 이 열거자는
+            System.EnterpriseServices의 TransactionIsolationLevel 열거자와 다르다. 이 열거자는
+            TransactionIsoalationLevel 열거자 보다는 System.Transactions 네임스페이스의
+            IsolationLevel 열거자와 호환되도록 되어 있다. 따라서 SWC (Services Without Components)를
+            사용하는 경우, 일부 트랜잭션 격리 수준은 예외를 발생할 수도 있다.
+            </remarks>
+        </member>
+        <member name="F:Skcc.Transactions.IsolationLevel.Unspecified">
+            <summary>
+            트랜잭션 격리 수준을 명시하지 않는다. 상위 트랜잭션 영역의 격리 수준이 사용된다.
+            </summary>
+        </member>
+        <member name="F:Skcc.Transactions.IsolationLevel.Chaos">
+            <summary>
+            Chaos 트랜잭션 격리 수준을 사용한다.
+            SQL Server 2005에서만 유효하다.
+            또한 System.Transactions가 아닌 SWC를 트랜잭션 컨트롤러로
+            사용하는 경우 이 격리 수준은 유효하지 않으므로 예외가 발생된다.
+            </summary>
+        </member>
+        <member name="F:Skcc.Transactions.IsolationLevel.ReadUncommitted">
+            <summary>
+            ReadUncommitted 트랜잭션 격리 수준을 사용한다.
+            </summary>
+        </member>
+        <member name="F:Skcc.Transactions.IsolationLevel.ReadCommitted">
+            <summary>
+            ReadCommitted 트랜잭션 격리 수준을 사용한다. 트랜잭션 격리 수준의 기본값이다.
+            </summary>
+        </member>
+        <member name="F:Skcc.Transactions.IsolationLevel.RepeatableRead">
+            <summary>
+            RepeatableRead 트랜잭션 격리 수준을 사용한다. 이 격리 수준은 많은 잠금을 유발할 수 있으므로
+            트랜잭션의 병행성을 저해할 수 있다. 따라서 사용에 세심한 주의가 필요하다.
+            </summary>
+        </member>
+        <member name="F:Skcc.Transactions.IsolationLevel.Serializable">
+            <summary>
+            Serializable 트랜잭션 격리 수준을 사용한다. 이 격리 수준은 많은 잠금을 유발할 수 있으므로
+            트랜잭션의 병행성을 저해할 수 있다. 따라서 사용에 세심한 주의가 필요하다. 이 격리 수준은
+            COM+의 기본 트랜잭션 격리 수준이며, Windows 2000(COM+ 1.0) 에서는 사용가능한 유일한 트랜잭션
+            격리 수준이다.
+            </summary>
+        </member>
+        <member name="F:Skcc.Transactions.IsolationLevel.Snapshot">
+            <summary>
+            SQL Server 2005에 추가된 새로운 트랜잭션 격리 수준으로 ReadCommittable과 유사하지만
+            아직 Commit 되지 않은 데이터의 스냅샷(다른 트랜잭션에 의해 수정되기 전의 데이터)를 읽을 수 있는
+            트랜잭션 격리 수준이다.
+            SQL Server 2005에서만 유효하다.
+            또한 System.Transactions가 아닌 SWC를 트랜잭션 컨트롤러로
+            사용하는 경우 이 격리 수준은 유효하지 않으므로 예외가 발생된다.
+            </summary>
+        </member>
+        <member name="T:Skcc.Transactions.TransactionalContextProperty">
+            <summary>
+            <para>이 클래스는 SKCC Framework 내부에서 사용하기 위한 클래스 이다.</para>
+            <para>TranactionalContextProperty 클래스는 ComponentBase의 파생 클래스의 인스턴스에 대한
+            호출을 가로채기(interception) 위해 ServerObjectSink을 추가하기 위해 사용된다.</para>
+            </summary>
+        </member>
+        <member name="M:Skcc.Transactions.TransactionalContextProperty.System#Runtime#Remoting#Contexts#IContextProperty#Freeze(System.Runtime.Remoting.Contexts.Context)">
+            <summary>
+            IContextProperty 인터페이스의 Freeze 메쏘드 구현.
+            </summary>
+            <param name="newContext">새로이 생성된 컨텍스트 객체</param>
+        </member>
+        <member name="M:Skcc.Transactions.TransactionalContextProperty.System#Runtime#Remoting#Contexts#IContextProperty#IsNewContextOK(System.Runtime.Remoting.Contexts.Context)">
+            <summary>
+            <para>IContextProperty 인터페이스의 IsNewContextOK 메쏘드 구현.</para>
+            <para>새로이 생성된 컨텍스트를 이상 유무를 확인한다.</para>
+            </summary>
+            <param name="newCtx">새로이 생성된 컨텍스트 객체</param>
+            <returns>이상 유무</returns>
+        </member>
+        <member name="M:Skcc.Transactions.TransactionalContextProperty.System#Runtime#Remoting#Contexts#IContributeObjectSink#GetObjectSink(System.MarshalByRefObject,System.Runtime.Remoting.Messaging.IMessageSink)">
+            <summary>
+            <para>IContributeObjectSink 인터페이스의 GetObjectSink 메쏘드 구현.</para>
+            <para>TransactionalServerObjectSink 객체를 반환함으로써 트랜잭션 컴포넌트에 대한
+            호출을 가로챌 수 있도록 설정한다.</para>
+            </summary>
+            <param name="obj">호출 대상 객체</param>
+            <param name="nextSink">다음 메시지 싱크 객체</param>
+            <returns>메시지 체인에 추가할 ServerObjectSink 객체</returns>
+        </member>
+        <member name="P:Skcc.Transactions.TransactionalContextProperty.System#Runtime#Remoting#Contexts#IContextProperty#Name">
+            <summary>
+            <para>IContextProperty 인터페이스의 Name 속성 구현.</para>
+            <para>컨텍스트 속성의 이름을 반환한다(읽기 전용).</para>
+            </summary>
+        </member>
+        <member name="T:Skcc.Transactions.Spring.AopComponentBase">
+            <summary>
+            Spring.NET AOP 사용시 base 클래스
+            </summary>
+        </member>
+        <member name="M:Skcc.Transactions.Spring.AopComponentBase.Activate">
+             <summary>
+             컴포넌트 메쏘드가 호출되기 전에 컴포넌트가 활성화 되었음을 알리는 메쏘드.
+             </summary>
+             <remarks>
+             ServicedComponent 클래스의 Activate 메쏘드의 역할과 동등한 역할을 수행하는
+             메쏘드로서 생성자를 제외한 컴포넌트의 모든 메쏘드 호출 전에 호출되어 진다.
+             메쏘드 수행전에 처리해야할 전처리(pre-processing)에 사용하면 유용하다.
+             이 메쏘드는 파생 클래스에서 오버라이드 해야만 하며, 디폴트 구현은 아무런 작업도
+             수행하지 않는다.
+             </remarks>
+             <example>
+             다음 코드는 Activate에서 데이터 베이스 연결을 Open 하고 Deactivate에서 연결을 Close 하는 예제 코드이다.
+             이렇게 함으로써 메쏘드 호출전에 항상 열려있는 Connection 객체를 사용할 수 있으며, 개발자는
+             데이터베이스에 대한 Open/Close에 대해 신경쓰지 않고 코드를 작성할 수 있다.
+             <code>
+             class Comp : ComponentBase
+             {
+                 internal SqlConnection _Connection;
+            
+                 // 모든 메쏘드 호출 전에 호출되어 진다.
+                 protected override void Activate()
+                 {
+                     string connString = ConfigurationManager.ConnectionStrings["Northwind"].ConnectionString;
+                     _Connection = new SqlConnection(connString);
+                     _Connection.Open();
+                 }
+            
+                 // 모든 메쏘드 호출 후에 호출되어 진다.
+                 // GetRecordCount 메쏘드가 예외를 발생하는지에 관계 없이 호출되어 짐에 유의 한다.
+                 // 따라서 항상 Connection 객체가 Close 되어진다.
+                 protected override void Deactivate()
+                 {
+                     if (_Connection != null &amp;&amp; _Connection.State != ConnectionState.Closed) {
+                         _Connection.Close();
+                     }
+                 }
+             
+                 [Transaction(TransactionOption.Required)]
+                 public int GetRecordCount()
+                 {
+                     SqlCommand cmd = new SqlCommand("SELECT Count(*) FROM Products", _Connection);
+                     int result = (int)cmd.ExecuteScalar();
+                     return result;
+                 }
+             }
+             
+             Comp obj = new Comp();
+             obj.GetRecordCount();     // data will be queryed
+             </code>
+             </example>
+        </member>
+        <member name="M:Skcc.Transactions.Spring.AopComponentBase.Deactivate">
+             <summary>
+             컴포넌트의 메쏘드가 호출된 후에 컴포넌트가 비활성화 됨을 알리는 메쏘드.
+             </summary>
+             <remarks>
+             ServicedComponent 클래스의 Deactivate 메쏘드의 역할과 동등한 역할을 수행하는
+             메쏘드로서 생성자를 제외한 컴포넌트의 모든 메쏘드 호출 후에 호출되어 진다.
+             메쏘드 수행 후에 처리해야할 후처리(post-processing)에 사용하면 유용하다.
+             이 메쏘드는 파생 클래스에서 오버라이드 해야만 하며, 디폴트 구현은 아무런 작업도
+             수행하지 않는다.
+             </remarks>
+             <example>
+             다음 코드는 Activate에서 데이터 베이스 연결을 Open 하고 Deactivate에서 연결을 Close 하는 예제 코드이다.
+             이렇게 함으로써 메쏘드 호출전에 항상 열려있는 Connection 객체를 사용할 수 있으며, 개발자는
+             데이터베이스에 대한 Open/Close에 대해 신경쓰지 않고 코드를 작성할 수 있다.
+             <code>
+             class Comp : ComponentBase
+             {
+                 internal SqlConnection _Connection;
+            
+                 // 모든 메쏘드 호출 전에 호출되어 진다.
+                 protected override void Activate()
+                 {
+                     string connString = ConfigurationManager.ConnectionStrings["Northwind"].ConnectionString;
+                     _Connection = new SqlConnection(connString);
+                     _Connection.Open();
+                 }
+            
+                 // 모든 메쏘드 호출 후에 호출되어 진다.
+                 // GetRecordCount 메쏘드가 예외를 발생하는지에 관계 없이 호출되어 짐에 유의 한다.
+                 // 따라서 항상 Connection 객체가 Close 되어진다.
+                 protected override void Deactivate()
+                 {
+                     if (_Connection != null &amp;&amp; _Connection.State != ConnectionState.Closed) {
+                         _Connection.Close();
+                     }
+                 }
+             
+                 [Transaction(TransactionOption.Required)]
+                 public int GetRecordCount()
+                 {
+                     SqlCommand cmd = new SqlCommand("SELECT Count(*) FROM Products", _Connection);
+                     int result = (int)cmd.ExecuteScalar();
+                     return result;
+                 }
+             }
+             
+             Comp obj = new Comp();
+             obj.GetRecordCount();     // data will be queryed
+             </code>
+             </example>
+        </member>
+        <member name="M:Skcc.Transactions.Spring.AopComponentBase.SetComplete">
+            <summary>
+            코드에 의해 트랜잭션의 Commit에 투표한다.
+            </summary>
+            <remarks>
+            <para>
+            이 메쏘드는 ManualComplete를 사용하는 경우에만 유효하며 AutoComplete를 사용하는 경우 
+            InvalidOperationException이 발생한다. 트랜잭션이 시작되지 않은 상황에서 SetComplete의 호출은
+            아무런 작업도 수행하지 않는다.
+            </para>
+            <para>
+            ComponentBase 클래스의 모든 메쏘드는 암시적으로 AutoComplete를 사용하며
+            명시적으로 메쏘드에 ManualComplete 특성(attribute)이 표시된 경우에만 SetComplete/SetAbort를
+            호출하여 수동으로 트랜잭션의 결과를 제어할 수 있다.
+            </para>
+            </remarks>
+            <example>
+            <code>
+            class Comp : ComponentBase
+            {
+                [ManualComplete]
+                public void DoDBWork()
+                {
+                    try {
+                        // 데이터 액세스 코드 생략
+                        base.SetComplete();
+                    }
+                    catch (Exception ex) {
+                        // 예외 처리 코드 생략
+                        base.SetAbort();
+                        throw;
+                    }
+                }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:Skcc.Transactions.Spring.AopComponentBase.SetAbort">
+            <summary>
+            코드에 의해 트랜잭션의 Abort에 투표한다.
+            </summary>
+            <remarks>
+            <para>
+            이 메쏘드는 ManualComplete를 사용하는 경우에만 유효하며 AutoComplete를 사용하는 경우 
+            InvalidOperationException이 발생한다. 트랜잭션이 시작되지 않은 상황에서 SetComplete의 호출은
+            아무런 작업도 수행하지 않는다.
+            </para>
+            <para>
+            ComponentBase 클래스의 모든 메쏘드는 암시적으로 AutoComplete를 사용하며
+            명시적으로 메쏘드에 ManualComplete 특성(attribute)이 표시된 경우에만 SetComplete/SetAbort를
+            호출하여 수동으로 트랜잭션의 결과를 제어할 수 있다.
+            </para>
+            </remarks>
+            <example>
+            <code>
+            class Comp : ComponentBase
+            {
+                [ManualComplete]
+                public void DoDBWork()
+                {
+                    try {
+                        // 데이터 액세스 코드 생략
+                        base.SetComplete();
+                    }
+                    catch (Exception ex) {
+                        // 예외 처리 코드 생략
+                        base.SetAbort();
+                        throw;
+                    }
+                }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:Skcc.Transactions.Spring.AopComponentBase.Dispose">
+            <summary>
+            컴포넌트를 해제한다.
+            </summary>
+        </member>
+        <member name="T:Skcc.Transactions.ManualCompleteAttribute">
+            <summary>
+            메쏘드의 트랜잭션 투표에 대한 제어를 수동으로 수행하도록 하는 attribute.
+            </summary>
+            <remarks>
+            <para>
+            Skcc.Transactions 네임스페이스의 ComponentBase 클래스에서 파생된 클래스의 메쏘드들은
+            트랜잭션 상에서 작동할 때, 메쏘드가 예외 없이 종료하면 자동으로 트랜잭션에 찬성 투표를
+            하도록 되어 있으며, 예외가 발생하면 트랜잭션이 롤백하도록 투표한다.(transaction vote)</para>
+            <para>
+            이러한 Auto Complete는 기본 설정사항이며, 이를 수동으로 제어하기 위해서는 ManualCompleteAttribute를
+            사용할 수 있다. ManualCompleteAttribute를 클래스 혹은 메쏘드 수준에 명시함으로써 코드는 명시적으로
+            트랜잭션에 대한 투표를 수행할 수 있다.
+            </para>
+            </remarks>
+            <example>
+            <code>
+            class Comp : ComponentBase
+            {
+                [ManualComplete]
+                public void DoDBWork()
+                {
+                    try {
+                        // 데이터 액세스 코드 생략
+                        base.SetComplete();
+                    }
+                    catch (Exception ex) {
+                        // 예외 처리 코드 생략
+                        base.SetAbort();
+                        throw;
+                    }
+                }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:Skcc.Transactions.ManualCompleteAttribute.#ctor">
+            <summary>
+            ManualCompleteAttribute 객체를 기본값(true)으로 초기화 한다.
+            </summary>
+        </member>
+        <member name="M:Skcc.Transactions.ManualCompleteAttribute.#ctor(System.Boolean)">
+            <summary>
+            주어진 값으로 ManualCompleteAttribute 객체를 초기화한다.
+            </summary>
+            <param name="isManualComplete">ManualComplete 여부</param>
+        </member>
+        <member name="P:Skcc.Transactions.ManualCompleteAttribute.IsManualComplete">
+            <summary>
+            ManualComplete 여부 값 반환.
+            </summary>
+        </member>
+        <member name="T:Skcc.Transactions.DacBase">
+            <summary>
+            DAC Base Class
+            </summary>
+            <remarks>DacBase 는 DAC component의 base class로서 프로젝트의 상황에 맞게 
+            상속을 통해 재구현이 가능하다.</remarks>
+        </member>
+        <member name="T:Skcc.Transactions.BizBase">
+            <summary>
+            Biz Base Class
+            </summary>
+            <remarks>
+            BizBase 는 Biz component의 base class로서 프로젝트의 상황에 맞게 
+            상속을 통해 재구현이 가능하다.
+            </remarks>
+        </member>
+        <member name="T:Skcc.Transactions.TransactionalContextAttribute">
+            <summary>
+            <para>이 클래스는 SKCC Framework 내부에서 사용하기 위한 클래스 이다.</para>
+            <para><see>ComponentBase</see> 클래스에서 파생된 트랜잭션 컴포넌트의 컨텍스트 관리를 위한
+            Context 특성(attribute) 클래스.</para>
+            </summary>
+            <remarks>
+            이 특성은 ComponentBase 클래스에 표시된 특성으로서 ContextBoundObject의 파생 클래스에만
+            유효하다. 이 특성은 ComponentBase의 파생 클래스의 인스턴스가 독자적인 닷넷 컨텍스트를
+            갖도록 강제하며, 이를 통해 ServerObjectSink 가 메쏘드 호출을 가로채어(intercept) 트랜잭션
+            문맥하에서 컴포넌트가 작동되도록 해준다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Transactions.TransactionalContextAttribute.System#Runtime#Remoting#Contexts#IContextAttribute#GetPropertiesForNewContext(System.Runtime.Remoting.Activation.IConstructionCallMessage)">
+            <summary>
+            <para>IContextAttribute 인터페이스의 GetPropertiesForNewContext 메쏘드 구현.</para>
+            </summary>
+            <param name="msg">IConstructionCallMessage 인터페이스를 구현하는 메시지 객체</param>
+            <remarks>
+            이 메쏘드는 항상 메쏘드 호출을 가로채기 위해 ServerObjectSink를 달고 있는
+            TransactionalContextProperty 속성을 메시지에 추가한다.
+            </remarks>
+        </member>
+        <member name="M:Skcc.Transactions.TransactionalContextAttribute.System#Runtime#Remoting#Contexts#IContextAttribute#IsContextOK(System.Runtime.Remoting.Contexts.Context,System.Runtime.Remoting.Activation.IConstructionCallMessage)">
+            <summary>
+            <para>IContextAttribute 인터페이스의 IsContextOK 메쏘드 구현.</para>
+            <para>모든 <see>ComponentBase</see> 클래스(혹은 파생 클래스)의 인스턴스에 대한 호출을
+            가로채기 위해 호환되는 컨텍스트는 존재하지 않는 것으로 설정한다. 즉, 이 메쏘드는 항상
+            false를 반환한다.
+            </para>
+            </summary>
+            <param name="ctx">컨텍스트 객체</param>
+            <param name="msg">IConstructionCallMessage 인터페이스를 구현하는 메시지 객체</param>
+            <returns>컨텍스트 호환 여부</returns>
+        </member>
+        <member name="T:Skcc.Transactions.Spring.TransactionAdvice">
+            <summary>
+            Spring.NET의 AOP 기능을 활용한 Transaction 처리
+            </summary>
+        </member>
+        <member name="M:Skcc.Transactions.Spring.TransactionAdvice.Invoke(AopAlliance.Intercept.IMethodInvocation)">
+            <summary>
+            Method 호출
+            </summary>
+            <param name="invocation">실제 호출이 될 메소드 정보</param>
+            <returns></returns>
+        </member>
+        <member name="T:Skcc.Transactions.TransactionController">
+            <summary>
+            트랜잭션에 대한 처리를 수행하는 트랜잭션 컨트롤러.
+            </summary>
+            <remarks>
+            트랜잭션 컨텍스트에 진입(Enter)하고 빠져나오거나(Leave), 트랜잭션을 시작해야 할지 등을 결정하는
+            트랜잭션 컨트롤러이다. 
+            </remarks>
+        </member>
+        <member name="M:Skcc.Transactions.TransactionController.EnterTransactionContext(System.Reflection.MethodBase,System.Transactions.TransactionScope@)">
+            <summary>
+            트랜잭션 컨텍스트에 진입한다.
+            </summary>
+            <param name="method">메쏘드 메타 정보 객체</param>
+            <param name="scope">TransactionScope 정보</param>/// 
+        </member>
+        <member name="M:Skcc.Transactions.TransactionController.LeaveTransactionContext(Skcc.Transactions.TransactionInfo,System.Exception,System.Transactions.TransactionScope)">
+            <summary>
+            트랜잭션 컨텍스트를 빠져 나온다.
+            </summary>
+            <param name="txInfo">트랜잭션 정보 객체</param>
+            <param name="ex">메쏘드 호출 결과 예외 객체</param>
+            <param name="scope">TransactionScope 객체</param>
+        </member>
+        <member name="T:Skcc.Transactions.ApplicationNameAttribute">
+            <summary>
+            트랜잭션 어플리케이션 이름을 설정한다.
+            </summary>
+            <remarks>
+            Skcc.Transactions 네임스페이스의 ComponentBase 클래스를 사용하여 트랜잭션을 관리하는 경우,
+            컴포넌트(ComponentBase 클래스에서 파생된 클래스의 인스턴스들)의 메쏘드 호출은
+            COM+ 관리자를 통해 모니터링할 수 있다. 이때, COM+ 관리자에 나타나는 COM+ 어플리케이션 이름은
+            기본적으로 컴포넌트가 포함된 어셈블리의 이름으로 결정된다. 만약, 어셈블리 이름이 아닌 다른
+            이름을 사용하고자 한다면 ApplicationNameAttribute 클래스를 사용하면된다.
+            </remarks>
+            <example>
+            <code>
+            [assembly: ApplicationName("Transaction Test App")]
+            
+            class Test : ComponentBase
+            {
+               // 이하 생략...
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:Skcc.Transactions.ApplicationNameAttribute.#ctor(System.String)">
+            <summary>
+            ApplicationNameAttribute 클래스를 생성하고 초기화 한다.
+            </summary>
+            <param name="name">트랜잭션 어플리케이션 이름</param>
+        </member>
+        <member name="P:Skcc.Transactions.ApplicationNameAttribute.ApplicationName">
+            <summary>
+            Skcc.Transactions 네임스페이스를 사용하여 트랜잭션을 처리하는 어플리케이션의 이름
+            </summary>
+        </member>
+        <member name="T:Skcc.Transactions.TransactionalServerObjectSink">
+            <summary>
+            <para>이 클래스는 SKCC Framework 내부에서 사용하기 위한 클래스 이다.</para>
+            <para>TransactionalServerObjectSink 클래스는 ComponentBase 에서 파생된 클래스의 인스턴스에 대한
+            호출을 가로채어 트랜잭션 환경을 구축해 주는 메시지 싱크이다.</para>
+            </summary>
+        </member>
+        <member name="M:Skcc.Transactions.TransactionalServerObjectSink.ProcessMessage(System.Runtime.Remoting.Messaging.IMessage)">
+            <summary>
+            메시지를 처리하여 클래스/메쏘드에 설정된 트랜잭션 속성이 적용되도록 한다.
+            </summary>
+            <param name="msg">메시지 객체</param>
+            <returns>메쏘드 호출 결과 메시지 객체</returns>
+        </member>
+        <member name="M:Skcc.Transactions.TransactionalServerObjectSink.System#Runtime#Remoting#Messaging#IMessageSink#AsyncProcessMessage(System.Runtime.Remoting.Messaging.IMessage,System.Runtime.Remoting.Messaging.IMessageSink)">
+            <summary>
+            <para>IMessageSink 인터페이스의 AsyncProcessMessage 메쏘드 구현.</para>
+            <para>트랜잭션 객체에 대한 비동기 호출은 지원하지 않는다. 따라서 이 메쏘드는 항상
+            NotImplementedException 예외를 발생한다.</para>
+            </summary>
+            <param name="msg">메시지 객체</param>
+            <param name="replySink">결과 메시지 싱크</param>
+            <returns>IMessageCtrl 객체</returns>
+        </member>
+        <member name="M:Skcc.Transactions.TransactionalServerObjectSink.System#Runtime#Remoting#Messaging#IMessageSink#SyncProcessMessage(System.Runtime.Remoting.Messaging.IMessage)">
+            <summary>
+            <para>IMessageSink 인터페이스의 SyncProcessMessage 메쏘드 구현.</para>
+            <para>서버 객체에 호출을 가로채어 트랜잭션 처리가 가능하도록 환경을 설정한다.</para>
+            </summary>
+            <param name="msg">메시지 객체</param>
+            <returns>호출 결과에 대한 메시지 객체</returns>
+        </member>
+        <member name="P:Skcc.Transactions.TransactionalServerObjectSink.System#Runtime#Remoting#Messaging#IMessageSink#NextSink">
+            <summary>
+            <para>IMessageSink 인터페이스의 NextSink 속성 구현.</para>
+            <para>다음 메시지 싱크 객체를 반환한다.</para>
+            </summary>
+        </member>
+    </members>
+</doc>

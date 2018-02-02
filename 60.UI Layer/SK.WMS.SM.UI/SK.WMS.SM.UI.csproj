@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{5A3D0473-B2E0-481A-8106-354092E451F5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SK.WMS.SM.UI</RootNamespace>
+    <AssemblyName>SK.WMS.SM.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>C:\SK.WMS\Programs\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="C1.Win.C1FlexGrid.4, Version=4.6.20111.602, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1Input.4, Version=4.0.20111.33260, Culture=neutral, PublicKeyToken=7e7ff60f0c214f9a, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1InputPanel.4, Version=4.0.20111.116, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1List.4, Version=4.1.20111.176, Culture=neutral, PublicKeyToken=6b24f8f981dbd7bc, processorArchitecture=MSIL" />
+    <Reference Include="NEXCORE.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\70.External Library\NEXCORE.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="NEXCORE.Common.Data, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\70.External Library\NEXCORE.Common.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="NEXCORE.Interfaces, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\70.External Library\NEXCORE.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="NEXCORE.Utility, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\70.External Library\NEXCORE.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="SK.WMS.WinControls, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\70.External Library\SK.WMS.WinControls.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AuthGrpMgmt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AuthGrpMgmt.Designer.cs">
+      <DependentUpon>AuthGrpMgmt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AuthPgmMgmt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AuthPgmMgmt.Designer.cs">
+      <DependentUpon>AuthPgmMgmt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ButtonMgmt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ButtonMgmt.Designer.cs">
+      <DependentUpon>ButtonMgmt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AuthButtonMgmt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AuthButtonMgmt.Designer.cs">
+      <DependentUpon>AuthButtonMgmt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AuthUserMgmt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AuthUserMgmt.Designer.cs">
+      <DependentUpon>AuthUserMgmt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZZ008.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZZ008.designer.cs">
+      <DependentUpon>ZZ008.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ZZ007.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZZ007.designer.cs">
+      <DependentUpon>ZZ007.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZZ006.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZZ006.designer.cs">
+      <DependentUpon>ZZ006.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZZ005.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZZ005.designer.cs">
+      <DependentUpon>ZZ005.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZZ004.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZZ004.designer.cs">
+      <DependentUpon>ZZ004.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GridTestForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="GridTestForm.Designer.cs">
+      <DependentUpon>GridTestForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZZ003.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZZ003.designer.cs">
+      <DependentUpon>ZZ003.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZZ002.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZZ002.designer.cs">
+      <DependentUpon>ZZ002.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LogMgmt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="LogMgmt.Designer.cs">
+      <DependentUpon>LogMgmt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MenuMgmt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MenuMgmt.Designer.cs">
+      <DependentUpon>MenuMgmt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MsgMgmt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MsgMgmt.Designer.cs">
+      <DependentUpon>MsgMgmt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZZ001.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZZ001.designer.cs">
+      <DependentUpon>ZZ001.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PgmMgmt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PgmMgmt.Designer.cs">
+      <DependentUpon>PgmMgmt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserAuthMgmt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserAuthMgmt.Designer.cs">
+      <DependentUpon>UserAuthMgmt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserMgmt.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserMgmt.Designer.cs">
+      <DependentUpon>UserMgmt.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ZZ009.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ZZ009.designer.cs">
+      <DependentUpon>ZZ009.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AuthGrpMgmt.resx">
+      <DependentUpon>AuthGrpMgmt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuthPgmMgmt.resx">
+      <DependentUpon>AuthPgmMgmt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ButtonMgmt.resx">
+      <DependentUpon>ButtonMgmt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuthButtonMgmt.resx">
+      <DependentUpon>AuthButtonMgmt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AuthUserMgmt.resx">
+      <DependentUpon>AuthUserMgmt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZZ008.resx">
+      <DependentUpon>ZZ008.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZZ007.resx">
+      <DependentUpon>ZZ007.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZZ006.resx">
+      <DependentUpon>ZZ006.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZZ005.resx">
+      <DependentUpon>ZZ005.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZZ004.resx">
+      <DependentUpon>ZZ004.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GridTestForm.resx">
+      <DependentUpon>GridTestForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZZ003.resx">
+      <DependentUpon>ZZ003.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZZ002.resx">
+      <DependentUpon>ZZ002.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogMgmt.resx">
+      <DependentUpon>LogMgmt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MenuMgmt.resx">
+      <DependentUpon>MenuMgmt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MsgMgmt.resx">
+      <DependentUpon>MsgMgmt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZZ001.resx">
+      <DependentUpon>ZZ001.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PgmMgmt.resx">
+      <DependentUpon>PgmMgmt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserAuthMgmt.resx">
+      <DependentUpon>UserAuthMgmt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserMgmt.resx">
+      <DependentUpon>UserMgmt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ZZ009.resx">
+      <DependentUpon>ZZ009.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

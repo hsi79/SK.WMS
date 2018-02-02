@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="580041c6-45e8-4bf2-83d3-50f32fd6f311" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.Generic.List`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:25000/AuthorityService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="AuthorityService4.xsd" MetadataType="Schema" ID="6bf66068-d759-4f92-b272-554571724e24" SourceId="1" SourceUrl="http://localhost:25000/AuthorityService.svc?xsd=xsd1" />
+    <MetadataFile FileName="AuthorityService.xsd" MetadataType="Schema" ID="ec87285d-5fc5-4233-a4f1-50434a3b7a0a" SourceId="1" SourceUrl="http://localhost:25000/AuthorityService.svc?xsd=xsd4" />
+    <MetadataFile FileName="AuthorityService41.xsd" MetadataType="Schema" ID="dbfbea7a-1c6f-47de-8fcd-4fd554059d42" SourceId="1" SourceUrl="http://localhost:25000/AuthorityService.svc?xsd=xsd3" />
+    <MetadataFile FileName="AuthorityService1.xsd" MetadataType="Schema" ID="e7ac0dd4-a00d-44ca-9fb7-9441a6b08008" SourceId="1" SourceUrl="http://localhost:25000/AuthorityService.svc?xsd=xsd5" />
+    <MetadataFile FileName="AuthorityService2.xsd" MetadataType="Schema" ID="1d8cb196-0107-4257-805d-9ca5dccf04d0" SourceId="1" SourceUrl="http://localhost:25000/AuthorityService.svc?xsd=xsd6" />
+    <MetadataFile FileName="AuthorityService1.disco" MetadataType="Disco" ID="8aa1f784-d02f-4c43-a5b2-2d918b97f626" SourceId="1" SourceUrl="http://localhost:25000/AuthorityService.svc?disco" />
+    <MetadataFile FileName="AuthorityService1.wsdl" MetadataType="Wsdl" ID="c58b7fad-6350-4a2a-aff6-512f837a538a" SourceId="1" SourceUrl="http://localhost:25000/AuthorityService.svc?wsdl" />
+    <MetadataFile FileName="AuthorityService43.xsd" MetadataType="Schema" ID="1e13e6ff-6ba6-469b-9914-f41da6531b26" SourceId="1" SourceUrl="http://localhost:25000/AuthorityService.svc?xsd=xsd2" />
+    <MetadataFile FileName="AuthorityService42.xsd" MetadataType="Schema" ID="69a95c97-c7de-4e11-81a9-1610097ba88d" SourceId="1" SourceUrl="http://localhost:25000/AuthorityService.svc?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

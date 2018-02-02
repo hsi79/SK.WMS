@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6C24FB7A-D491-4C84-A185-977771266DF9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SK.WMS.INV20.INB.UI</RootNamespace>
+    <AssemblyName>SK.WMS.INV20.INB.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>C:\SK.WMS\Programs\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="C1.Win.C1Command.4, Version=4.0.20111.19475, Culture=neutral, PublicKeyToken=e808566f358766d8, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1FlexGrid.4, Version=4.6.20111.602, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1Input.4, Version=4.0.20111.33260, Culture=neutral, PublicKeyToken=7e7ff60f0c214f9a, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1InputPanel.4, Version=4.0.20111.116, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1List.4, Version=4.1.20111.176, Culture=neutral, PublicKeyToken=6b24f8f981dbd7bc, processorArchitecture=MSIL" />
+    <Reference Include="NEXCORE.Common">
+      <HintPath>..\..\70.External Library\NEXCORE.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="NEXCORE.Common.Data">
+      <HintPath>..\..\70.External Library\NEXCORE.Common.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="NEXCORE.Interfaces">
+      <HintPath>..\..\70.External Library\NEXCORE.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="NEXCORE.Utility">
+      <HintPath>..\..\70.External Library\NEXCORE.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="SK.WMS.WinControls">
+      <HintPath>..\..\70.External Library\SK.WMS.WinControls.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="INB2010.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="INB2010.Designer.cs">
+      <DependentUpon>INB2010.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="INB2020.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="INB2020.Designer.cs">
+      <DependentUpon>INB2020.cs</DependentUpon>
+    </Compile>
+    <Compile Include="INB2030.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="INB2030.Designer.cs">
+      <DependentUpon>INB2030.cs</DependentUpon>
+    </Compile>
+    <Compile Include="INB2040.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="INB2040.Designer.cs">
+      <DependentUpon>INB2040.cs</DependentUpon>
+    </Compile>
+    <Compile Include="INB2050.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="INB2050.Designer.cs">
+      <DependentUpon>INB2050.cs</DependentUpon>
+    </Compile>
+    <Compile Include="INB2060.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="INB2060.Designer.cs">
+      <DependentUpon>INB2060.cs</DependentUpon>
+    </Compile>
+    <Compile Include="INB2070.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="INB2070.Designer.cs">
+      <DependentUpon>INB2070.cs</DependentUpon>
+    </Compile>
+    <Compile Include="INB2080.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="INB2080.Designer.cs">
+      <DependentUpon>INB2080.cs</DependentUpon>
+    </Compile>
+    <Compile Include="INB2090.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="INB2090.Designer.cs">
+      <DependentUpon>INB2090.cs</DependentUpon>
+    </Compile>
+    <Compile Include="INB2100.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="INB2100.Designer.cs">
+      <DependentUpon>INB2100.cs</DependentUpon>
+    </Compile>
+    <Compile Include="INB2110.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="INB2110.Designer.cs">
+      <DependentUpon>INB2110.cs</DependentUpon>
+    </Compile>
+    <Compile Include="INB2120.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="INB2120.Designer.cs">
+      <DependentUpon>INB2120.cs</DependentUpon>
+    </Compile>
+    <Compile Include="INB2130.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="INB2130.Designer.cs">
+      <DependentUpon>INB2130.cs</DependentUpon>
+    </Compile>
+    <Compile Include="INB2140.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="INB2140.Designer.cs">
+      <DependentUpon>INB2140.cs</DependentUpon>
+    </Compile>
+    <Compile Include="INB2150.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="INB2150.Designer.cs">
+      <DependentUpon>INB2150.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="INB2010.resx">
+      <DependentUpon>INB2010.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="INB2020.resx">
+      <DependentUpon>INB2020.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="INB2030.resx">
+      <DependentUpon>INB2030.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="INB2040.resx">
+      <DependentUpon>INB2040.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="INB2050.resx">
+      <DependentUpon>INB2050.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="INB2060.resx">
+      <DependentUpon>INB2060.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="INB2070.resx">
+      <DependentUpon>INB2070.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="INB2080.resx">
+      <DependentUpon>INB2080.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="INB2090.resx">
+      <DependentUpon>INB2090.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="INB2100.resx">
+      <DependentUpon>INB2100.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="INB2110.resx">
+      <DependentUpon>INB2110.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="INB2120.resx">
+      <DependentUpon>INB2120.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="INB2130.resx">
+      <DependentUpon>INB2130.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="INB2140.resx">
+      <DependentUpon>INB2140.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="INB2150.resx">
+      <DependentUpon>INB2150.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\공백_2_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\삭제_1_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\삭제_1_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\신규_1_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\신규_1_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\엑셀_1_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\엑셀_1_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\인쇄_1_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\인쇄_1_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\저장_1_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\저장_1_over.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\조회_1_normal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\조회_1_over.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

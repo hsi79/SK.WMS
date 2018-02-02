@@ -1,0 +1,176 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DE7FB84C-92E9-4961-B2D5-F73545BB8270}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SK.WMS.INV40.MNG.UI</RootNamespace>
+    <AssemblyName>SK.WMS.INV40.MNG.UI</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>C:\SK.WMS\Programs\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="C1.Win.C1Command.4, Version=4.0.20111.19475, Culture=neutral, PublicKeyToken=e808566f358766d8, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1FlexGrid.4, Version=4.6.20111.602, Culture=neutral, PublicKeyToken=79882d576c6336da, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1Input.4, Version=4.0.20111.33260, Culture=neutral, PublicKeyToken=7e7ff60f0c214f9a, processorArchitecture=MSIL" />
+    <Reference Include="C1.Win.C1List.4, Version=4.1.20111.176, Culture=neutral, PublicKeyToken=6b24f8f981dbd7bc, processorArchitecture=MSIL" />
+    <Reference Include="NEXCORE.Common">
+      <HintPath>..\..\70.External Library\NEXCORE.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="NEXCORE.Common.Data">
+      <HintPath>..\..\70.External Library\NEXCORE.Common.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="NEXCORE.Interfaces">
+      <HintPath>..\..\70.External Library\NEXCORE.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="NEXCORE.Utility">
+      <HintPath>..\..\70.External Library\NEXCORE.Utility.dll</HintPath>
+    </Reference>
+    <Reference Include="SK.WMS.WinControls">
+      <HintPath>..\..\70.External Library\SK.WMS.WinControls.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="MNG4010.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MNG4010.Designer.cs">
+      <DependentUpon>MNG4010.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MNG4020.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MNG4020.Designer.cs">
+      <DependentUpon>MNG4020.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MNG4030.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MNG4030.Designer.cs">
+      <DependentUpon>MNG4030.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MNG4040.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MNG4040.Designer.cs">
+      <DependentUpon>MNG4040.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MNG4050.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MNG4050.Designer.cs">
+      <DependentUpon>MNG4050.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MNG4060.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MNG4060.Designer.cs">
+      <DependentUpon>MNG4060.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MNG4070.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MNG4070.Designer.cs">
+      <DependentUpon>MNG4070.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MNG4080.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MNG4080.Designer.cs">
+      <DependentUpon>MNG4080.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MNG4090.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MNG4090.Designer.cs">
+      <DependentUpon>MNG4090.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MNG4100.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MNG4100.Designer.cs">
+      <DependentUpon>MNG4100.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MNG4010.resx">
+      <DependentUpon>MNG4010.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MNG4020.resx">
+      <DependentUpon>MNG4020.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MNG4030.resx">
+      <DependentUpon>MNG4030.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MNG4040.resx">
+      <DependentUpon>MNG4040.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MNG4050.resx">
+      <DependentUpon>MNG4050.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MNG4060.resx">
+      <DependentUpon>MNG4060.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MNG4070.resx">
+      <DependentUpon>MNG4070.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MNG4080.resx">
+      <DependentUpon>MNG4080.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MNG4090.resx">
+      <DependentUpon>MNG4090.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MNG4100.resx">
+      <DependentUpon>MNG4100.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

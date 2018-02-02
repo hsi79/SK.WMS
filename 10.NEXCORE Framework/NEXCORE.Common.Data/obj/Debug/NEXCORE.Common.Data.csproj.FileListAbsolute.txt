@@ -1,0 +1,9 @@
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\10.NEXCORE Framework\NEXCORE.Common.Data\bin\Debug\NEXCORE.Common.Data.dll
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\10.NEXCORE Framework\NEXCORE.Common.Data\bin\Debug\NEXCORE.Common.Data.pdb
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\10.NEXCORE Framework\NEXCORE.Common.Data\obj\Debug\ResolveAssemblyReference.cache
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\10.NEXCORE Framework\NEXCORE.Common.Data\obj\Debug\NEXCORE.Common.Data.dll
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\10.NEXCORE Framework\NEXCORE.Common.Data\obj\Debug\NEXCORE.Common.Data.pdb
+C:\project\SK\폴리머\00.프로젝트준비\99.구버전\SK넥슬렌\SK.WMS.root\SK.WMS\10.NEXCORE Framework\NEXCORE.Common.Data\bin\Debug\NEXCORE.Common.Data.dll
+C:\project\SK\폴리머\00.프로젝트준비\99.구버전\SK넥슬렌\SK.WMS.root\SK.WMS\10.NEXCORE Framework\NEXCORE.Common.Data\bin\Debug\NEXCORE.Common.Data.pdb
+C:\project\SK\폴리머\00.프로젝트준비\99.구버전\SK넥슬렌\SK.WMS.root\SK.WMS\10.NEXCORE Framework\NEXCORE.Common.Data\obj\Debug\NEXCORE.Common.Data.dll
+C:\project\SK\폴리머\00.프로젝트준비\99.구버전\SK넥슬렌\SK.WMS.root\SK.WMS\10.NEXCORE Framework\NEXCORE.Common.Data\obj\Debug\NEXCORE.Common.Data.pdb

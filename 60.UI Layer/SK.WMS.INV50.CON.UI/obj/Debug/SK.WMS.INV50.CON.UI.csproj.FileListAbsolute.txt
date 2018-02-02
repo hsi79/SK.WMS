@@ -1,0 +1,12 @@
+C:\SK.WMS\Programs\SK.WMS.INV50.CON.UI.dll
+C:\SK.WMS\Programs\SK.WMS.INV50.CON.UI.pdb
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.INV50.CON.UI\obj\Debug\ResolveAssemblyReference.cache
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.INV50.CON.UI\obj\Debug\SK.WMS.INV50.CON.UI.CON5010.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.INV50.CON.UI\obj\Debug\SK.WMS.INV50.CON.UI.CON5020.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.INV50.CON.UI\obj\Debug\SK.WMS.INV50.CON.UI.CON5030.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.INV50.CON.UI\obj\Debug\SK.WMS.INV50.CON.UI.CON5040.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.INV50.CON.UI\obj\Debug\SK.WMS.INV50.CON.UI.CON5050.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.INV50.CON.UI\obj\Debug\GenerateResource.read.1.tlog
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.INV50.CON.UI\obj\Debug\GenerateResource.write.1.tlog
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.INV50.CON.UI\obj\Debug\SK.WMS.INV50.CON.UI.dll
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.INV50.CON.UI\obj\Debug\SK.WMS.INV50.CON.UI.pdb

@@ -1,0 +1,30 @@
+C:\SK.WMS\Programs\SK.WMS.SM.UI.dll
+C:\SK.WMS\Programs\SK.WMS.SM.UI.pdb
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\ResolveAssemblyReference.cache
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.AuthGrpMgmt.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.AuthPgmMgmt.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.ButtonMgmt.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.AuthButtonMgmt.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.AuthUserMgmt.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.ZZ008.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.Properties.Resources.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.ZZ007.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.ZZ006.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.ZZ005.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.ZZ004.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.GridTestForm.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.ZZ003.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.ZZ002.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.LogMgmt.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.MenuMgmt.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.MsgMgmt.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.ZZ001.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.PgmMgmt.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.UserAuthMgmt.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.UserMgmt.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.ZZ009.resources
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\GenerateResource.read.1.tlog
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\GenerateResource.write.1.tlog
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.dll.licenses
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.dll
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\60.UI Layer\SK.WMS.SM.UI\obj\Debug\SK.WMS.SM.UI.pdb

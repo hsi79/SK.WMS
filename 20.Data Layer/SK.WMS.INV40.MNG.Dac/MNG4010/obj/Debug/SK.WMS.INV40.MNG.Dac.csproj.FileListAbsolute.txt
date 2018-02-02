@@ -1,0 +1,5 @@
+C:\SK.WMS\Assembly\SK.WMS.INV40.MNG.Dac.dll
+C:\SK.WMS\Assembly\SK.WMS.INV40.MNG.Dac.pdb
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\20.Data Layer\SK.WMS.INV40.MNG.Dac\MNG4010\obj\Debug\ResolveAssemblyReference.cache
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\20.Data Layer\SK.WMS.INV40.MNG.Dac\MNG4010\obj\Debug\SK.WMS.INV40.MNG.Dac.dll
+D:\_SK넥슬렌\Src\SK.WMS.root\SK.WMS\20.Data Layer\SK.WMS.INV40.MNG.Dac\MNG4010\obj\Debug\SK.WMS.INV40.MNG.Dac.pdb

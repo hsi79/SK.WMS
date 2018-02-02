@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="AuthorityService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:25000/AuthorityService.svc?xsd=xsd2" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:25000/AuthorityService.svc?xsd=xsd0" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:25000/AuthorityService.svc?xsd=xsd1" namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import schemaLocation="http://localhost:25000/AuthorityService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/NEXCORE.Common.Data" />
+      <xsd:import schemaLocation="http://localhost:25000/AuthorityService.svc?xsd=xsd4" />
+      <xsd:import schemaLocation="http://localhost:25000/AuthorityService.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/System.Data" />
+      <xsd:import schemaLocation="http://localhost:25000/AuthorityService.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IAuthorityService_DoWork_InputMessage">
+    <wsdl:part name="parameters" element="tns:DoWork" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_DoWork_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DoWorkResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetAuthorityList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAuthorityList" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetAuthorityList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAuthorityListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetAuthorityPgmList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAuthorityPgmList" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetAuthorityPgmList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAuthorityPgmListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetAuthorityUserList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAuthorityUserList" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetAuthorityUserList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAuthorityUserListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetAuthorityPgm_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAuthorityPgm" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetAuthorityPgm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAuthorityPgmResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetUserAuthorityList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserAuthorityList" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetUserAuthorityList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserAuthorityListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetAuthorityListByCondition_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAuthorityListByCondition" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetAuthorityListByCondition_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAuthorityListByConditionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetAuthorityButtonList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAuthorityButtonList" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetAuthorityButtonList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAuthorityButtonListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetUserButtonList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserButtonList" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetUserButtonList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserButtonListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetLogList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetLogList" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetLogList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetLogListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetAuthority_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAuthority" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetAuthority_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAuthorityResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_DeleteAuthority_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAuthority" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_DeleteAuthority_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAuthorityResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_ModifyAuthority_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModifyAuthority" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_ModifyAuthority_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ModifyAuthorityResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_AddUserAuth_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddUserAuth" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_AddUserAuth_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddUserAuthResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_AddAuthPgm_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddAuthPgm" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_AddAuthPgm_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddAuthPgmResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_AddAuthUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddAuthUser" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_AddAuthUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddAuthUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_AddAuth_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddAuth" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_AddAuth_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddAuthResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_UpdateAuth_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAuth" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_UpdateAuth_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAuthResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_DeleteAuth_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAuth" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_DeleteAuth_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAuthResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_DupCheck_InputMessage">
+    <wsdl:part name="parameters" element="tns:DupCheck" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_DupCheck_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DupCheckResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetButtonAuthority_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetButtonAuthority" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetButtonAuthority_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetButtonAuthorityResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetButton_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetButton" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetButton_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetButtonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetButtonList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetButtonList" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetButtonList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetButtonListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetButtonListAll_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetButtonListAll" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_GetButtonListAll_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetButtonListAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_AddButton_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddButton" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_AddButton_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddButtonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_UpdateButton_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateButton" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_UpdateButton_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateButtonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_DeleteButton_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteButton" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_DeleteButton_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteButtonResponse" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_AddAuthButton_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddAuthButton" />
+  </wsdl:message>
+  <wsdl:message name="IAuthorityService_AddAuthButton_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddAuthButtonResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IAuthorityService">
+    <wsdl:operation name="DoWork">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/DoWork" message="tns:IAuthorityService_DoWork_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/DoWorkResponse" message="tns:IAuthorityService_DoWork_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthorityList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/GetAuthorityList" message="tns:IAuthorityService_GetAuthorityList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/GetAuthorityListResponse" message="tns:IAuthorityService_GetAuthorityList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthorityPgmList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/GetAuthorityPgmList" message="tns:IAuthorityService_GetAuthorityPgmList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/GetAuthorityPgmListResponse" message="tns:IAuthorityService_GetAuthorityPgmList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthorityUserList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/GetAuthorityUserList" message="tns:IAuthorityService_GetAuthorityUserList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/GetAuthorityUserListResponse" message="tns:IAuthorityService_GetAuthorityUserList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthorityPgm">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/GetAuthorityPgm" message="tns:IAuthorityService_GetAuthorityPgm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/GetAuthorityPgmResponse" message="tns:IAuthorityService_GetAuthorityPgm_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAuthorityList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/GetUserAuthorityList" message="tns:IAuthorityService_GetUserAuthorityList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/GetUserAuthorityListResponse" message="tns:IAuthorityService_GetUserAuthorityList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthorityListByCondition">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/GetAuthorityListByCondition" message="tns:IAuthorityService_GetAuthorityListByCondition_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/GetAuthorityListByConditionResponse" message="tns:IAuthorityService_GetAuthorityListByCondition_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthorityButtonList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/GetAuthorityButtonList" message="tns:IAuthorityService_GetAuthorityButtonList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/GetAuthorityButtonListResponse" message="tns:IAuthorityService_GetAuthorityButtonList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserButtonList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/GetUserButtonList" message="tns:IAuthorityService_GetUserButtonList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/GetUserButtonListResponse" message="tns:IAuthorityService_GetUserButtonList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLogList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/GetLogList" message="tns:IAuthorityService_GetLogList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/GetLogListResponse" message="tns:IAuthorityService_GetLogList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthority">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/GetAuthority" message="tns:IAuthorityService_GetAuthority_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/GetAuthorityResponse" message="tns:IAuthorityService_GetAuthority_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAuthority">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/DeleteAuthority" message="tns:IAuthorityService_DeleteAuthority_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/DeleteAuthorityResponse" message="tns:IAuthorityService_DeleteAuthority_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifyAuthority">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/ModifyAuthority" message="tns:IAuthorityService_ModifyAuthority_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/ModifyAuthorityResponse" message="tns:IAuthorityService_ModifyAuthority_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddUserAuth">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/AddUserAuth" message="tns:IAuthorityService_AddUserAuth_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/AddUserAuthResponse" message="tns:IAuthorityService_AddUserAuth_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAuthPgm">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/AddAuthPgm" message="tns:IAuthorityService_AddAuthPgm_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/AddAuthPgmResponse" message="tns:IAuthorityService_AddAuthPgm_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAuthUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/AddAuthUser" message="tns:IAuthorityService_AddAuthUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/AddAuthUserResponse" message="tns:IAuthorityService_AddAuthUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAuth">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/AddAuth" message="tns:IAuthorityService_AddAuth_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/AddAuthResponse" message="tns:IAuthorityService_AddAuth_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAuth">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/UpdateAuth" message="tns:IAuthorityService_UpdateAuth_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/UpdateAuthResponse" message="tns:IAuthorityService_UpdateAuth_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAuth">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/DeleteAuth" message="tns:IAuthorityService_DeleteAuth_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/DeleteAuthResponse" message="tns:IAuthorityService_DeleteAuth_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DupCheck">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/DupCheck" message="tns:IAuthorityService_DupCheck_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/DupCheckResponse" message="tns:IAuthorityService_DupCheck_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetButtonAuthority">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/GetButtonAuthority" message="tns:IAuthorityService_GetButtonAuthority_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/GetButtonAuthorityResponse" message="tns:IAuthorityService_GetButtonAuthority_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetButton">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/GetButton" message="tns:IAuthorityService_GetButton_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/GetButtonResponse" message="tns:IAuthorityService_GetButton_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetButtonList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/GetButtonList" message="tns:IAuthorityService_GetButtonList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/GetButtonListResponse" message="tns:IAuthorityService_GetButtonList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetButtonListAll">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/GetButtonListAll" message="tns:IAuthorityService_GetButtonListAll_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/GetButtonListAllResponse" message="tns:IAuthorityService_GetButtonListAll_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddButton">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/AddButton" message="tns:IAuthorityService_AddButton_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/AddButtonResponse" message="tns:IAuthorityService_AddButton_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateButton">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/UpdateButton" message="tns:IAuthorityService_UpdateButton_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/UpdateButtonResponse" message="tns:IAuthorityService_UpdateButton_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteButton">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/DeleteButton" message="tns:IAuthorityService_DeleteButton_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/DeleteButtonResponse" message="tns:IAuthorityService_DeleteButton_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddAuthButton">
+      <wsdl:input wsaw:Action="http://tempuri.org/IAuthorityService/AddAuthButton" message="tns:IAuthorityService_AddAuthButton_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IAuthorityService/AddAuthButtonResponse" message="tns:IAuthorityService_AddAuthButton_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IAuthorityService" type="tns:IAuthorityService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="DoWork">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/DoWork" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthorityList">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/GetAuthorityList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthorityPgmList">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/GetAuthorityPgmList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthorityUserList">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/GetAuthorityUserList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthorityPgm">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/GetAuthorityPgm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserAuthorityList">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/GetUserAuthorityList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthorityListByCondition">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/GetAuthorityListByCondition" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthorityButtonList">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/GetAuthorityButtonList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserButtonList">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/GetUserButtonList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLogList">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/GetLogList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAuthority">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/GetAuthority" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAuthority">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/DeleteAuthority" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifyAuthority">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/ModifyAuthority" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddUserAuth">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/AddUserAuth" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAuthPgm">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/AddAuthPgm" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAuthUser">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/AddAuthUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAuth">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/AddAuth" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAuth">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/UpdateAuth" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAuth">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/DeleteAuth" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DupCheck">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/DupCheck" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetButtonAuthority">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/GetButtonAuthority" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetButton">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/GetButton" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetButtonList">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/GetButtonList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetButtonListAll">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/GetButtonListAll" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddButton">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/AddButton" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateButton">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/UpdateButton" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteButton">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/DeleteButton" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddAuthButton">
+      <soap:operation soapAction="http://tempuri.org/IAuthorityService/AddAuthButton" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AuthorityService">
+    <wsdl:port name="BasicHttpBinding_IAuthorityService" binding="tns:BasicHttpBinding_IAuthorityService">
+      <soap:address location="http://localhost:25000/AuthorityService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

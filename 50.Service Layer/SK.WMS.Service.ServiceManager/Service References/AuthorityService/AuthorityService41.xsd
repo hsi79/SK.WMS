@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/NEXCORE.Common.Data" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/NEXCORE.Common.Data" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://localhost:25000/AuthorityService.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:complexType name="ArrayOfAuthority">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Authority" nillable="true" type="tns:Authority" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAuthority" nillable="true" type="tns:ArrayOfAuthority" />
+  <xs:complexType name="Authority">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AuthDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuthId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuthName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ModId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ModTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="RegId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="SysId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UseYN" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Authority" nillable="true" type="tns:Authority" />
+  <xs:complexType name="ArrayOfAuthorityPgm">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AuthorityPgm" nillable="true" type="tns:AuthorityPgm" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAuthorityPgm" nillable="true" type="tns:ArrayOfAuthorityPgm" />
+  <xs:complexType name="AuthorityPgm">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AuthId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuthName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="C" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Chk" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="D" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="E" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="P" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PgmId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PgmName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SysId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AuthorityPgm" nillable="true" type="tns:AuthorityPgm" />
+  <xs:complexType name="ArrayOfAuthorityUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AuthorityUser" nillable="true" type="tns:AuthorityUser" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAuthorityUser" nillable="true" type="tns:ArrayOfAuthorityUser" />
+  <xs:complexType name="AuthorityUser">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AuthId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Chk" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeptName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SysId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AuthorityUser" nillable="true" type="tns:AuthorityUser" />
+  <xs:complexType name="ArrayOfUserAuthority">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="UserAuthority" nillable="true" type="tns:UserAuthority" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfUserAuthority" nillable="true" type="tns:ArrayOfUserAuthority" />
+  <xs:complexType name="UserAuthority">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AuthId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuthName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Chk" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SysId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="UserAuthority" nillable="true" type="tns:UserAuthority" />
+  <xs:complexType name="ArrayOfAuthorityButton">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AuthorityButton" nillable="true" type="tns:AuthorityButton" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAuthorityButton" nillable="true" type="tns:ArrayOfAuthorityButton" />
+  <xs:complexType name="AuthorityButton">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AuthId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuthName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AuthYN" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ButtonId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ButtonName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Chk" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PgmId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PgmName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SysId" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AuthorityButton" nillable="true" type="tns:AuthorityButton" />
+  <xs:complexType name="NEXCOREData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DataSet" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataSet" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:element ref="xs:schema" />
+            <xs:any />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="DataTable" nillable="true">
+        <xs:complexType>
+          <xs:annotation>
+            <xs:appinfo>
+              <ActualType Name="DataTable" Namespace="http://schemas.datacontract.org/2004/07/System.Data" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+            </xs:appinfo>
+          </xs:annotation>
+          <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="unbounded" namespace="http://www.w3.org/2001/XMLSchema" processContents="lax" />
+            <xs:any minOccurs="1" namespace="urn:schemas-microsoft-com:xml-diffgram-v1" processContents="lax" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element xmlns:q1="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="Hashtable" nillable="true" type="q1:ArrayOfKeyValueOfanyTypeanyType" />
+      <xs:element minOccurs="0" name="MethodName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Object" nillable="true" type="xs:anyType" />
+      <xs:element minOccurs="0" name="intCnt" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="NEXCOREData" nillable="true" type="tns:NEXCOREData" />
+  <xs:complexType name="ArrayOfButtonAuthority">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ButtonAuthority" nillable="true" type="tns:ButtonAuthority" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfButtonAuthority" nillable="true" type="tns:ArrayOfButtonAuthority" />
+  <xs:complexType name="ButtonAuthority">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="C" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="D" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="E" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="P" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="R" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ButtonAuthority" nillable="true" type="tns:ButtonAuthority" />
+  <xs:complexType name="ManagedButton">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ButtonDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ButtonID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ButtonName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ModId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ModTime" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="PgmId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegId" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegTime" nillable="true" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ManagedButton" nillable="true" type="tns:ManagedButton" />
+  <xs:complexType name="ArrayOfManagedButton">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ManagedButton" nillable="true" type="tns:ManagedButton" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfManagedButton" nillable="true" type="tns:ArrayOfManagedButton" />
+</xs:schema>
